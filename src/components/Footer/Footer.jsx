@@ -7,7 +7,7 @@ function Footer() {
       <div className="footer-container">
         <div className="footer-newsletter">
           <h1 className="footer-newsletter__header">
-            Want us to email you with the latest blockbuster news?
+            Quieres contactarte con el equipo de soporte?
           </h1>
           <div className="footer-newsletter__form">
             <input type="email" name="email" placeholder="example@xyz.com" />

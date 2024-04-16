@@ -5,6 +5,7 @@ import Home from "./views/Home/Home";
 import Carrito from "./views/Carrito/Carrito";
 import Pizza from "./views/Pizza/Pizza";
 import LogSign from "./views/LogSign/LogSign";
+import Footer from "./components/Footer/Footer";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/carrito" element={<Carrito></Carrito>}></Route>
         <Route path="*" element={<Home></Home>}></Route>
       </Routes>
+      <Footer/>
     </>
   );
 }

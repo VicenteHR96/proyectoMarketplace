@@ -24,6 +24,7 @@ class productoController{
             res.status(code || 500).json({message});
         }
     }
+    //agregar funcion de las categorias
     
 }
 

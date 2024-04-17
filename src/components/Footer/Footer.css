@@ -1,146 +1,180 @@
-:root {
-    --color-white: hsl(0, 0%, 95%);
-    --color-white-shade: hsl(0, 0%, 95%);
-    --color-black: hsl(0, 0%, 05%);
-  
-    --color-primary: hsl(221, 83%, 53%);
-    --color-light-gray: hsl(220, 14%, 92%);
-    --color-gray: hsl(220, 14%, 50%);
-  
-    --p-inline: clamp(.75rem, 0.6286rem + 0.5178vw, 2rem);
-    --p-block: 1rem;
-    --gap: 1rem;
-    --border-radius: 2rem;
-  
-    --fs-small: clamp(0.75rem, 0.6286rem + 0.5178vw, 0.95rem);
-    --fs-medium: clamp(1rem, 0.6966rem + 1.0945vw, 1.25rem);
-    --fs-large: clamp(1.5rem, 1.0291rem + 1.2924vw, 3rem);
+.footer {
+  background-color: #212428;
+  padding: 3rem 0;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.footer-newsletter {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.footer-newsletter__header {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: #ffffff;
+}
+
+.footer-newsletter__form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer-newsletter__form input {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px 0 0 4px;
+  font-size: 1rem;
+}
+
+.footer-newsletter__form button.submit-btn {
+  background-color: #2463eb;
+  color: #ffffff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0 4px 4px 0;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.footer-newsletter__form button.submit-btn:hover {
+  background-color: #000000;
+}
+
+.footer-body {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 2rem;
+}
+
+.footer-body__content {
+  flex: 1;
+  padding-right: 2rem;
+  color: #ffffff;
+}
+
+.footer-body__nav {
+  flex: 1;
+}
+
+.footer-body__nav-list {
+  list-style-type: none;
+  padding: 0;
+  display: flex;
+  justify-content: space-around;
+}
+
+.footer-body__nav-item {
+  font-weight: bold;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  color: #ffffff;
+}
+
+.footer-body__nav-item:hover {
+  color: #858585;
+}
+
+.footer-body__nav-sublist {
+  list-style-type: none;
+  padding: 0;
+  display: none;
+  position: absolute;
+  background-color: #2463eb;
+  padding: 1rem;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
   }
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  100% {
+    opacity: 1;
+    transform: translateY(0);
   }
-  
- h1{
-    color: white;
- }
-  
-  ul {
-    list-style: none;
+}
+
+.footer-body__nav-item:hover .footer-body__nav-sublist {
+  display: block;
+}
+
+.footer-body__nav-subitem {
+  margin-bottom: 0.5rem;
+}
+
+.footer-body__nav-link {
+  color: #ffffff;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-body__nav-link:hover {
+  color: #858585;
+}
+
+.footer-attribute {
+  font-size: 0.8rem;
+  color: #ffffff;
+}
+
+@media (max-width: 768px) {
+  .footer-container {
+    padding: 2rem;
   }
 
-  .liHead{
-    color: white;
-  }
-  a {
-    text-decoration: none;
-    color: white;
-  }
-  .footer {
-    width: 100%;
-    padding-inline: var(--p-inline);
-  background-color: rgba(32, 36, 41, 1); /* Cambio de color de fondo */
-  
-    & .footer-container {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      row-gap: 5vh;
-      padding-block: calc(var(--p-block) * 2);
-    }
-  
-    & .footer-newsletter {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      row-gap: var(--gap);
-  
-      & h1 {
-        max-width: 35ch;
-        font-size: var(--fs-large);
-        text-align: center;
-      }
-  
-      & .footer-newsletter__form {
-        position: relative;
-        background-color: var(--color-light-gray);
-        padding-inline: var(--p-inline);
-        padding-block: calc(var(--p-block) * 0.5);
-        border-radius: var(--border-radius);
-      }
-  
-      & input {
-        padding-inline: var(--p-inline);
-        padding-block: calc(var(--p-block) * 0.5);
-        height: 100%;
-        width: min(50ch, 80vw);
-        background-color: transparent;
-        border: none;
-        outline: none;
-        font-size: var(--fs-medium);
-      }
-  
-      & .submit-btn {
-        position: absolute;
-        right: calc(var(--p-inline) * 0.25);
-        top: calc(var(--p-block) * 0.25);
-        height: calc(100% - var(--p-block) * 0.5);
-        background-color: var(--color-primary);
-        color: var(--color-white);
-        padding-inline: var(--p-inline);
-        padding-block: calc(var(--p-block) * 0.5);
-        border-radius: var(--border-radius);
-        border: none;
-        outline: none;
-        font-size: var(--fs-medium);
-        letter-spacing: 1px;
-        cursor: pointer;
-      }
-    }
-  
-    & .footer-body {
-      width: 100%;
-      display: grid;
-      grid-template-columns: 1fr;
-      row-gap: calc(var(--gap) * 2);
-  
-      & .footer-body__content {
-        text-wrap: balance;
-        font-size: var(--fs-medium);
-        color: var(--color-gray);
-        padding-right: 5ch;
-      }
-  
-      & .footer-body__nav-list {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-        font-size: var(--fs-medium);
-        row-gap: var(--gap);
-      }
-  
-      & .footer-body__nav-sublist {
-        padding-top: calc(var(--gap) * 0.5);
-        font-size: var(--fs-small);
-        color: var(--color-gray);
-        
-      }
-  
-      @media screen and (width > 768px) {
-        grid-template-columns: 1fr 60%;
-        justify-content: center;
-      }
-    }
-  
-    & .footer-attribute {
-      color: var(--color-gray);
-      text-align: center;
-      font-size: var(--fs-small);
-    }
+  .footer-body {
+    flex-direction: column;
+    align-items: center;
   }
 
-  .footer .footer-body__nav-item {
-    color: var(--color-white); /* Cambio de color de texto a blanco */
+  .footer-body__content {
+    padding-right: 0;
+    margin-bottom: 2rem;
   }
+
+  .footer-body__nav-list {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .footer-body__nav-item {
+    margin-bottom: 1rem;
+  }
+
+  .footer-body__nav-sublist {
+    position: static;
+    background-color: transparent;
+    box-shadow: none;
+    padding: 0.5rem 0 0 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-newsletter__form {
+    flex-direction: column;
+  }
+
+  .footer-newsletter__form input {
+    border-radius: 4px;
+    margin-bottom: 1rem;
+  }
+
+  .footer-newsletter__form button.submit-btn {
+    border-radius: 4px;
+  }
+}

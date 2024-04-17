@@ -17,7 +17,7 @@ router.post("/usuarios", validaRegistro, controladorUsuario.registrarUsuario);
 //PRODUCTOS
 router.get("/productos/usuario",  controladorProducto.productosUsuario);
 router.post("/producto", validarProducto, controladorProducto.registrarProducto);
-
+//traer los productos por categoria
 
 
 

@@ -82,6 +82,23 @@ const registraUsuario = async ({email, nombre, telefono, password, id_sexo}) => 
     
   };
 
+  const traeProductos = async({limits=1, page=1, order_by="precio_ASC"})=>{
+    const [campo, direccion] = order_by.split("_");
+    const offset = Math.abs(((page <= 0 ? 1 : page) - 1) * limits);
+
+    const formattedQuery =format(`select id_producto, pr.nombre nombre_producto, descripcion_corta, descripcion_completa, foto, precio, stock, us.nombre nombre_usuario, email, categoria
+      from productos pr
+      inner join usuarios us on id_usuario=fk_id_usuario
+      inner join categorias on id_categoria = fk_id_categoria
+      order by %s %s
+      LIMIT %s
+      OFFSET %s`,campo,direccion, limits,offset)
+
+    const { rows } = await pool.query(formattedQuery)
+
+    return rows
+  };
+
   const traeProductosUsuario = async({limits=1, page=1, order_by="pr.nombre_ASC",id_usuario})=>{
     const [campo, direccion] = order_by.split("_");
     const offset = Math.abs(((page <= 0 ? 1 : page) - 1) * limits);
@@ -132,4 +149,4 @@ const registraUsuario = async ({email, nombre, telefono, password, id_sexo}) => 
   };
 
   
-module.exports= { existeEmail, registraUsuario, validaUsuario, retornarUsuario, registrarProducto, traeProductosUsuario, traeProductosCategoria, traeProducto };
+module.exports= { existeEmail, registraUsuario, validaUsuario, retornarUsuario, registrarProducto, traeProductos, traeProductosUsuario, traeProductosCategoria, traeProducto };

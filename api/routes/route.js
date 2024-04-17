@@ -15,11 +15,12 @@ router.get("/usuarios",  controladorUsuario.retornarUsuario);
 router.post("/usuarios", validaRegistro, controladorUsuario.registrarUsuario);
 
 //PRODUCTOS
+router.get("/productos",  controladorProducto.productos);
 router.get("/productos/categoria",  controladorProducto.productosCategoria);
 router.get("/productos/usuario",  controladorProducto.productosUsuario);
 router.get("/productos/producto/:id",  controladorProducto.producto);
 router.post("/producto", validarProducto, controladorProducto.registrarProducto);
-//revisar que mas falta con los productos
+
 
 
 

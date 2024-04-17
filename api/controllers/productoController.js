@@ -1,4 +1,4 @@
-const { registrarProducto, traeProductosUsuario, traeProductosCategoria, traeProducto } = require('../models/tiendaModels.js');
+const { registrarProducto, traeProductos, traeProductosUsuario, traeProductosCategoria, traeProducto } = require('../models/tiendaModels.js');
 const jwt = require("jsonwebtoken");
 
 class productoController{
@@ -27,6 +27,26 @@ class productoController{
     async productosCategoria (req, res) {
         try {
             const productos = await traeProductosCategoria(req.query);
+            const productosHATEOAS = await prepararHATEOAS(armarDatosProductos(productos), req.query.page)
+            res.status(200).json(productosHATEOAS)
+        } catch ({ code, message }) {
+            console.log(message);
+            res.status(code || 500).json({message});
+        }
+    }
+    async producto (req, res) {
+        try {
+            const producto = await traeProducto(req.params);
+            res.status(200).json(producto)
+        } catch ({ code, message }) {
+            console.log(message);
+            res.status(code || 500).json({message});
+        }
+    }
+    async productos (req, res) {
+        try {
+            console.log("llegue")
+            const productos = await traeProductos(req.query);
             const productosHATEOAS = await prepararHATEOAS(armarDatosProductos(productos), req.query.page)
             res.status(200).json(productosHATEOAS)
         } catch ({ code, message }) {

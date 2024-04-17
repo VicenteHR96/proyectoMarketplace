@@ -6,6 +6,7 @@ import Carrito from "./views/Carrito/Carrito";
 import Pizza from "./views/Pizza/Pizza";
 import LogSign from "./views/LogSign/LogSign";
 import Footer from "./components/Footer/Footer";
+import Productos from "./views/Productos/Productos";
 
 function App() {
   return (
@@ -16,11 +17,12 @@ function App() {
         <Route path="/" element={<Home></Home>}></Route>
         <Route path="/pizza/:id" element={<Pizza></Pizza>}></Route>
         <Route path="/login" element={<LogSign></LogSign>}></Route>
+        <Route path="/productos" element={<Productos></Productos>}></Route>
         {/* Privado */}
         <Route path="/carrito" element={<Carrito></Carrito>}></Route>
         <Route path="*" element={<Home></Home>}></Route>
       </Routes>
-      <Footer/>
+      <Footer />
     </>
   );
 }

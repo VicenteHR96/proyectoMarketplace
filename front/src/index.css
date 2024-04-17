@@ -137,6 +137,20 @@ button:focus-visible {
   gap: 1rem;
 }
 
+.card {
+  box-shadow: 0 0 8px #4f4f4f4d;
+  transition: all 400ms ease;
+}
+
+.card:hover {
+  transform: translateY(-1%);
+  box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.4);
+}
+
+.card:active {
+  transform: translateY(-0.3%);
+}
+
 /* Detalle */
 
 .cont-detalle {
@@ -408,7 +422,19 @@ button:focus-visible {
   }
 }
 
+@media (min-width: 696px) {
+  .gallery {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
 @media (min-width: 992px) {
+  .gallery {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+@media (min-width: 1300px) {
   .gallery {
     grid-template-columns: 1fr 1fr 1fr 1fr;
   }

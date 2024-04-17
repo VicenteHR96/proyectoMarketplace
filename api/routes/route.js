@@ -19,6 +19,7 @@ router.get("/productos/categoria",  controladorProducto.productosCategoria);
 router.get("/productos/usuario",  controladorProducto.productosUsuario);
 router.get("/productos/producto/:id",  controladorProducto.producto);
 router.post("/producto", validarProducto, controladorProducto.registrarProducto);
+//revisar que mas falta con los productos
 
 
 

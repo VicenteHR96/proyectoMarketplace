@@ -94,16 +94,42 @@ const registraUsuario = async ({email, nombre, telefono, password, id_sexo}) => 
       order by %s %s
       LIMIT %s
       OFFSET %s`,id_usuario,campo,direccion, limits,offset)
-        
-    //console.log(formattedQuery)
+
     const { rows } = await pool.query(formattedQuery)
 
-
     return rows
+  };
+  const traeProductosCategoria = async({limits=1, page=1, order_by="pr.nombre_ASC",id_categoria})=>{
+    const [campo, direccion] = order_by.split("_");
+    const offset = Math.abs(((page <= 0 ? 1 : page) - 1) * limits);
 
-
-
+    const formattedQuery =format(`select id_producto, pr.nombre nombre_producto, descripcion_corta, descripcion_completa, foto, precio, stock, us.nombre nombre_usuario, email, categoria
+      from productos pr
+      inner join usuarios us on id_usuario=fk_id_usuario
+      inner join categorias on id_categoria = fk_id_categoria
+      WHERE fk_id_categoria=%s
+      order by %s %s
+      LIMIT %s
+      OFFSET %s`,id_categoria,campo,direccion, limits,offset)
+        
+    console.log(formattedQuery)
+    const { rows } = await pool.query(formattedQuery)
+    return rows
   };
 
   
-module.exports= { existeEmail, registraUsuario, validaUsuario, retornarUsuario, registrarProducto, traeProductosUsuario };
+  const traeProducto = async({id})=>{
+
+    const formattedQuery =format(`select id_producto, pr.nombre nombre_producto, descripcion_corta, descripcion_completa, foto, precio, stock, us.nombre nombre_usuario, email, categoria
+      from productos pr
+      inner join usuarios us on id_usuario=fk_id_usuario
+      inner join categorias on id_categoria = fk_id_categoria
+      WHERE id_producto=%s`,id)
+   
+    //console.log(usuario)
+    const { rows } = await pool.query(formattedQuery)
+    return rows[0]
+  };
+
+  
+module.exports= { existeEmail, registraUsuario, validaUsuario, retornarUsuario, registrarProducto, traeProductosUsuario, traeProductosCategoria, traeProducto };

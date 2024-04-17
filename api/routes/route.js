@@ -15,10 +15,11 @@ router.get("/usuarios",  controladorUsuario.retornarUsuario);
 router.post("/usuarios", validaRegistro, controladorUsuario.registrarUsuario);
 
 //PRODUCTOS
+router.get("/productos/categoria",  controladorProducto.productosCategoria);
 router.get("/productos/usuario",  controladorProducto.productosUsuario);
+router.get("/productos/producto/:id",  controladorProducto.producto);
 router.post("/producto", validarProducto, controladorProducto.registrarProducto);
-//traer los productos por categoria
-//otro comentario prueba
+
 
 
 

@@ -34,7 +34,8 @@ class usuarioController{
         try {
             const { email } = req.body
             const acceso = await validaUsuario(req.body);
-            const token = jwt.sign( {email} , process.env.CLAVE_JWT);
+            console.log(acceso)
+            const token = jwt.sign( {email, "id_usuario": acceso} , process.env.CLAVE_JWT);
             console.log("Token generado para usuario: ",email);
             console.log(token);
             res.status(200).json({token});    

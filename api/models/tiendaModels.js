@@ -50,16 +50,16 @@ const registraUsuario = async ({email, nombre, telefono, password, id_sexo}) => 
   const validaUsuario = async ({email, password}) => {
 
     const consulta ={
-      text: 'SELECT password clave_registrada FROM usuarios where email=$1',
+      text: 'SELECT password clave_registrada, id_usuario FROM usuarios where email=$1',
       values: [email]
     }
     const {rows} = await pool.query(consulta)
-    const  { clave_registrada }  = rows[0]
+    const  { clave_registrada, id_usuario }  = rows[0]
    
     const passwordValida = bcrypt.compareSync(password, clave_registrada);
 
     if (passwordValida){
-      return "OK"
+      return id_usuario
     }
     else {
       throw { code: 401, message: "Password Incorrecta" };

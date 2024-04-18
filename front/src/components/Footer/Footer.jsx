@@ -6,7 +6,7 @@ function Footer() {
     <footer className="footer">
       <div className="footer-container">
         <div className="footer-newsletter">
-          <h1 className="footer-newsletter__header">
+          <h1 className="footer-newsletter__header h1-footer">
             Want us to email you with the latest blockbuster news?
           </h1>
           <div className="footer-newsletter__form">

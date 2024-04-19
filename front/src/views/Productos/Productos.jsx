@@ -9,7 +9,7 @@ const Productos = () => {
         <h4>Filtros</h4>
         <Filtros></Filtros>
       </section>
-      <section className="col-12 col-sm-8 col-md-8 col-xl-9 col-xxl-10 pb-5 row mx-0 mt-4 w-75">
+      <section className="col-12 col-sm-8 col-md-8 col-xl-9 col-xxl-10 row mx-0 mt-4 w-75">
         <Gallery></Gallery>
       </section>
     </div>

@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { PizzaContext } from "../../contexts/PizzaContext";
 import MyCard from "../MyCard/MyCard";
+import ProductCard from "../MyCard/ProductCard";
 
 const Gallery = () => {
   const { pizzas } = useContext(PizzaContext);
@@ -8,7 +9,7 @@ const Gallery = () => {
   return (
     <div className="gallery">
       {pizzas.map((p) => {
-        return <MyCard pizza={p} key={p.id}></MyCard>;
+        return <ProductCard pizza={p} key={p.id}></ProductCard>;
       })}
     </div>
   );

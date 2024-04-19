@@ -1,15 +1,15 @@
 import React from "react";
 import Gallery from "../../components/Gallery/Gallery";
-import Busqueda from "../../components/Busqueda/Busqueda";
+import Filtros from "../../components/Filtros/Filtros.jsx";
 
 const Productos = () => {
   return (
-    <div>
-      <section className="col-12 col-sm-4 col-md-4 col-xl-3 col-xxl-2">
-        <h3>Filtros</h3>
-        <Busqueda></Busqueda>
+    <div className="d-flex ">
+      <section className="col-12 col-sm-4 col-md-4 col-xl-3 col-xxl-2 filtros px-4 mt-4 d-flex flex-column align-items-center w-25">
+        <h4>Filtros</h4>
+        <Filtros></Filtros>
       </section>
-      <section className="col-12 col-sm-8 col-md-8 col-xl-9 col-xxl-10 pb-5 row mx-0 pt-5 mt-4">
+      <section className="col-12 col-sm-8 col-md-8 col-xl-9 col-xxl-10 pb-5 row mx-0 mt-4 w-75">
         <Gallery></Gallery>
       </section>
     </div>

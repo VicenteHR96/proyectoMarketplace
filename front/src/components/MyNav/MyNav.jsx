@@ -19,6 +19,7 @@ import { NavLink } from "react-router-dom";
 import { Badge, ThemeProvider, createTheme } from "@mui/material";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import ShoppingCart from "@mui/icons-material/ShoppingCart";
+import DoorFrontRoundedIcon from "@mui/icons-material/DoorFrontRounded";
 
 const pages = ["INICIO", "PRODUCTOS"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
@@ -159,23 +160,26 @@ function MyNav() {
                     onClick={handleCloseNavMenu}
                     sx={{ my: 2, display: "block" }}
                     to={`/${page.toLowerCase()}`}
-                    className={`pe-2 ${setActiveClass}`}
+                    className={`pe-3 ${setActiveClass}`}
                   >
                     {page}
                   </NavLink>
                 ))}
               </Box>
-              <MenuItem component={NavLink} to="/carrito">
-                <IconButton
-                  size="large"
-                  aria-label="show 17 new notifications"
-                  color="inherit"
-                >
-                  <Badge badgeContent={17} color="error">
-                    <ShoppingCart />
-                  </Badge>
-                </IconButton>
-              </MenuItem>
+
+              <IconButton
+                size="large"
+                aria-label="show 17 new notifications"
+                color="inherit"
+                component={NavLink}
+                to="/carrito"
+                className="me-3"
+              >
+                <Badge badgeContent={17} color="error">
+                  <ShoppingCart />
+                </Badge>
+              </IconButton>
+
               {auth && (
                 <Box sx={{ flexGrow: 0 }}>
                   <Tooltip title="Open settings">
@@ -209,6 +213,11 @@ function MyNav() {
                     ))}
                   </Menu>
                 </Box>
+              )}
+              {!auth && (
+                <Button color="inherit" component={NavLink} to="/carrito">
+                  Acceder
+                </Button>
               )}
             </Toolbar>
           </Container>

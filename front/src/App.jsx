@@ -1,5 +1,5 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import MyNavbar from "./components/MyNavbar/MyNavbar";
+import MyNav from "./components/MyNav/MyNav";
 import { Route, Routes } from "react-router-dom";
 import Home from "./views/Home/Home";
 import Carrito from "./views/Carrito/Carrito";
@@ -11,7 +11,7 @@ import Productos from "./views/Productos/Productos";
 function App() {
   return (
     <>
-      <MyNavbar></MyNavbar>
+      <MyNav></MyNav>
       <Routes>
         {/* Público */}
         <Route path="/" element={<Home></Home>}></Route>

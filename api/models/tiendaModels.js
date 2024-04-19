@@ -50,16 +50,16 @@ const registraUsuario = async ({email, nombre, telefono, password, id_sexo}) => 
   const validaUsuario = async ({email, password}) => {
 
     const consulta ={
-      text: 'SELECT password clave_registrada FROM usuarios where email=$1',
+      text: 'SELECT password clave_registrada, id_usuario FROM usuarios where email=$1',
       values: [email]
     }
     const {rows} = await pool.query(consulta)
-    const  { clave_registrada }  = rows[0]
+    const  { clave_registrada, id_usuario }  = rows[0]
    
     const passwordValida = bcrypt.compareSync(password, clave_registrada);
 
     if (passwordValida){
-      return "OK"
+      return id_usuario
     }
     else {
       throw { code: 401, message: "Password Incorrecta" };
@@ -82,6 +82,23 @@ const registraUsuario = async ({email, nombre, telefono, password, id_sexo}) => 
     
   };
 
+  const traeProductos = async({limits=1, page=1, order_by="precio_ASC"})=>{
+    const [campo, direccion] = order_by.split("_");
+    const offset = Math.abs(((page <= 0 ? 1 : page) - 1) * limits);
+
+    const formattedQuery =format(`select id_producto, pr.nombre nombre_producto, descripcion_corta, descripcion_completa, foto, precio, stock, us.nombre nombre_usuario, email, categoria
+      from productos pr
+      inner join usuarios us on id_usuario=fk_id_usuario
+      inner join categorias on id_categoria = fk_id_categoria
+      order by %s %s
+      LIMIT %s
+      OFFSET %s`,campo,direccion, limits,offset)
+
+    const { rows } = await pool.query(formattedQuery)
+
+    return rows
+  };
+
   const traeProductosUsuario = async({limits=1, page=1, order_by="pr.nombre_ASC",id_usuario})=>{
     const [campo, direccion] = order_by.split("_");
     const offset = Math.abs(((page <= 0 ? 1 : page) - 1) * limits);
@@ -94,16 +111,42 @@ const registraUsuario = async ({email, nombre, telefono, password, id_sexo}) => 
       order by %s %s
       LIMIT %s
       OFFSET %s`,id_usuario,campo,direccion, limits,offset)
-        
-    //console.log(formattedQuery)
+
     const { rows } = await pool.query(formattedQuery)
 
-
     return rows
+  };
+  const traeProductosCategoria = async({limits=1, page=1, order_by="pr.nombre_ASC",id_categoria})=>{
+    const [campo, direccion] = order_by.split("_");
+    const offset = Math.abs(((page <= 0 ? 1 : page) - 1) * limits);
 
-
-
+    const formattedQuery =format(`select id_producto, pr.nombre nombre_producto, descripcion_corta, descripcion_completa, foto, precio, stock, us.nombre nombre_usuario, email, categoria
+      from productos pr
+      inner join usuarios us on id_usuario=fk_id_usuario
+      inner join categorias on id_categoria = fk_id_categoria
+      WHERE fk_id_categoria=%s
+      order by %s %s
+      LIMIT %s
+      OFFSET %s`,id_categoria,campo,direccion, limits,offset)
+        
+    console.log(formattedQuery)
+    const { rows } = await pool.query(formattedQuery)
+    return rows
   };
 
   
-module.exports= { existeEmail, registraUsuario, validaUsuario, retornarUsuario, registrarProducto, traeProductosUsuario };
+  const traeProducto = async({id})=>{
+
+    const formattedQuery =format(`select id_producto, pr.nombre nombre_producto, descripcion_corta, descripcion_completa, foto, precio, stock, us.nombre nombre_usuario, email, categoria
+      from productos pr
+      inner join usuarios us on id_usuario=fk_id_usuario
+      inner join categorias on id_categoria = fk_id_categoria
+      WHERE id_producto=%s`,id)
+   
+    //console.log(usuario)
+    const { rows } = await pool.query(formattedQuery)
+    return rows[0]
+  };
+
+  
+module.exports= { existeEmail, registraUsuario, validaUsuario, retornarUsuario, registrarProducto, traeProductos, traeProductosUsuario, traeProductosCategoria, traeProducto };

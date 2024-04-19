@@ -13,6 +13,8 @@ import {
 } from "react-bootstrap";
 import { NavLink, useNavigate } from "react-router-dom";
 import { PizzaContext } from "../../contexts/PizzaContext";
+import Busqueda from "../Busqueda/Busqueda";
+import CarritoIcon from "../CarritoIcon/CarritoIcon";
 
 const MyNavbar = () => {
   const navigate = useNavigate();
@@ -35,11 +37,7 @@ const MyNavbar = () => {
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="navbarScroll" />
           <Navbar.Collapse id="navbarScroll">
-            <Nav
-              className="me-auto my-2 my-lg-0 links"
-              style={{ maxHeight: "100px" }}
-              navbarScroll
-            >
+            <Nav className="me-auto my-2 my-lg-0 links" navbarScroll>
               <NavLink to={"/"} className={setActiveClass}>
                 Inicio
               </NavLink>
@@ -51,27 +49,17 @@ const MyNavbar = () => {
                 <NavDropdown.Item href="#action4">Nintendo</NavDropdown.Item>
                 <NavDropdown.Item href="#action5">Xbox</NavDropdown.Item>
               </NavDropdown> */}
-              <div>
-                <Form>
-                  <Row>
-                    <Col xs="auto">
-                      <Form.Control
-                        type="text"
-                        placeholder="Search"
-                        className=" mr-sm-2"
-                      />
-                    </Col>
-                    <Col xs="auto">
-                      <Button type="submit">Submit</Button>
-                    </Col>
-                  </Row>
-                </Form>
-              </div>
-              <Nav.Link onClick={(e) => verCarrito(e)}>
-                <FontAwesomeIcon icon={faCartShopping} />
+              <Nav.Link
+                onClick={(e) => verCarrito(e)}
+                className="d-flex justify-content-center"
+              >
+                <CarritoIcon></CarritoIcon>
               </Nav.Link>
+              <div className="d-flex align-items-center">
+                <Busqueda></Busqueda>
+              </div>
             </Nav>
-            <Form className="d-flex gap-3 justify-content-center">
+            <Form className="d-flex gap-3 justify-content-center my-1">
               <NavLink to="/login">
                 <Button variant="primary">Log In</Button>
               </NavLink>

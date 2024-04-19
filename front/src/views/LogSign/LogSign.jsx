@@ -1,19 +1,58 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   faApple,
   faFacebook,
-  faGithub,
   faGoogle,
   faXTwitter,
 } from "@fortawesome/free-brands-svg-icons";
 import RrssBtn from "../../components/rrssBtn/RrssBtn";
-import { faX } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import Context from "../../contexts/Context";
+import { ENDPOINT } from "../../config/constans";
+
+const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+const initialForm = { email: "docente@desafiolatam.com", password: "123456" };
 
 const LogSign = () => {
   const [isSignUp, setIsSignUp] = useState(true);
 
   const toggleView = () => {
     setIsSignUp(!isSignUp);
+  };
+
+  /* Parte de conexión */
+
+  const navigate = useNavigate();
+  const [user, setUser] = useState(initialForm);
+  const { setDeveloper } = useContext(Context);
+
+  const handleUser = (event) =>
+    setUser({ ...user, [event.target.name]: event.target.value });
+
+  const handleForm = (event) => {
+    event.preventDefault();
+
+    if (!user.email.trim() || !user.password.trim()) {
+      return window.alert("Email y password obligatorias.");
+    }
+
+    if (!emailRegex.test(user.email)) {
+      return window.alert("El formato del email no es correcto!");
+    }
+
+    axios
+      .post(ENDPOINT.login, user)
+      .then(({ data }) => {
+        window.sessionStorage.setItem("token", data.token);
+        window.alert("Usuario identificado con éxito 😀.");
+        setDeveloper({});
+        navigate("/perfil");
+      })
+      .catch(({ response: { data } }) => {
+        console.error(data);
+        window.alert(`${data.message} 🙁.`);
+      });
   };
 
   return (
@@ -42,7 +81,7 @@ const LogSign = () => {
           </form>
         </div>
         <div className="form-container sign-in">
-          <form className="form-logsign">
+          <form className="form-logsign" onSubmit={handleForm}>
             <h1>Sign In</h1>
             <div className="social-icons">
               <RrssBtn
@@ -57,10 +96,21 @@ const LogSign = () => {
               <RrssBtn icon={faApple}></RrssBtn>
             </div>
             <span>or use your email password</span>
-            <input type="email" placeholder="Email" />
-            <input type="password" placeholder="Password" />
+            <input
+              type="email"
+              placeholder="Email"
+              value={user.email}
+              onChange={handleUser}
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              onChange={handleUser}
+              value={user.password}
+              name="password"
+            />
             <a href="#">Forget Your Password?</a>
-            <button>Sign In</button>
+            <button type="submit">Sign In</button>
           </form>
         </div>
         <div className="toggle-container">

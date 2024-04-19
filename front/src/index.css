@@ -138,12 +138,11 @@ button:focus-visible {
 }
 
 .card {
-  box-shadow: 0 0 8px #4f4f4f4d;
-  transition: all 400ms ease;
+  transition: all 1s ease;
 }
 
 .card:hover {
-  transform: translateY(-1%);
+  transform: translateY(-0.5%);
   box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.4);
 }
 

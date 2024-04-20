@@ -14,7 +14,7 @@ export default function Playground() {
   const [value, setValue] = React.useState(null);
 
   return (
-    <Stack spacing={1} sx={{ width: 300 }}>
+    <Stack spacing={1} style={{ width: "85%" }} className="filterInput">
       <Autocomplete
         {...defaultProps}
         id="disable-close-on-select"

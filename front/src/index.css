@@ -146,7 +146,7 @@ button:focus-visible {
 }
 
 .card:active {
-  transform: translateY(-0.3%);
+  transform: translateY(-0.2%);
 }
 
 /* Detalle */
@@ -427,8 +427,13 @@ button:focus-visible {
 }
 
 @media (min-width: 992px) {
-  .gallery {
-    grid-template-columns: 1fr 1fr 1fr;
+  .productos {
+    display: grid;
+    grid-template-columns: 20fr 80fr;
+  }
+
+  .filterInput {
+    width: 100% !important;
   }
 }
 

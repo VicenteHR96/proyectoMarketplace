@@ -7,91 +7,79 @@ function Footer() {
       <div className="footer-container">
         <div className="footer-newsletter">
           <h1 className="footer-newsletter__header h1-footer">
-            Want us to email you with the latest blockbuster news?
+            ¿Quieres recibir nuestras últimas ofertas y novedades?
           </h1>
           <div className="footer-newsletter__form">
-            <input type="email" name="email" placeholder="example@xyz.com" />
+            <input type="email" name="email" placeholder="ejemplo@correo.com" />
             <button type="submit" className="submit-btn">
-              Subscribe
+              Suscribirse
             </button>
           </div>
         </div>
         <div className="footer-body">
           <div className="footer-body__content">
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nobis
-              esse illo culpa aperiam minima odit? Nihil quod illo pariatur
-              libero.
+              Somos un marketplace líder en venta de productos de moda, ropa deportiva y accesorios para mascotas. Ofrecemos una amplia variedad de productos de alta calidad a precios competitivos.
             </p>
           </div>
           <nav className="footer-body__nav">
             <ul className="footer-body__nav-list">
-              <li className="footer-body__nav-item ">
-                Services
+              <li className="footer-body__nav-item">
+                Categorías
                 <ul className="footer-body__nav-sublist">
                   <li className="footer-body__nav-subitem">
-                    <a href="" className="footer-body__nav-link liHead">
-                      Marketing
+                    <a href="" className="footer-body__nav-link">
+                      Ropa de moda
                     </a>
                   </li>
                   <li className="footer-body__nav-subitem">
                     <a href="" className="footer-body__nav-link">
-                      Design
+                      Ropa deportiva
                     </a>
                   </li>
                   <li className="footer-body__nav-subitem">
                     <a href="" className="footer-body__nav-link">
-                      App Development
-                    </a>
-                  </li>
-                  <li className="footer-body__nav-subitem">
-                    <a href="" className="footer-body__nav-link">
-                      Web Development
+                      Accesorios para mascotas
                     </a>
                   </li>
                 </ul>
               </li>
-              <li className="footer-body__nav-item ">
-                About
+              <li className="footer-body__nav-item">
+                Sobre nosotros
                 <ul className="footer-body__nav-sublist">
                   <li className="footer-body__nav-subitem">
-                    <a href="" className="footer-body__nav-link ">
-                      About
+                    <a href="" className="footer-body__nav-link">
+                      Nuestra empresa
                     </a>
                   </li>
                   <li className="footer-body__nav-subitem">
                     <a href="" className="footer-body__nav-link">
-                      Careers
+                      Trabaja con nosotros
                     </a>
                   </li>
                   <li className="footer-body__nav-subitem">
                     <a href="" className="footer-body__nav-link">
-                      History
-                    </a>
-                  </li>
-                  <li className="footer-body__nav-subitem">
-                    <a href="" className="footer-body__nav-link">
-                      Our Team
+                      Sostenibilidad
                     </a>
                   </li>
                 </ul>
               </li>
-              <li className="footer-body__nav-item liHead">
-                Support
+              <li className="footer-body__nav-item">
+                Ayuda
                 <ul className="footer-body__nav-sublist">
                   <li className="footer-body__nav-subitem">
                     <a href="" className="footer-body__nav-link">
-                      FAQs
+                      Preguntas frecuentes
                     </a>
                   </li>
                   <li className="footer-body__nav-subitem">
                     <a href="" className="footer-body__nav-link">
-                      Contact
+                      Contacto
                     </a>
                   </li>
                   <li className="footer-body__nav-subitem">
                     <a href="" className="footer-body__nav-link">
-                      Live chat
+                      Devoluciones y cambios
                     </a>
                   </li>
                 </ul>
@@ -100,7 +88,7 @@ function Footer() {
           </nav>
         </div>
         <div className="footer-attribute">
-          <p>&copy; Company 2024. All right reserved.</p>
+          <p>&copy; TuMarketplace 2024. Todos los derechos reservados.</p>
         </div>
       </div>
     </footer>

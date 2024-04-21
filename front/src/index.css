@@ -407,6 +407,14 @@ button:focus-visible {
   transform: translateX(200%);
 }
 
+/* Productos */
+
+/* Filtros */
+
+.categoryCheck {
+  display: none !important;
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
@@ -434,6 +442,15 @@ button:focus-visible {
 
   .filterInput {
     width: 100% !important;
+  }
+
+  .categorySelect {
+    display: none;
+  }
+
+  .categoryCheck {
+    display: flex !important;
+    flex-direction: column !important;
   }
 }
 

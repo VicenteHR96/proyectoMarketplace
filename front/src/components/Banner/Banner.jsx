@@ -6,7 +6,7 @@ function Banner() {
       <Carousel.Item>
         <img
           className="d-block w-100"
-          src="https://hips.hearstapps.com/hmg-prod/images/close-up-of-pizza-on-table-royalty-free-image-995467932-1559051477.jpg?resize=2048:*"
+          src="https://marketplace.canva.com/EAFyHJ2sKTI/1/0/1600w/canva-banner-horizontal-black-friday-monocrom%C3%A1tico-verde-y-negro-Ai2UwuoF0vA.jpg"
           alt="First slide"
         />
         <Carousel.Caption>
@@ -17,7 +17,7 @@ function Banner() {
       <Carousel.Item>
         <img
           className="d-block w-100"
-          src="https://www.cardamomo.news/__export/1645765174437/sites/debate/img/2022/02/24/pan_de_ajo.png_554688468.png"
+          src="https://i.pinimg.com/originals/4e/31/42/4e3142435b7a0a2f5f1229db876c7ed4.jpg"
           alt="First slide"
         />
         <Carousel.Caption>
@@ -28,7 +28,18 @@ function Banner() {
       <Carousel.Item>
         <img
           className="d-block w-100"
-          src="https://www.recetasnestle.com.ec/sites/default/files/srh_recipes/77c0ae95c98683757058aaa04931465d.jpg"
+          src="https://northlandpetfood.co.nz/cdn/shop/files/banner-01a_3ffa77aa-9a7d-4047-81c1-eb2530ebbbb9.jpg?v=1694778423"
+          alt="First slide"
+        />
+        <Carousel.Caption>
+          <h3>Prueba nuestros deliciosos panes de ajo.</h3>
+          <p>Disponibles en tienda física y reparto a domicilio.</p>
+        </Carousel.Caption>
+      </Carousel.Item>
+      <Carousel.Item>
+        <img
+          className="d-block w-100"
+          src="https://landing.tripstore.com.ar/adidas/img/3503438-SuperstarXLG_FW23_LAM_AR_WHS_Trip_1366x600.jpg"
           alt="First slide"
         />
         <Carousel.Caption>

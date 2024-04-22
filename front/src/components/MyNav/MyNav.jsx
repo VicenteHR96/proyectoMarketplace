@@ -15,16 +15,27 @@ import AdbIcon from "@mui/icons-material/Adb";
 import Switch from "@mui/material/Switch";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormGroup from "@mui/material/FormGroup";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { Badge, ThemeProvider, createTheme } from "@mui/material";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import ShoppingCart from "@mui/icons-material/ShoppingCart";
 import DoorFrontRoundedIcon from "@mui/icons-material/DoorFrontRounded";
+import Context from "../../contexts/Context";
 
 const pages = ["INICIO", "PRODUCTOS"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
-function MyNav() {
+const MyNav = () => {
+  // Prueba conexión real
+  const navigate = useNavigate();
+  const { getDeveloper, setDeveloper } = React.useContext(Context);
+
+  const logout = () => {
+    setDeveloper();
+    window.sessionStorage.removeItem("token");
+    navigate("/");
+  };
+
   /* Línea 21: Barra de prueba para Login */
   const [auth, setAuth] = React.useState(true);
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -61,20 +72,58 @@ function MyNav() {
     },
   });
 
+  // Conexión
+
+  const isLogin = () => {
+    if (!getDeveloper) {
+      return (
+        <>
+          <Button color="inherit" component={NavLink} to="/login">
+            Acceder
+          </Button>
+        </>
+      );
+    }
+
+    return (
+      <>
+        <Box sx={{ flexGrow: 0 }}>
+          <Tooltip title="Open settings">
+            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+              <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+            </IconButton>
+          </Tooltip>
+          <Menu
+            sx={{ mt: "45px" }}
+            id="menu-appbar"
+            anchorEl={anchorElUser}
+            anchorOrigin={{
+              vertical: "top",
+              horizontal: "right",
+            }}
+            keepMounted
+            transformOrigin={{
+              vertical: "top",
+              horizontal: "right",
+            }}
+            open={Boolean(anchorElUser)}
+            onClose={handleCloseUserMenu}
+          >
+            {settings.map((setting) => (
+              <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                <Typography textAlign="center" onClick={logout}>
+                  {setting}{" "}
+                </Typography>
+              </MenuItem>
+            ))}
+          </Menu>
+        </Box>
+      </>
+    );
+  };
+
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <FormGroup>
-        <FormControlLabel
-          control={
-            <Switch
-              checked={auth}
-              onChange={handleChange}
-              aria-label="login switch"
-            />
-          }
-          label={auth ? "Logout" : "Login"}
-        />
-      </FormGroup>
       <ThemeProvider theme={darkTheme}>
         <AppBar position="static">
           <Container maxWidth="xl">
@@ -179,51 +228,12 @@ function MyNav() {
                   <ShoppingCart />
                 </Badge>
               </IconButton>
-
-              {auth && (
-                <Box sx={{ flexGrow: 0 }}>
-                  <Tooltip title="Open settings">
-                    <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                      <Avatar
-                        alt="Remy Sharp"
-                        src="/static/images/avatar/2.jpg"
-                      />
-                    </IconButton>
-                  </Tooltip>
-                  <Menu
-                    sx={{ mt: "45px" }}
-                    id="menu-appbar"
-                    anchorEl={anchorElUser}
-                    anchorOrigin={{
-                      vertical: "top",
-                      horizontal: "right",
-                    }}
-                    keepMounted
-                    transformOrigin={{
-                      vertical: "top",
-                      horizontal: "right",
-                    }}
-                    open={Boolean(anchorElUser)}
-                    onClose={handleCloseUserMenu}
-                  >
-                    {settings.map((setting) => (
-                      <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                        <Typography textAlign="center">{setting}</Typography>
-                      </MenuItem>
-                    ))}
-                  </Menu>
-                </Box>
-              )}
-              {!auth && (
-                <Button color="inherit" component={NavLink} to="/carrito">
-                  Acceder
-                </Button>
-              )}
+              {isLogin()}
             </Toolbar>
           </Container>
         </AppBar>
       </ThemeProvider>
     </Box>
   );
-}
+};
 export default MyNav;

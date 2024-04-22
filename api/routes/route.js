@@ -13,15 +13,12 @@ router.post("/login", validaLogin, controladorUsuario.validaUsuario); //Valida l
 router.get("/usuarios",  controladorUsuario.retornarUsuario); //Retorna la información del usuario
 router.post("/usuarios", validaRegistro, controladorUsuario.registrarUsuario); //Registra un nuevo usuario
 
-//PRODUCTOS
+//PRODUCTOS uso publico
 router.get("/productos",  controladorProducto.productos); // Trae todos los productos
 router.get("/productos/categoria",  controladorProducto.productosCategoria); // Trae todos los productos filtrados por categoria
-router.get("/productos/usuario",  controladorProducto.productosUsuario); // Trae todos los productos filtrados por usuario
 router.get("/productos/producto/:id",  controladorProducto.producto); //Trae un solo producto
+//PRIVADO requiere token
+router.get("/productos/usuario",  controladorProducto.productosUsuario); // Trae todos los productos filtrados por usuario
 router.post("/producto", validarProducto, controladorProducto.registrarProducto); //Registra un nuevo producto
-
-
-
-
 
 module.exports =  router ;

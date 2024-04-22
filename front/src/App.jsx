@@ -1,5 +1,5 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import MyNav from "./components/MyNav/MyNav";
+import MyNav from "./components/MyNav/MyNav.jsx";
 import { Route, Routes } from "react-router-dom";
 import Home from "./views/Home/Home";
 import Carrito from "./views/Carrito/Carrito";
@@ -7,22 +7,27 @@ import Pizza from "./views/Pizza/Pizza";
 import LogSign from "./views/LogSign/LogSign";
 import Footer from "./components/Footer/Footer";
 import Productos from "./views/Productos/Productos";
+import useDeveloper from "./hooks/useDeveloper";
+import Context from "./contexts/Context.js";
 
 function App() {
+  const globalState = useDeveloper();
   return (
     <>
-      <MyNav></MyNav>
-      <Routes>
-        {/* Público */}
-        <Route path="/" element={<Home></Home>}></Route>
-        <Route path="/pizza/:id" element={<Pizza></Pizza>}></Route>
-        <Route path="/login" element={<LogSign></LogSign>}></Route>
-        <Route path="/productos" element={<Productos></Productos>}></Route>
-        {/* Privado */}
-        <Route path="/carrito" element={<Carrito></Carrito>}></Route>
-        <Route path="*" element={<Home></Home>}></Route>
-      </Routes>
-      <Footer />
+      <Context.Provider value={globalState}>
+        <MyNav></MyNav>
+        <Routes>
+          {/* Público */}
+          <Route path="/" element={<Home></Home>}></Route>
+          <Route path="/pizza/:id" element={<Pizza></Pizza>}></Route>
+          <Route path="/login" element={<LogSign></LogSign>}></Route>
+          <Route path="/productos" element={<Productos></Productos>}></Route>
+          {/* Privado */}
+          <Route path="/carrito" element={<Carrito></Carrito>}></Route>
+          <Route path="*" element={<Home></Home>}></Route>
+        </Routes>
+        <Footer />
+      </Context.Provider>
     </>
   );
 }

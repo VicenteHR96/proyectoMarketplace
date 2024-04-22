@@ -10,6 +10,8 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Context from "../../contexts/Context";
 import { ENDPOINT } from "../../config/constans";
+import SignUp from "../../components/SignUp/SignUp";
+import SignIn from "../../components/SignIn/SignIn";
 
 const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
 const initialForm = { email: "docente@desafiolatam.com", password: "123456" };
@@ -25,7 +27,7 @@ const LogSign = () => {
 
   const navigate = useNavigate();
   const [user, setUser] = useState(initialForm);
-  const { setDeveloper } = useContext(Context);
+  // const { setDeveloper } = useContext(Context);
 
   const handleUser = (event) =>
     setUser({ ...user, [event.target.name]: event.target.value });
@@ -58,29 +60,9 @@ const LogSign = () => {
   return (
     <div className="cont-gen-logsign">
       <div className={`container-logsign ${isSignUp ? "active" : ""}`}>
-        <div className="form-container sign-up">
-          <form className="form-logsign">
-            <h1>Create Account</h1>
-            <div className="social-icons">
-              <RrssBtn
-                icon={faFacebook}
-                styleIcon={{ color: "3b5998" }}
-              ></RrssBtn>
-              <RrssBtn icon={faXTwitter}></RrssBtn>
-              <RrssBtn
-                icon={faGoogle}
-                styleIcon={{ color: "#DB4437" }}
-              ></RrssBtn>
-              <RrssBtn icon={faApple}></RrssBtn>
-            </div>
-            <span>or use your email for registeration</span>
-            <input type="text" placeholder="Name" />
-            <input type="email" placeholder="Email" />
-            <input type="password" placeholder="Password" />
-            <button>Sign Up</button>
-          </form>
-        </div>
-        <div className="form-container sign-in">
+        <SignUp></SignUp>
+        <SignIn></SignIn>
+        {/* <div className="form-container sign-in">
           <form className="form-logsign" onSubmit={handleForm}>
             <h1>Sign In</h1>
             <div className="social-icons">
@@ -97,22 +79,25 @@ const LogSign = () => {
             </div>
             <span>or use your email password</span>
             <input
-              type="email"
-              placeholder="Email"
               value={user.email}
               onChange={handleUser}
+              type="email"
+              name="email"
+              className="form-control"
+              placeholder="Enter email"
             />
             <input
-              type="password"
-              placeholder="Password"
-              onChange={handleUser}
               value={user.password}
+              onChange={handleUser}
+              type="password"
               name="password"
+              className="form-control"
+              placeholder="Password"
             />
             <a href="#">Forget Your Password?</a>
             <button type="submit">Sign In</button>
           </form>
-        </div>
+        </div> */}
         <div className="toggle-container">
           <div className="toggle">
             <div className="toggle-panel toggle-left">

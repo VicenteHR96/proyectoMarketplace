@@ -86,11 +86,11 @@ button:focus-visible {
 }
 
 .activeLink {
-  color: rgb(255, 255, 255);
+  color: rgb(255, 255, 255) !important;
 }
 
 .inactiveLink {
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 0.8) !important;
 }
 
 /* Home - Banner */

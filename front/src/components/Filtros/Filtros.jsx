@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useEffect } from "react";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import Stack from "@mui/material/Stack";
@@ -18,36 +19,57 @@ import {
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 
-export default function Playground() {
-  const defaultProps = {
-    options: top100Films,
-    getOptionLabel: (option) => option.title,
-  };
-  const flatProps = {
-    options: top100Films.map((option) => option.title),
-  };
-  const [value, setValue] = React.useState(null);
-
+const Filtros = ({ onCategorySelect, initialCategory }) => {
+  // Estado para controlar el orden de los productos
   const [orderBy, setOrderBy] = React.useState("");
+  // Estado para almacenar las categorías seleccionadas
+  const [selectedCategories, setSelectedCategories] = React.useState([]);
 
+  // Efecto para establecer la categoría inicial
+  useEffect(() => {
+    if (initialCategory) {
+      setSelectedCategories([initialCategory]);
+    }
+  }, [initialCategory]);
+
+  // Función para manejar el cambio en la selección de categorías
+  const handleCategoryChange = (event) => {
+    const category = event.target.value;
+    const isChecked = event.target.checked;
+
+    if (isChecked) {
+      setSelectedCategories([...selectedCategories, category]);
+    } else {
+      setSelectedCategories(selectedCategories.filter((c) => c !== category));
+    }
+  };
+
+  // Función para manejar el cambio en el orden de los productos
   const handleChange = (event) => {
     setOrderBy(event.target.value);
   };
 
+  // Efecto para pasar las categorías seleccionadas al componente padre
+  React.useEffect(() => {
+    onCategorySelect(selectedCategories);
+  }, [selectedCategories, onCategorySelect]);
+
   return (
     <Stack spacing={1} style={{ width: "85%" }} className="filterInput">
+      {/* Input de búsqueda */}
       <FormControl variant="standard">
         <InputLabel htmlFor="standard-adornment-password">Buscar...</InputLabel>
         <Input
           id="standard-adornment-password"
           endAdornment={
             <InputAdornment position="end">
-              <SearchIcon></SearchIcon>
+              <SearchIcon />
             </InputAdornment>
           }
         />
       </FormControl>
 
+      {/* Selector de orden */}
       <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
         <InputLabel id="demo-simple-select-standard-label">
           Ordenar por...
@@ -69,38 +91,42 @@ export default function Playground() {
         </Select>
       </FormControl>
 
-      <Autocomplete
-        multiple
-        id="tags-standard"
-        className="categorySelect"
-        options={top100Films}
-        getOptionLabel={(option) => option.title}
-        defaultValue={[top100Films[4]]}
-        renderInput={(params) => (
-          <TextField
-            {...params}
-            variant="standard"
-            label="Categorías"
-            placeholder="Categorías"
-          />
-        )}
-      />
-
+      {/* Checkboxes de categorías */}
       <FormGroup className="categoryCheck mt-4">
         <FormLabel>Categorías</FormLabel>
-        <FormControlLabel control={<Checkbox />} label="Deportes" />
-        <FormControlLabel control={<Checkbox />} label="Mascotas" />
-        <FormControlLabel control={<Checkbox />} label="Vestuario" />
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={selectedCategories.includes("Deportes")}
+              onChange={handleCategoryChange}
+              value="Deportes"
+            />
+          }
+          label="Deportes"
+        />
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={selectedCategories.includes("Mascotas")}
+              onChange={handleCategoryChange}
+              value="Mascotas"
+            />
+          }
+          label="Mascotas"
+        />
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={selectedCategories.includes("Ropa")}
+              onChange={handleCategoryChange}
+              value="Ropa"
+            />
+          }
+          label="Vestuario"
+        />
       </FormGroup>
     </Stack>
   );
-}
+};
 
-// Top 100 films as rated by IMDb users. http://www.imdb.com/chart/top
-const top100Films = [
-  { title: "Ordenar por...", year: 1994 },
-  { title: "Nombre A - Z", year: 1972 },
-  { title: "Nombre Z - A", year: 1974 },
-  { title: "Precio Menor a Mayor", year: 2008 },
-  { title: "Precio Mayor a Menor", year: 1957 },
-];
+export default Filtros;

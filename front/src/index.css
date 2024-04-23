@@ -139,6 +139,7 @@ button:focus-visible {
 
 .card {
   transition: all 400ms ease !important;
+  cursor: pointer;
 }
 
 .card:hover {
@@ -167,17 +168,38 @@ button:focus-visible {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 2rem;
+  padding: 2rem 0 2rem 0;
 }
 
 .section-detalle {
   display: flex;
+  flex-direction: column;
   border: 1px #000000;
   width: 85%;
 }
 
+.card-detalle {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.img-detalle {
+  text-align: center;
+  width: auto;
+  max-height: 750px;
+}
+
+.img-detalle img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+  box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+    0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+}
+
 .detalle-texto {
-  padding: 2rem;
+  padding-top: 2rem;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -457,5 +479,23 @@ button:focus-visible {
   .categoryCheck {
     display: flex !important;
     flex-direction: column !important;
+  }
+
+  .section-detalle h3 {
+    text-align: start;
+  }
+
+  .card-detalle {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .img-detalle {
+    width: 100%;
+  }
+
+  .img-detalle img {
+    height: 100%;
+    width: 100%;
   }
 }

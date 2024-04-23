@@ -118,9 +118,9 @@ button:focus-visible {
 /* Home - Gallery */
 
 .gallery {
-  display: grid;
-  grid-template-columns: 1fr;
-  place-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   padding: 2rem;
   gap: 2rem;
 }
@@ -138,7 +138,7 @@ button:focus-visible {
 }
 
 .card {
-  transition: all 1s ease;
+  transition: all 400ms ease !important;
 }
 
 .card:hover {
@@ -147,6 +147,18 @@ button:focus-visible {
 
 .card:active {
   transform: translateY(-0.2%);
+}
+.cont-imgcard {
+  overflow: hidden;
+  height: 194px;
+}
+.img-card {
+  transition: transform 0.3s ease;
+}
+
+.card:hover .img-card {
+  transform: scale(1.1);
+  transition: transform 0.4s ease;
 }
 
 /* Detalle */
@@ -428,12 +440,6 @@ button:focus-visible {
   }
 }
 
-@media (min-width: 696px) {
-  .gallery {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
 @media (min-width: 992px) {
   .productos {
     display: grid;
@@ -451,11 +457,5 @@ button:focus-visible {
   .categoryCheck {
     display: flex !important;
     flex-direction: column !important;
-  }
-}
-
-@media (min-width: 1300px) {
-  .gallery {
-    grid-template-columns: 1fr 1fr 1fr 1fr;
   }
 }

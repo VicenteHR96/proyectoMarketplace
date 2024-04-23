@@ -53,12 +53,15 @@ export default function ProductCard({ pizza }) {
   return (
     <Card sx={{ maxWidth: 345 }} className="card h-100" onClick={handleDetalle}>
       <div className="d-flex flex-column justify-content-between h-100">
-        <CardMedia
-          component="img"
-          height="194"
-          image={pizza.img}
-          alt="Paella dish"
-        />
+        <div className="cont-imgcard">
+          <CardMedia
+            component="img"
+            height="194"
+            image={pizza.img}
+            alt="Paella dish"
+            className="img-card"
+          />
+        </div>
 
         <div className="d-flex justify-content-between">
           <CardHeader

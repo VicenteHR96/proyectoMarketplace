@@ -2,42 +2,42 @@
 import React, { useState } from 'react';
 import { FaPaw, FaTshirt } from 'react-icons/fa';
 import { FcSportsMode } from "react-icons/fc";
-import './CategoriesCards.css'; // Importamos el archivo CSS
+import './CategoriesCards.css';
 
 const CategoriesCard = ({ onCategoryClick }) => {
-  // Estado para controlar la categoría seleccionada
-  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [hoveredCategory, setHoveredCategory] = useState(null);
 
-  // Array con los datos de las categorías
   const categories = [
     {
       id: 1,
       name: "Deportes",
       description: "Descubre los mejores productos para tu actividad deportiva.",
-      icon: <FcSportsMode />,
+      icon: <FcSportsMode size={100} />,
     },
     {
       id: 2,
       name: "Mascotas",
       description: "Encuentra todo lo que necesitas para tus mascotas.",
-      icon: <FaPaw />,
+      icon: <FaPaw size={100} />,
     },
     {
       id: 3,
       name: "Ropa",
       description: "Explora nuestra colección de ropa de moda.",
-      icon: <FaTshirt />,
+      icon: <FaTshirt size={100} />,
     },
   ];
 
-  // Función para manejar el clic en una categoría
   const handleCategoryClick = (category) => {
-    setSelectedCategory(category.id === selectedCategory ? null : category.id);
+    onCategoryClick(category.name);
   };
 
-  // Función para manejar el clic en el botón "Ver Productos"
-  const handleViewProducts = (category) => {
-    onCategoryClick(category.name); // Llamamos a la función proporcionada por el componente padre
+  const handleHover = (category) => {
+    setHoveredCategory(category.id);
+  };
+
+  const handleHoverLeave = () => {
+    setHoveredCategory(null);
   };
 
   return (
@@ -45,17 +45,16 @@ const CategoriesCard = ({ onCategoryClick }) => {
       {categories.map((category) => (
         <div
           key={category.id}
-          className={`category-card ${selectedCategory === category.id ? 'selected' : ''}`}
+          className={`category-card ${hoveredCategory === category.id ? 'hovered' : ''}`}
           onClick={() => handleCategoryClick(category)}
+          onMouseEnter={() => handleHover(category)}
+          onMouseLeave={handleHoverLeave}
         >
-          <div className="icon">{category.icon}</div>
+          {category.icon}
           <h3>{category.name}</h3>
-          {selectedCategory === category.id && (
-            <div className="description">
-              <p>{category.description}</p>
-              <button onClick={() => handleViewProducts(category)}>Ver Productos</button>
-            </div>
-          )}
+          <div className="description" style={{ opacity: hoveredCategory === category.id ? 1 : 0, transform: hoveredCategory === category.id ? 'translateY(0)' : 'translateY(20px)' }}>
+            {category.description}
+          </div>
         </div>
       ))}
     </div>

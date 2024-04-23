@@ -7,24 +7,28 @@ import Pizza from "./views/Pizza/Pizza";
 import LogSign from "./views/LogSign/LogSign";
 import Footer from "./components/Footer/Footer";
 import Productos from "./views/Productos/Productos";
+
 import useDeveloper from "./hooks/useDeveloper";
 import Context from "./contexts/Context.js";
+import CrearProducto from "./views/CrearProducto/CrearProducto.jsx";
 
 function App() {
   const globalState = useDeveloper();
+
   return (
     <>
       <Context.Provider value={globalState}>
-        <MyNav></MyNav>
+        <MyNav />
         <Routes>
           {/* Público */}
-          <Route path="/" element={<Home></Home>}></Route>
-          <Route path="/pizza/:id" element={<Pizza></Pizza>}></Route>
-          <Route path="/login" element={<LogSign></LogSign>}></Route>
-          <Route path="/productos" element={<Productos></Productos>}></Route>
+          <Route path="/" element={<Home />} />
+          <Route path="/pizza/:id" element={<Pizza />} />
+          <Route path="/login" element={<LogSign />} />
+          <Route path="/productos" element={<Productos />} />
           {/* Privado */}
-          <Route path="/carrito" element={<Carrito></Carrito>}></Route>
-          <Route path="*" element={<Home></Home>}></Route>
+          <Route path="/carrito" element={<Carrito />} />
+          <Route path="/crear-producto" element={<CrearProducto />} /> 
+          <Route path="*" element={<Home />} />
         </Routes>
         <Footer />
       </Context.Provider>

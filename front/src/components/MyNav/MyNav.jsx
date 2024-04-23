@@ -178,7 +178,13 @@ const MyNav = () => {
                 >
                   {pages.map((page) => (
                     <MenuItem key={page} onClick={handleCloseNavMenu}>
-                      <Typography textAlign="center">{page}</Typography>
+                      <Typography
+                        textAlign="center"
+                        component={NavLink}
+                        to={`/${page.toLowerCase()}`}
+                      >
+                        {page}
+                      </Typography>
                     </MenuItem>
                   ))}
                 </Menu>
@@ -210,6 +216,7 @@ const MyNav = () => {
                     sx={{ my: 2, display: "block" }}
                     to={`/${page.toLowerCase()}`}
                     className={`pe-3 ${setActiveClass}`}
+                    component={NavLink}
                   >
                     {page}
                   </NavLink>

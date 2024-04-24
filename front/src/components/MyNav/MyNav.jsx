@@ -110,9 +110,16 @@ const MyNav = () => {
             onClose={handleCloseUserMenu}
           >
             {settings.map((setting) => (
-              <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                <Typography textAlign="center" onClick={logout}>
-                  {setting}{" "}
+              <MenuItem
+                key={setting}
+                onClick={setting === "Logout" ? logout : handleCloseUserMenu}
+              >
+                <Typography
+                  component={NavLink}
+                  to={setting === "Logout" ? "/" : `/${setting.toLowerCase()}`}
+                  textAlign="center"
+                >
+                  {setting}
                 </Typography>
               </MenuItem>
             ))}

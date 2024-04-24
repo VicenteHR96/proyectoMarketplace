@@ -1,6 +1,10 @@
 import React, { useContext } from "react";
 import { PizzaContext } from "../../contexts/PizzaContext";
 import { Button } from "react-bootstrap";
+import QInput from "../../components/QInput/QInput";
+import RemoveCircleRounded from "@mui/icons-material/RemoveCircleRounded";
+import AddCircleRounded from "@mui/icons-material/AddCircleRounded";
+import { Avatar, Divider } from "@mui/material";
 
 const Carrito = () => {
   const { pizzas, setPizzas, total, setTotal } = useContext(PizzaContext);
@@ -43,19 +47,30 @@ const Carrito = () => {
                 <hr />
                 <div className="tabla-resumen">
                   <div>
-                    <img src={p.img} alt={p.name} style={{ width: "5rem" }} />
+                    <Avatar
+                      alt="Remy Sharp"
+                      src={p.img}
+                      sx={{ width: 56, height: 56 }}
+                    />
                   </div>
-                  <div>Pizza {p.name[0].toUpperCase() + p.name.slice(1)}</div>
-                  <div>${p.price}</div>
+                  {/* <Divider orientation="vertical" flexItem /> */}
+                  <div>{p.name[0].toUpperCase() + p.name.slice(1)}</div>
+                  <div>{`${p.price} x ${p.cantidad} = `}</div>
 
                   <div className="section-cantidad">
-                    <Button variant="danger" onClick={() => handleResta(p.id)}>
-                      -
-                    </Button>
-                    {p.cantidad}
-                    <Button variant="success" onClick={() => handleSuma(p.id)}>
-                      +
-                    </Button>
+                    <div className="cart">
+                      <div className="Add">
+                        <RemoveCircleRounded
+                          onClick={() => handleResta(p.id)}
+                          className="btn-add"
+                        />{" "}
+                        {p.cantidad}
+                        <AddCircleRounded
+                          onClick={() => handleSuma(p.id)}
+                          className="btn-add"
+                        />
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>

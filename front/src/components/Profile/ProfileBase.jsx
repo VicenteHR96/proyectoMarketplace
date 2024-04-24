@@ -1,11 +1,11 @@
 // IMPORTS
-
 import React, { useState } from "react";
 import Grid from "@mui/material/Grid";
 import CssBaseline from "@mui/material/CssBaseline";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import ProfileCard from "./ProfileCard.jsx";
 import SettingsCard from "./SettingsCard.jsx";
+import UserDatos from "./UserDatos.jsx";
 
 // STYLE & THEME
 const theme = createTheme();
@@ -20,7 +20,7 @@ export default function ProfileBase() {
     dt1: 32,
     dt2: 40,
     dt3: 50,
-    firstName: { text },
+    firstName: "Jana",
     lastName: "Doe",
     midName: "Baker",
     gender: "female",
@@ -60,7 +60,6 @@ export default function ProfileBase() {
           {/* SETTINGS CARD */}
           <Grid item md={9}>
             <SettingsCard
-              expose={(v) => setText(v)}
               firstName={mainUser.firstName}
               lastName={mainUser.lastName}
               midName={mainUser.midName}
@@ -68,6 +67,7 @@ export default function ProfileBase() {
               email={mainUser.email}
               pass={mainUser.pass}
               gender={mainUser.gender}
+              setText={setText}
             />
           </Grid>
         </Grid>

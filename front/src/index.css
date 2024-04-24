@@ -240,6 +240,35 @@ button:focus-visible {
   width: 0.6rem;
 }
 
+.Add,
+.price {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.Add {
+  padding: 0.8em;
+  border-radius: 10px;
+}
+
+.btn-add {
+  font-size: 1.2rem;
+  margin-inline: 10px;
+  cursor: pointer;
+}
+
+.btn-add:hover {
+  opacity: 0.5;
+}
+
+.cart {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 1em;
+  justify-content: space-between;
+}
+
 /* LogSign */
 
 .cont-gen-logsign {

@@ -6,6 +6,8 @@ import Avatar from "@mui/material/Avatar";
 import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
 import Badge from "@mui/material/Badge";
 import Button from "@mui/material/Button";
+import { useState } from "react";
+import { IconButton } from "@mui/material";
 
 // STYLES
 const styles = {
@@ -22,6 +24,15 @@ const styles = {
 
 //APP
 export default function ProfileCard(props) {
+  const [formData, setFormData] = useState({
+    images: [],
+  });
+
+  const handleImageUpload = (e) => {
+    const files = Array.from(e.target.files || []);
+    setFormData({ ...formData, images: [...formData.images, ...files] });
+  };
+
   return (
     <Card variant="outlined">
       <Grid
@@ -37,23 +48,35 @@ export default function ProfileCard(props) {
             overlap="circular"
             anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
             badgeContent={
-              <PhotoCameraIcon
-                sx={{
-                  border: "5px solid white",
-                  backgroundColor: "#1976d2",
-                  borderRadius: "50%",
-                  padding: ".2rem",
-                  width: 35,
-                  height: 35,
-                  color: "white",
-                }}
-              ></PhotoCameraIcon>
+              <label
+                className="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorInherit MuiIconButton-sizeSmall me-3 css-v52rcf-MuiButtonBase-root-MuiIconButton-root"
+                htmlFor="image-upload"
+              >
+                <input
+                  id="image-upload"
+                  type="file"
+                  accept="image/*"
+                  style={{ display: "none" }}
+                  onChange={handleImageUpload}
+                />
+                <PhotoCameraIcon
+                  sx={{
+                    border: "5px solid white",
+                    backgroundColor: "#1976d2",
+                    borderRadius: "50%",
+                    padding: ".2rem",
+                    width: 35,
+                    height: 35,
+                    color: "white",
+                  }}
+                />
+              </label>
             }
           >
             <Avatar
               sx={{ width: 100, height: 100, mb: 1.5 }}
               src="https://media.glamour.com/photos/5a425fd3b6bcee68da9f86f8/master/pass/best-face-oil.png"
-            ></Avatar>
+            />
           </Badge>
 
           {/* DESCRIPTION */}

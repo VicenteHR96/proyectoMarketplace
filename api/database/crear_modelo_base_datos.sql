@@ -61,6 +61,31 @@ CREATE TABLE productos
 	
 );
 
+CREATE TABLE likes
+(
+    id_like serial,
+    fk_id_usuario INT,
+	fk_id_producto INT,
+	PRIMARY KEY("id_like"),
+	FOREIGN KEY("fk_id_usuario") REFERENCES "usuarios"("id_usuario"),
+	FOREIGN KEY("fk_id_producto") REFERENCES "productos"("id_producto")
+);
+
+select * from likes
+
+CREATE TABLE mensajes
+(
+    id_mensaje serial,
+	mensaje character varying(300),
+    fk_id_usuario INT,
+	fk_id_producto INT,
+	PRIMARY KEY("id_mensaje"),
+	FOREIGN KEY("fk_id_usuario") REFERENCES "usuarios"("id_usuario"),
+	FOREIGN KEY("fk_id_producto") REFERENCES "productos"("id_producto")
+);
+
+select * from mensajes
+
 select id_producto, pr.nombre nombre_producto, descripcion_corta, descripcion_completa, foto, precio, stock, us.nombre nombre_usuario, email, categoria
 from productos pr
 inner join usuarios us on id_usuario=fk_id_usuario

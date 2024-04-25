@@ -1,4 +1,5 @@
 const { existeEmail } = require("../models/tiendaModels.js");
+const jwt = require("jsonwebtoken");
 
 const validaRegistro = async (req, res, next) => {
   const { email, nombre, telefono, password, id_sexo } = req.body;
@@ -75,4 +76,23 @@ const validarProducto = async (req, res, next) => {
   next();
 };
 
-module.exports = { validaRegistro, validaLogin, validarProducto };
+const validarToken = async (req, res, next) => {
+  try {
+    //console.log("HEADER: " + req.header("Authorization"))
+    const Authorization = req.header("Authorization");
+    if (!Authorization) {
+      return res.status(400).json({ message: "El token no esta adjunto" });
+    }
+
+    const token = Authorization.split("Bearer ")[1];
+    //console.log("TOKEN: " + token)
+    jwt.verify(token, process.env.CLAVE_JWT);
+    console.log("Token correcto, puede continuar");
+    next();
+  } catch ({ code, message }) {
+    console.log(message);
+    return res.status(code || 500).json({ message });
+  }
+};
+
+module.exports = { validaRegistro, validaLogin, validarProducto, validarToken };

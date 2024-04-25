@@ -57,8 +57,9 @@ class productoController{
     async registrarLike (req, res) {
         try {
             if(!req.body.id_usuario || !req.body.id_producto){
-                res.status(500).json({"message": "Verifique que los ID esten incorporados en el body"});
+                return res.status(500).json({"message": "Verifique que los ID esten incorporados en el body"});
             }
+            console.log("paso por aquí")
             const like = await registraLike(req.body);
             res.status(200).json({"message": "El Like ha sido ingresado de forma correcta"})
         } catch ({ code, message }) {
@@ -69,7 +70,7 @@ class productoController{
     async eliminarLike (req, res) {
         try {
             if(!req.body.id_usuario || !req.body.id_producto){
-                res.status(500).json({"message": "Verifique que los ID esten incorporados en el body"});
+                return res.status(500).json({"message": "Verifique que los ID esten incorporados en el body"});
             }
             const like = await eliminaLike(req.body);
             res.status(200).json({"message": "El Like ha sido eliminado de forma correcta"})

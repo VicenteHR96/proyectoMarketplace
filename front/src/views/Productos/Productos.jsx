@@ -23,7 +23,7 @@ const Productos = () => {
 
   return (
     <div className="productos">
-      <section className="filtros px-4 mt-4 d-flex flex-column align-items-center">
+      <section className="filtros px-4 mt-4 d-flex flex-column align-items-center mb-5">
         <h4>Filtros</h4>
         {/* Pasamos la función handleCategorySelect y la categoría inicial al componente Filtros */}
         <Filtros

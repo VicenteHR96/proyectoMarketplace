@@ -8,6 +8,7 @@ import Badge from "@mui/material/Badge";
 import Button from "@mui/material/Button";
 import { useState } from "react";
 import { IconButton } from "@mui/material";
+import { useNavigate } from 'react-router-dom';
 
 // STYLES
 const styles = {
@@ -24,13 +25,16 @@ const styles = {
 
 //APP
 export default function ProfileCard(props) {
-  const [formData, setFormData] = useState({
-    images: [],
-  });
-
+  const [formData, setFormData] = useState({ images: [] });
   const handleImageUpload = (e) => {
     const files = Array.from(e.target.files || []);
     setFormData({ ...formData, images: [...formData.images, ...files] });
+  };
+
+  const navigate = useNavigate(); // Obtener la función navigate
+
+  const handleAddProduct = () => {
+    navigate('/crear-producto'); // Navegar a la ruta /crear-producto
   };
 
   return (
@@ -102,13 +106,14 @@ export default function ProfileCard(props) {
 
         {/* BUTTON */}
         <Grid item style={styles.details} sx={{ width: "100%" }}>
-          <Button
-            variant="contained"
-            color="primary"
-            sx={{ width: "99%", p: 1, my: 2 }}
-          >
-            Agregar producto
-          </Button>
+        <Button
+          variant="contained"
+          color="primary"
+          sx={{ width: "99%", p: 1, my: 2 }}
+          onClick={handleAddProduct} // Agregar el evento onClick
+        >
+          Agregar producto
+        </Button>
         </Grid>
       </Grid>
     </Card>

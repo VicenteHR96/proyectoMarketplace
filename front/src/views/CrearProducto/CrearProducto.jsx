@@ -1,4 +1,3 @@
-// CrearProducto.jsx
 import React, { useState } from 'react';
 import './CrearProducto.css';
 
@@ -8,6 +7,8 @@ const CrearProducto = () => {
     description: '',
     price: '',
     images: [],
+    condition: 'new',
+    category: 'sports', // Cambiar el estado inicial de la categoría
   });
 
   const handleChange = (e) => {
@@ -67,6 +68,33 @@ const CrearProducto = () => {
             multiple
             onChange={handleImageUpload}
           />
+        </div>
+        <div className="form-row">
+          <div className="form-group product-state">
+            <label htmlFor="condition">Estado del producto</label>
+            <select
+              id="condition"
+              name="condition"
+              value={formData.condition}
+              onChange={handleChange}
+            >
+              <option value="new">Nuevo</option>
+              <option value="used">Usado</option>
+            </select>
+          </div>
+          <div className="form-group product-category">
+            <label htmlFor="category">Categoría</label>
+            <select
+              id="category"
+              name="category"
+              value={formData.category}
+              onChange={handleChange}
+            >
+              <option value="sports">Deportes</option>
+              <option value="pets">Mascotas</option>
+              <option value="clothing">Ropa</option>
+            </select>
+          </div>
         </div>
         <button type="submit">Publicar</button>
       </form>

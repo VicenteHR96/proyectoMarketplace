@@ -212,29 +212,37 @@ button:focus-visible {
   display: flex;
   justify-content: center;
   width: 100%;
-  padding: 3rem;
+  padding: 2rem;
 }
 
 .section-resumen {
-  width: 80%;
   background-color: rgb(235, 235, 235);
   padding: 2rem;
   border-radius: 5px;
+  width: 100%;
 }
 
 .tabla-resumen {
-  display: grid;
-  grid-template-columns: 1fr 5fr 1fr 2fr;
   padding: 1rem 0;
   align-items: center;
   justify-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.section-detalle-compra {
+  width: 100%;
+  display: flex;
+  align-items: center;
 }
 
 .section-cantidad {
   display: flex;
   align-items: center;
-  gap: 0.8rem;
+  justify-content: center;
+  width: 100%;
 }
+
 .section-cantidad .button {
   height: 0.6rem;
   width: 0.6rem;
@@ -247,13 +255,12 @@ button:focus-visible {
   align-items: center;
 }
 .Add {
-  padding: 0.8em;
+  padding: 0.8em 0;
   border-radius: 10px;
 }
 
 .btn-add {
   font-size: 1.2rem;
-  margin-inline: 10px;
   cursor: pointer;
 }
 
@@ -267,6 +274,10 @@ button:focus-visible {
   flex-wrap: wrap;
   gap: 1em;
   justify-content: space-between;
+}
+
+.price-item {
+  text-align: center;
 }
 
 /* LogSign */
@@ -527,5 +538,32 @@ button:focus-visible {
   .img-detalle img {
     height: 100%;
     width: 100%;
+  }
+
+  .section-resumen {
+    width: 80%;
+  }
+
+  .tabla-resumen {
+    flex-direction: row;
+  }
+
+  .section-detalle-compra {
+    width: 50%;
+  }
+
+  .section-cantidad {
+    justify-content: end;
+    width: 50%;
+  }
+
+  .total {
+    display: flex;
+    justify-content: end;
+  }
+
+  .total h3 {
+    width: 25%;
+    text-align: center;
   }
 }

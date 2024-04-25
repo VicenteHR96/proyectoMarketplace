@@ -148,5 +148,29 @@ const registraUsuario = async ({email, nombre, telefono, password, id_sexo}) => 
     return rows[0]
   };
 
+  const registraLike = async ({id_usuario,id_producto}) => {
+
+    const consulta ={
+      text: 'INSERT INTO likes VALUES (DEFAULT,$1, $2)',
+      values: [id_usuario,id_producto],
+    }
+   
+    //console.log(consulta)
+    const { rowsCount } = await pool.query(consulta)
+
+    return rowsCount
+    
+  };
+  const eliminaLike = async ({id_usuario,id_producto}) => {
+      const formattedQuery =format(`DELETE FROM likes
+      WHERE fk_id_usuario=%s
+        AND fk_id_producto=%s`,id_usuario,id_producto)
+      //console.log(consulta)
+      const { rowsCount } = await pool.query(formattedQuery)
+      return rowsCount  
+  };
   
-module.exports= { existeEmail, registraUsuario, validaUsuario, retornarUsuario, registrarProducto, traeProductos, traeProductosUsuario, traeProductosCategoria, traeProducto };
+
+  
+module.exports= { existeEmail, registraUsuario, validaUsuario, retornarUsuario, registrarProducto, traeProductos, 
+                  traeProductosUsuario, traeProductosCategoria, traeProducto, registraLike, eliminaLike };

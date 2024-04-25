@@ -1,7 +1,7 @@
 const express = require("express");
 const controladorUsuario = require("../controllers/usuarioController.js");
 const controladorProducto = require("../controllers/productoController.js");
-const { validaRegistro,validaLogin,validarProducto } = require("../middleware/validaciones.js");
+const { validaRegistro,validaLogin,validarProducto, validarToken } = require("../middleware/validaciones.js");
 
 const registroActividad = require("../utils/registro_actividad.js");
 
@@ -20,5 +20,7 @@ router.get("/productos/producto/:id",  controladorProducto.producto); //Trae un 
 //PRIVADO requiere token
 router.get("/productos/usuario",  controladorProducto.productosUsuario); // Trae todos los productos filtrados por usuario
 router.post("/producto", validarProducto, controladorProducto.registrarProducto); //Registra un nuevo producto
+router.post("/producto/like", validarToken, controladorProducto.registrarLike); //Registra un nuevo like
+router.delete("/producto/like", validarToken, controladorProducto.eliminarLike); //Elimina un like
 
 module.exports =  router ;

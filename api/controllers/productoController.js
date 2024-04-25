@@ -1,4 +1,4 @@
-const { registrarProducto, traeProductos, traeProductosUsuario, traeProductosCategoria, traeProducto } = require('../models/tiendaModels.js');
+const { registrarProducto, traeProductos, traeProductosUsuario, traeProductosCategoria, traeProducto, registraLike, eliminaLike } = require('../models/tiendaModels.js');
 const jwt = require("jsonwebtoken");
 
 class productoController{
@@ -54,10 +54,22 @@ class productoController{
             res.status(code || 500).json({message});
         }
     }
-    async producto (req, res) {
+    async registrarLike (req, res) {
         try {
-            const producto = await traeProducto(req.params);
-            res.status(200).json(producto)
+            const like = await registraLike(req.body);
+            res.status(200).json({"message": "El Like ha sido ingresado de forma correcta"})
+        } catch ({ code, message }) {
+            console.log(message);
+            res.status(code || 500).json({message});
+        }
+    }
+    async eliminarLike (req, res) {
+        try {
+            if(!req.body.id_usuario || !req.body.id_producto){
+                res.status(500).json({"message": "Verifique que los ID esten incorporados en el body"});
+            }
+            const like = await eliminaLike(req.body);
+            res.status(200).json({"message": "El Like ha sido eliminado de forma correcta"})
         } catch ({ code, message }) {
             console.log(message);
             res.status(code || 500).json({message});

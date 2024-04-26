@@ -1,21 +1,18 @@
-// IMPORTS
+// ProfileBase.jsx
 import React, { useState } from "react";
 import Grid from "@mui/material/Grid";
 import CssBaseline from "@mui/material/CssBaseline";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import ProfileCard from "./ProfileCard.jsx";
 import SettingsCard from "./SettingsCard.jsx";
-import UserDatos from "./UserDatos.jsx";
+import Modal from "../Modal/Modal.jsx";
 
-// STYLE & THEME
 const theme = createTheme();
 
-// APP
 export default function ProfileBase() {
   const [text, setText] = useState("");
 
   const mainUser = {
-    // DEFAULT VALUES
     title: "CEO of Apple",
     dt1: 32,
     dt2: 40,
@@ -34,9 +31,7 @@ export default function ProfileBase() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      {/* BACKGROUND */}
       <Grid container direction="column" sx={{ overflowX: "hidden" }}>
-        {/* COMPONENTS */}
         <Grid
           container
           direction={{ xs: "column", md: "row" }}
@@ -46,7 +41,6 @@ export default function ProfileBase() {
             py: { md: 7 },
           }}
         >
-          {/* PROFILE CARD */}
           <Grid item md={3}>
             <ProfileCard
               name={fullName}
@@ -56,8 +50,6 @@ export default function ProfileBase() {
               dt3={mainUser.dt3}
             />
           </Grid>
-
-          {/* SETTINGS CARD */}
           <Grid item md={9}>
             <SettingsCard
               firstName={mainUser.firstName}

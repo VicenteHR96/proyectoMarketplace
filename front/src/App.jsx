@@ -13,6 +13,7 @@ import Context from "./contexts/Context.js";
 import CrearProducto from "./views/CrearProducto/CrearProducto.jsx";
 import ProfileCard from "./components/Profile/ProfileCard.jsx";
 import Profile from "./views/Profile/Profile.jsx";
+import "react-image-crop/dist/ReactCrop.css";
 
 function App() {
   const globalState = useDeveloper();

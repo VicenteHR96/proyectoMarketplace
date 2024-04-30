@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './CrearProducto.css';
+import Button from "@mui/material/Button";
 
 const CrearProducto = () => {
   const [formData, setFormData] = useState({
@@ -31,7 +32,7 @@ const CrearProducto = () => {
       <h2>Crear Producto</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label htmlFor="name">Nombre</label>
+          <label htmlFor="name">Nombre del producto</label>
           <input
             type="text"
             id="name"
@@ -41,7 +42,7 @@ const CrearProducto = () => {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="description">Descripción</label>
+          <label htmlFor="description">Descripción del producto</label>
           <textarea
             id="description"
             name="description"
@@ -96,7 +97,14 @@ const CrearProducto = () => {
             </select>
           </div>
         </div>
-        <button type="submit">Publicar</button>
+        <Button
+          variant="contained"
+          color="primary"
+          sx={{ width: "99%", p: 1, my: 2 }}
+       
+        >
+          Agregar producto
+        </Button>
       </form>
     </div>
   );

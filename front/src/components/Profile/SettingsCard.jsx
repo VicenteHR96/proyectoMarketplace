@@ -22,33 +22,6 @@ const SettingsCard = (props) => {
     setValue(newValue);
   };
 
-  // Renderizar componentes dependiendo de la pestaña seleccionada
-  const renderTabContent = () => {
-    switch (value) {
-      case 0:
-        return (
-          <UserDatos
-            firstName={props.firstName}
-            lastName={props.lastName}
-            midName={props.midName}
-            phone={props.phone}
-            email={props.email}
-            pass={props.pass}
-            gender={props.gender}
-            setText={props.setText}
-          />
-        );
-      case 1:
-        // Componentes para la pestaña "Publicaciones"
-        return <div>Contenido de la pestaña Publicaciones</div>;
-      case 2:
-        // Componentes para la pestaña "Favoritos"
-        return <Gallery></Gallery>;
-      default:
-        return null;
-    }
-  };
-
   //RETURN
   return (
     <Card variant="outlined" sx={{ height: "100%", width: "100%" }}>
@@ -67,18 +40,39 @@ const SettingsCard = (props) => {
       <Divider></Divider>
 
       {/* MAIN CONTENT CONTAINER */}
-      <form>
-        <CardContent
-          sx={{
-            p: 3,
-            maxHeight: { md: "40vh" },
-            textAlign: { xs: "center", md: "start" },
-          }}
-        >
-          {/* FIELDS */}
-          <FormControl fullWidth>{renderTabContent()}</FormControl>
-        </CardContent>
-      </form>
+      <CardContent
+        sx={{
+          p: 3,
+          maxHeight: { md: "40vh" },
+          textAlign: { xs: "center", md: "start" },
+        }}
+      >
+        {/* FIELDS */}
+        {value === 0 && (
+          <UserDatos
+            firstName={props.firstName}
+            lastName={props.lastName}
+            midName={props.midName}
+            phone={props.phone}
+            email={props.email}
+            pass={props.pass}
+            gender={props.gender}
+            setText={props.setText}
+          />
+        )}
+        {value === 1 && (
+          <form>
+            {/* Componentes para la pestaña "Publicaciones" */}
+            <div>Contenido de la pestaña Publicaciones</div>
+          </form>
+        )}
+        {value === 2 && (
+          <form>
+            {/* Componentes para la pestaña "Favoritos" */}
+            <Gallery />
+          </form>
+        )}
+      </CardContent>
     </Card>
   );
 };

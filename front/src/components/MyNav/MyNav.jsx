@@ -23,7 +23,7 @@ import DoorFrontRoundedIcon from "@mui/icons-material/DoorFrontRounded";
 import Context from "../../contexts/Context";
 
 const pages = ["INICIO", "PRODUCTOS"];
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+const settings = ["Perfil", "Publicaciones", "Favoritos", "Salir"];
 
 const MyNav = () => {
   // Prueba conexión real
@@ -112,15 +112,11 @@ const MyNav = () => {
             {settings.map((setting) => (
               <MenuItem
                 key={setting}
-                onClick={setting === "Logout" ? logout : handleCloseUserMenu}
+                onClick={setting === "Salir" ? logout : handleCloseUserMenu}
+                component={NavLink}
+                to={setting === "Salir" ? "/" : `/${setting.toLowerCase()}`}
               >
-                <Typography
-                  component={NavLink}
-                  to={setting === "Logout" ? "/" : `/${setting.toLowerCase()}`}
-                  textAlign="center"
-                >
-                  {setting}
-                </Typography>
+                <Typography textAlign="center">{setting}</Typography>
               </MenuItem>
             ))}
           </Menu>

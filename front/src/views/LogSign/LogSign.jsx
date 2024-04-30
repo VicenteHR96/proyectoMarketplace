@@ -107,7 +107,7 @@ const LogSign = () => {
                 className={isSignUp ? "btn-logsign" : "hidden btn-logsign"}
                 onClick={toggleView}
               >
-                Sign In
+                Ingresa
               </button>
             </div>
             <div className="toggle-panel toggle-right">
@@ -119,7 +119,7 @@ const LogSign = () => {
                 className={isSignUp ? "hidden btn-logsign" : "btn-logsign"}
                 onClick={toggleView}
               >
-                Sign Up
+                Regístrate
               </button>
             </div>
           </div>

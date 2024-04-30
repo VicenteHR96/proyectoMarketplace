@@ -11,32 +11,29 @@ import Productos from "./views/Productos/Productos";
 import useDeveloper from "./hooks/useDeveloper";
 import Context from "./contexts/Context.js";
 import CrearProducto from "./views/CrearProducto/CrearProducto.jsx";
-import ProfileCard from "./components/Profile/ProfileCard.jsx";
-import Profile from "./views/Profile/Profile.jsx";
 import "react-image-crop/dist/ReactCrop.css";
+import Perfil from "./views/Perfil/Perfil.jsx";
 
 function App() {
   const globalState = useDeveloper();
 
   return (
-    <>
-      <Context.Provider value={globalState}>
-        <MyNav />
-        <Routes>
-          {/* Público */}
-          <Route path="/" element={<Home />} />
-          <Route path="/pizza/:id" element={<Pizza />} />
-          <Route path="/login" element={<LogSign />} />
-          <Route path="/productos" element={<Productos />} />
-          {/* Privado */}
-          <Route path="/carrito" element={<Carrito />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/crear-producto" element={<CrearProducto />} />
-          <Route path="*" element={<Home />} />
-        </Routes>
-        <Footer />
-      </Context.Provider>
-    </>
+    <Context.Provider value={globalState}>
+      <MyNav />
+      <Routes>
+        {/* Público */}
+        <Route path="/" element={<Home />} />
+        <Route path="/pizza/:id" element={<Pizza />} />
+        <Route path="/login" element={<LogSign />} />
+        <Route path="/productos" element={<Productos />} />
+        {/* Privado */}
+        <Route path="/carrito" element={<Carrito />} />
+        <Route path="/perfil" element={<Perfil />} />
+        <Route path="/crear-producto" element={<CrearProducto />} />
+        <Route path="*" element={<Home />} />
+      </Routes>
+      <Footer />
+    </Context.Provider>
   );
 }
 

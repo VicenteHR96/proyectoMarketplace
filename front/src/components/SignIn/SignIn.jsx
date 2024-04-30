@@ -43,7 +43,7 @@ const SignIn = () => {
         window.sessionStorage.setItem("token", data.token);
         window.alert("Usuario identificado con éxito 😀.");
         setDeveloper({});
-        navigate("/home");
+        navigate("/");
       })
       .catch(({ response: { data } }) => {
         console.error(data);
@@ -55,7 +55,7 @@ const SignIn = () => {
     <>
       <div className="form-container sign-in">
         <form className="form-logsign" onSubmit={handleForm}>
-          <h1>Sign In</h1>
+          <h1>Iniciar sesión</h1>
           <div className="social-icons">
             <RrssBtn
               icon={faFacebook}
@@ -83,7 +83,7 @@ const SignIn = () => {
             placeholder="Password"
           />
           <a href="#">Forget Your Password?</a>
-          <button type="submit">Sign In</button>
+          <button type="submit">Iniciar sesión</button>
         </form>
       </div>
     </>

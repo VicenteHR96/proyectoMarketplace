@@ -37,12 +37,12 @@ const SignUp = () => {
     axios
       .post(ENDPOINT.users, user)
       .then(() => {
-        window.alert("Usuario registrado con éxito 😀.");
+        window.alert("Usuario registrado con éxito.");
         navigate("/login");
       })
       .catch(({ response: { data } }) => {
         console.error(data);
-        window.alert(`${data.message} 🙁.`);
+        window.alert(`${data.message}.`);
       });
   };
 
@@ -56,7 +56,7 @@ const SignUp = () => {
     <>
       <div className="form-container sign-up">
         <form className="form-logsign" onSubmit={handleForm}>
-          <h1>Create Account</h1>
+          <h1>Crea tu cuenta</h1>
           <div className="social-icons">
             <RrssBtn
               icon={faFacebook}
@@ -75,22 +75,7 @@ const SignUp = () => {
             className="form-control"
             placeholder="Enter email"
           />
-          <input
-            value={user.nombre}
-            onChange={handleUser}
-            type="name"
-            name="name"
-            className="form-control"
-            placeholder="Enter name"
-          />
-          <input
-            value={user.telefono}
-            onChange={handleUser}
-            type="text"
-            name="text"
-            className="form-control"
-            placeholder="Enter your phone number"
-          />
+
           <input
             value={user.password}
             onChange={handleUser}
@@ -99,18 +84,6 @@ const SignUp = () => {
             className="form-control"
             placeholder="Password"
           />
-          <select
-            value={user.id_sexo}
-            onChange={handleUser}
-            type="select"
-            name="select"
-            className="form-control"
-            placeholder="Sexo..."
-          >
-            <option value="1">Femenino</option>
-            <option value="2">Masculino</option>
-            <option value="value3">Value 3</option>
-          </select>
           <button>Sign Up</button>
         </form>
       </div>

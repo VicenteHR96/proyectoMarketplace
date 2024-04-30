@@ -3,11 +3,14 @@ import ProfileCard from "../../components/Profile/ProfileCard";
 import ProfileBase from "../../components/Profile/ProfileBase";
 import LogSign from "../LogSign/LogSign";
 import Context from "../../contexts/Context";
+import useUsuairo from "../../hooks/useUsuario";
 
 const Profile = () => {
   const { getDeveloper } = useContext(Context);
+  const usuario = useUsuairo();
+
   const isLogin = () => {
-    if (!getDeveloper) {
+    if (!usuario) {
       return (
         <>
           <LogSign></LogSign>

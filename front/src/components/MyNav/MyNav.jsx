@@ -21,11 +21,14 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import ShoppingCart from "@mui/icons-material/ShoppingCart";
 import DoorFrontRoundedIcon from "@mui/icons-material/DoorFrontRounded";
 import Context from "../../contexts/Context";
+import useUsuairo from "../../hooks/useUsuario";
 
 const pages = ["INICIO", "PRODUCTOS"];
 const settings = ["Perfil", "Publicaciones", "Favoritos", "Salir"];
 
 const MyNav = () => {
+  const usuario = useUsuairo();
+
   // Prueba conexión real
   const navigate = useNavigate();
   const { getDeveloper, setDeveloper } = React.useContext(Context);
@@ -75,7 +78,7 @@ const MyNav = () => {
   // Conexión
 
   const isLogin = () => {
-    if (!getDeveloper) {
+    if (!usuario) {
       return (
         <>
           <Button color="inherit" component={NavLink} to="/login">
@@ -86,6 +89,7 @@ const MyNav = () => {
     }
 
     return (
+      
       <>
         <Box sx={{ flexGrow: 0 }}>
           <Tooltip title="Open settings">

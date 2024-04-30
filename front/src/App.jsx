@@ -7,7 +7,6 @@ import Pizza from "./views/Pizza/Pizza";
 import LogSign from "./views/LogSign/LogSign";
 import Footer from "./components/Footer/Footer";
 import Productos from "./views/Productos/Productos";
-
 import useDeveloper from "./hooks/useDeveloper";
 import Context from "./contexts/Context.js";
 import CrearProducto from "./views/CrearProducto/CrearProducto.jsx";
@@ -16,6 +15,8 @@ import Perfil from "./views/Perfil/Perfil.jsx";
 
 function App() {
   const globalState = useDeveloper();
+
+  
 
   return (
     <Context.Provider value={globalState}>

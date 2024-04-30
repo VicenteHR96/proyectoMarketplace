@@ -62,42 +62,7 @@ const LogSign = () => {
       <div className={`container-logsign ${isSignUp ? "active" : ""}`}>
         <SignUp></SignUp>
         <SignIn></SignIn>
-        {/* <div className="form-container sign-in">
-          <form className="form-logsign" onSubmit={handleForm}>
-            <h1>Sign In</h1>
-            <div className="social-icons">
-              <RrssBtn
-                icon={faFacebook}
-                styleIcon={{ color: "3b5998" }}
-              ></RrssBtn>
-              <RrssBtn icon={faXTwitter}></RrssBtn>
-              <RrssBtn
-                icon={faGoogle}
-                styleIcon={{ color: "#DB4437" }}
-              ></RrssBtn>
-              <RrssBtn icon={faApple}></RrssBtn>
-            </div>
-            <span>or use your email password</span>
-            <input
-              value={user.email}
-              onChange={handleUser}
-              type="email"
-              name="email"
-              className="form-control"
-              placeholder="Enter email"
-            />
-            <input
-              value={user.password}
-              onChange={handleUser}
-              type="password"
-              name="password"
-              className="form-control"
-              placeholder="Password"
-            />
-            <a href="#">Forget Your Password?</a>
-            <button type="submit">Sign In</button>
-          </form>
-        </div> */}
+        
         <div className="toggle-container">
           <div className="toggle">
             <div className="toggle-panel toggle-left">

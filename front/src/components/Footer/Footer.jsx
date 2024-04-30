@@ -1,7 +1,33 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Footer.css";
 
-function Footer() {
+function Footer({ onCategoryClick }) {
+  const [hoveredCategory, setHoveredCategory] = useState(null);
+
+  const handleCategoryClick = (category) => {
+    onCategoryClick(category.name);
+  };
+
+  const handleHover = (category) => {
+    setHoveredCategory(category.id);
+  };
+
+  const handleHoverLeave = () => {
+    setHoveredCategory(null);
+  };
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handlePopoverOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handlePopoverClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
+
   return (
     <footer className="footer">
       <div className="footer-container">
@@ -28,17 +54,29 @@ function Footer() {
                 Categorías
                 <ul className="footer-body__nav-sublist">
                   <li className="footer-body__nav-subitem">
-                    <a href="" className="footer-body__nav-link">
+                    <a
+                      href="#"
+                      className="footer-body__nav-link"
+                      onClick={() => handleCategoryClick("Ropa de moda")}
+                    >
                       Ropa de moda
                     </a>
                   </li>
                   <li className="footer-body__nav-subitem">
-                    <a href="" className="footer-body__nav-link">
+                    <a
+                      href="#"
+                      className="footer-body__nav-link"
+                      onClick={() => handleCategoryClick("Ropa deportiva")}
+                    >
                       Ropa deportiva
                     </a>
                   </li>
                   <li className="footer-body__nav-subitem">
-                    <a href="" className="footer-body__nav-link">
+                    <a
+                      href="#"
+                      className="footer-body__nav-link"
+                      onClick={() => handleCategoryClick("Accesorios para mascotas")}
+                    >
                       Accesorios para mascotas
                     </a>
                   </li>

@@ -10,6 +10,13 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ENDPOINT } from "../../config/constans";
 import Context from "../../contexts/Context.js";
+import {
+  loginGoogle,
+  loginUsuario,
+  onSignOut,
+  registroUsuario,
+} from "../../credenciales.js";
+import useUsuairo from "../../hooks/useUsuario";
 
 const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
 const initialForm = { email: "docente@desafiolatam.com", password: "123456" };
@@ -20,6 +27,25 @@ const SignIn = () => {
   const toggleView = () => {
     setIsSignUp(!isSignUp);
   };
+
+
+const usuario = useUsuairo();
+const [isLogin, setIsLogin] = useState(true);
+const [formData, setFormData] = useState({
+  email: "",
+  password: "",
+  error: "",
+});
+
+const handleSubmit = () => {
+  if (isLogin) {
+    loginUsuario(formData, setFormData);
+  } else {
+    registroUsuario(formData, setFormData);
+  }
+};
+
+  // setTimeout(() => setFormData({ ...formData, error: "" }), 3000);
 
   /* Parte de conexión */
 
@@ -37,22 +63,23 @@ const SignIn = () => {
       return window.alert("El formato del email no es correcto!");
     }
 
-    axios
-      .post(ENDPOINT.login, user)
-      .then(({ data }) => {
-        window.sessionStorage.setItem("token", data.token);
-        window.alert("Usuario identificado con éxito 😀.");
-        setDeveloper({});
-        navigate("/");
-      })
-      .catch(({ response: { data } }) => {
-        console.error(data);
-        window.alert(`${data.message} 🙁.`);
-      });
+    // axios
+    //   .post(ENDPOINT.login, user)
+    //   .then(({ data }) => {
+    //     window.sessionStorage.setItem("token", data.token);
+    //     window.alert("Usuario identificado con éxito 😀.");
+    //     setDeveloper({});
+    //     navigate("/");
+    //   })
+    //   .catch(({ response: { data } }) => {
+    //     console.error(data);
+    //     window.alert(`${data.message} 🙁.`);
+    //   });
   };
 
   return (
     <>
+    {usuario ? navigate("/")  :
       <div className="form-container sign-in">
         <form className="form-logsign" onSubmit={handleForm}>
           <h1>Iniciar sesión</h1>
@@ -67,27 +94,37 @@ const SignIn = () => {
           </div>
           <span>or use your email password</span>
           <input
-            value={user.email}
-            onChange={handleUser}
+            className="form-control"
             type="email"
-            name="email"
-            className="form-control"
-            placeholder="Enter email"
+            placeholder="Correo electrónico"
+            value={formData.email}
+            onChange={(e) =>
+              setFormData({ ...formData, email: e.target.value })
+            }
           />
+
           <input
-            value={user.password}
-            onChange={handleUser}
-            type="password"
-            name="password"
             className="form-control"
-            placeholder="Password"
+            type="password"
+            placeholder="Contraseña"
+            value={formData.password}
+            onChange={(e) =>
+              setFormData({ ...formData, password: e.target.value })
+            }
           />
+
           <a href="#">Forget Your Password?</a>
-          <button type="submit">Iniciar sesión</button>
+          <button onClick={handleSubmit}>Iniciar sesión</button>
         </form>
       </div>
+}
     </>
+  
   );
-};
+  
+
+}
 
 export default SignIn;
+
+

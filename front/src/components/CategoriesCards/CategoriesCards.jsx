@@ -86,18 +86,7 @@ const CategoriesCard = ({ onCategoryClick }) => {
             }
           ></MyPopOver>
           <h6 className="category-name">{category.name}</h6>
-          {/* <div
-            className="description"
-            style={{
-              opacity: hoveredCategory === category.id ? 1 : 0,
-              transform:
-                hoveredCategory === category.id
-                  ? "translateY(0)"
-                  : "translateY(20px)",
-            }}
-          >
-            {category.description}
-          </div> */}
+        
         </div>
       ))}
     </div>

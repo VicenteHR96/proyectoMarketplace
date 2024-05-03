@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import RrssBtn from "../rrssBtn/RrssBtn";
 import {
   faApple,
@@ -28,22 +28,28 @@ const SignIn = () => {
     setIsSignUp(!isSignUp);
   };
 
+  const usuario = useUsuairo();
+  const [isLogin, setIsLogin] = useState(true);
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+    error: "",
+  });
 
-const usuario = useUsuairo();
-const [isLogin, setIsLogin] = useState(true);
-const [formData, setFormData] = useState({
-  email: "",
-  password: "",
-  error: "",
-});
+  const [userData, setUserData] = useState({
+    email: "",
+    localId: "",
+  });
 
-const handleSubmit = () => {
-  if (isLogin) {
-    loginUsuario(formData, setFormData);
-  } else {
-    registroUsuario(formData, setFormData);
-  }
-};
+  useEffect(() => {
+    console.log('userData actualizado:', userData);
+    // Aquí puedes realizar otras acciones con los datos actualizados
+  }, [userData]);
+
+  const handleSubmit = () => {
+    loginUsuario(formData, setFormData, setUserData);
+    console.log(userData);
+  };
 
   // setTimeout(() => setFormData({ ...formData, error: "" }), 3000);
 
@@ -79,52 +85,52 @@ const handleSubmit = () => {
 
   return (
     <>
-    {usuario ? navigate("/")  :
-      <div className="form-container sign-in">
-        <form className="form-logsign" onSubmit={handleForm}>
-          <h1>Iniciar sesión</h1>
-          <div className="social-icons">
-            <RrssBtn
-              icon={faFacebook}
-              styleIcon={{ color: "3b5998" }}
-            ></RrssBtn>
-            <RrssBtn icon={faXTwitter}></RrssBtn>
-            <RrssBtn icon={faGoogle} styleIcon={{ color: "#DB4437" }}></RrssBtn>
-            <RrssBtn icon={faApple}></RrssBtn>
-          </div>
-          <span>or use your email password</span>
-          <input
-            className="form-control"
-            type="email"
-            placeholder="Correo electrónico"
-            value={formData.email}
-            onChange={(e) =>
-              setFormData({ ...formData, email: e.target.value })
-            }
-          />
+      {usuario ? (
+        navigate("/")
+      ) : (
+        <div className="form-container sign-in">
+          <form className="form-logsign" onSubmit={handleForm}>
+            <h1>Iniciar sesión</h1>
+            <div className="social-icons">
+              <RrssBtn
+                icon={faFacebook}
+                styleIcon={{ color: "3b5998" }}
+              ></RrssBtn>
+              <RrssBtn icon={faXTwitter}></RrssBtn>
+              <RrssBtn
+                icon={faGoogle}
+                styleIcon={{ color: "#DB4437" }}
+              ></RrssBtn>
+              <RrssBtn icon={faApple}></RrssBtn>
+            </div>
+            <span>or use your email password</span>
+            <input
+              className="form-control"
+              type="email"
+              placeholder="Correo electrónico"
+              value={formData.email}
+              onChange={(e) =>
+                setFormData({ ...formData, email: e.target.value })
+              }
+            />
 
-          <input
-            className="form-control"
-            type="password"
-            placeholder="Contraseña"
-            value={formData.password}
-            onChange={(e) =>
-              setFormData({ ...formData, password: e.target.value })
-            }
-          />
+            <input
+              className="form-control"
+              type="password"
+              placeholder="Contraseña"
+              value={formData.password}
+              onChange={(e) =>
+                setFormData({ ...formData, password: e.target.value })
+              }
+            />
 
-          <a href="#">Forget Your Password?</a>
-          <button onClick={handleSubmit}>Iniciar sesión</button>
-        </form>
-      </div>
-}
+            <a href="#">Forget Your Password?</a>
+            <button onClick={handleSubmit}>Iniciar sesión</button>
+          </form>
+        </div>
+      )}
     </>
-  
   );
-  
-
-}
+};
 
 export default SignIn;
-
-

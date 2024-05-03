@@ -11,7 +11,9 @@ router.use(registroActividad);
 
 router.post("/login", validaLogin, controladorUsuario.validaUsuario); //Valida las credenciales y retorna TOKEN
 router.get("/usuarios",  controladorUsuario.retornarUsuario); //Retorna la información del usuario
-router.post("/usuarios", validaRegistro, controladorUsuario.registrarUsuario); //Registra un nuevo usuario
+// router.put("/usuarios/profile", validaRegistro, controladorUsuario.modificarUsuario); //Registra un nuevo usuario
+// router.post("/usuarios/registro", validaRegistro, controladorUsuario.registrarUsuario); //Registra un nuevo usuario
+
 
 //PRODUCTOS uso publico
 router.get("/productos",  controladorProducto.productos); // Trae todos los productos

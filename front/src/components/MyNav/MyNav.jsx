@@ -22,6 +22,7 @@ import ShoppingCart from "@mui/icons-material/ShoppingCart";
 import DoorFrontRoundedIcon from "@mui/icons-material/DoorFrontRounded";
 import Context from "../../contexts/Context";
 import useUsuairo from "../../hooks/useUsuario";
+import { onSignOut } from "../../credenciales";
 
 const pages = ["INICIO", "PRODUCTOS"];
 const settings = ["Perfil", "Publicaciones", "Favoritos", "Salir"];
@@ -116,7 +117,7 @@ const MyNav = () => {
             {settings.map((setting) => (
               <MenuItem
                 key={setting}
-                onClick={setting === "Salir" ? logout : handleCloseUserMenu}
+                onClick={setting === "Salir" ? onSignOut : handleCloseUserMenu}
                 component={NavLink}
                 to={setting === "Salir" ? "/" : `/${setting.toLowerCase()}`}
               >

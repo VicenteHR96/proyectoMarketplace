@@ -16,3 +16,5 @@ app.use("/", route);
 
 //Levanta el servidor
 app.listen(PORT,console.log("Servidor iniciado!!!"));
+
+module.exports = app

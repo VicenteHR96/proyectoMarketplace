@@ -23,4 +23,7 @@ router.post("/producto", validarProducto, controladorProducto.registrarProducto)
 router.post("/producto/like", validarToken, controladorProducto.registrarLike); //Registra un nuevo like
 router.delete("/producto/like", validarToken, controladorProducto.eliminarLike); //Elimina un like
 
+router.get("/producto/mensajes/:id", validarToken, controladorProducto.traerMensajesUsario); //Registra un nuevo like
+router.post("/producto/mensaje", validarToken, controladorProducto.registrarMensaje); //Registra un nuevo like
+
 module.exports =  router ;

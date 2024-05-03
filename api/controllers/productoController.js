@@ -1,4 +1,5 @@
-const { registrarProducto, traeProductos, traeProductosUsuario, traeProductosCategoria, traeProducto, registraLike, eliminaLike } = require('../models/tiendaModels.js');
+const { registrarProducto, traeProductos, traeProductosUsuario, traeProductosCategoria, traeProducto, 
+    registraLike, eliminaLike, registraMensaje, traeMensajesUsuario } = require('../models/tiendaModels.js');
 const jwt = require("jsonwebtoken");
 
 class productoController{
@@ -45,7 +46,6 @@ class productoController{
     }
     async productos (req, res) {
         try {
-            console.log("llegue")
             const productos = await traeProductos(req.query);
             const productosHATEOAS = await prepararHATEOAS(armarDatosProductos(productos), req.query.page)
             res.status(200).json(productosHATEOAS)
@@ -59,7 +59,6 @@ class productoController{
             if(!req.body.id_usuario || !req.body.id_producto){
                 return res.status(500).json({"message": "Verifique que los ID esten incorporados en el body"});
             }
-            console.log("paso por aquí")
             const like = await registraLike(req.body);
             res.status(200).json({"message": "El Like ha sido ingresado de forma correcta"})
         } catch ({ code, message }) {
@@ -74,6 +73,32 @@ class productoController{
             }
             const like = await eliminaLike(req.body);
             res.status(200).json({"message": "El Like ha sido eliminado de forma correcta"})
+        } catch ({ code, message }) {
+            console.log(message);
+            res.status(code || 500).json({message});
+        }
+    }
+
+    async traerMensajesUsario (req, res) {
+        try {
+            const {limit=3, page=1, order_by='id_mensaje|ASC'} = req.query;
+            const { id } = req.params;
+            const mensajes = await traeMensajesUsuario(id, limit, page, order_by);
+            const mensajesHATEOAS = await prepararHATEOAS(armarDatosMensajes(mensajes), req.query.page)
+            res.status(200).json(mensajesHATEOAS)
+        } catch ({ code, message }) {
+            console.log(message);
+            res.status(code || 500).json({message});
+        }
+    }
+
+    async registrarMensaje (req, res) {
+        try {
+            if(!req.body.id_usuario || !req.body.id_producto || !req.body.mensaje){
+                return res.status(500).json({"message": "Verifique que todos los datos esten incorporados en el body"});
+            }
+            const mensaje = await registraMensaje(req.body);
+            res.status(200).json({"message": "El mensaje ha sido ingresado de forma correcta"})
         } catch ({ code, message }) {
             console.log(message);
             res.status(code || 500).json({message});
@@ -98,16 +123,30 @@ const armarDatosProductos=(datos)=>{
         })
     return results
 }
+const armarDatosMensajes=(datos)=>{
+    const results = datos.map((mensaje) => {
+        return {
+        id: mensaje.id_mensaje,            
+        mensaje: mensaje.mensaje,
+        usuario: mensaje.usuario,
+        email:mensaje.email,
+        id_producto:mensaje.id_producto,
+        nombre_producto: mensaje.producto,
+        href: `/productos/producto/${mensaje.id_producto}`,
+        }
+        })
+    return results
+}
 
 const prepararHATEOAS = (datos, page) => {
     
     const prev = page <= 1 ? null : page-1
     const next = page <= 1 ? null : parseInt(!page ? 1 : page) + 1
-    const totalStock =  datos.reduce((total, joya) => total + joya.stock, 0);
+    // const totalStock =  datos.reduce((total, dato) => total + dato.stock, 0);
     const total = datos.length
     const HATEOAS = {
     total,
-    totalStock,
+    //totalStock,
     prev,
     next,
     datos

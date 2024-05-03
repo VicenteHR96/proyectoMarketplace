@@ -82,7 +82,7 @@ const registraUsuario = async ({email, nombre, telefono, password, id_sexo}) => 
     
   };
 
-  const traeProductos = async({limits=1, page=1, order_by="precio_ASC"})=>{
+  const traeProductos = async({limits=3, page=1, order_by="precio_ASC"})=>{
     const [campo, direccion] = order_by.split("_");
     const offset = Math.abs(((page <= 0 ? 1 : page) - 1) * limits);
 
@@ -169,8 +169,42 @@ const registraUsuario = async ({email, nombre, telefono, password, id_sexo}) => 
       const { rowsCount } = await pool.query(formattedQuery)
       return rowsCount  
   };
+
+  
+  const traeMensajesUsuario = async(id,limits, page, order_by)=>{
+
+    const [campo, direccion] = order_by.split("|");
+    const offset = Math.abs(((page <= 0 ? 1 : page) - 1) * limits);
+
+    const formattedQuery =format(`select id_mensaje, mensaje, us.nombre usuario, email, id_producto, pr.nombre producto
+    from mensajes
+    inner join usuarios us on us.id_usuario=fk_id_usuario
+    inner join productos pr on pr.id_producto=fk_id_producto
+    where mensajes.fk_id_usuario=%s
+    order by %s %s
+      LIMIT %s
+      OFFSET %s`,id,campo,direccion, limits,offset)
+   
+    //console.log(formattedQuery)
+    const { rows } = await pool.query(formattedQuery)
+    return rows
+  };
+
+  const registraMensaje = async ({mensaje,id_usuario,id_producto}) => {
+
+    const consulta ={
+      text: 'INSERT INTO mensajes VALUES (DEFAULT,$1, $2, $3)',
+      values: [mensaje,id_usuario,id_producto],
+    }
+   
+    //console.log(consulta)
+    const { rowsCount } = await pool.query(consulta)
+
+    return rowsCount
+    
+  };
   
 
   
 module.exports= { existeEmail, registraUsuario, validaUsuario, retornarUsuario, registrarProducto, traeProductos, 
-                  traeProductosUsuario, traeProductosCategoria, traeProducto, registraLike, eliminaLike };
+                  traeProductosUsuario, traeProductosCategoria, traeProducto, registraLike, eliminaLike, registraMensaje, traeMensajesUsuario };

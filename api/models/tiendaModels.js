@@ -11,7 +11,7 @@ const existeEmail = async (email) => {
 };
 
 
-const retornarUsuario = async (email) => {
+const retornarUsuario = async (email, id_usuario) => {
 
   // console.log(email)
 
@@ -19,8 +19,9 @@ const retornarUsuario = async (email) => {
     text: `SELECT id_usuario, email, nombre, telefono, sexo
     FROM usuarios 
     INNER JOIN sexos ON id_sexo=fk_id_sexo
-    WHERE email=$1`,
-    values: [email],
+    WHERE email=$1
+      AND id_usuario=$2`,
+    values: [email,id_usuario]
   }
  
   //console.log(usuario)
@@ -31,13 +32,29 @@ const retornarUsuario = async (email) => {
   
 };
 
-const registraUsuario = async ({email, nombre, telefono, password, id_sexo}) => {
+const modificarUsuario = async({id_usuario, email, nombre, telefono, id_sexo})=>{
+  const usuario ={
+    text: `UPDATE usuarios SET 
+    email=$1, 
+    nombre=$2, 
+    telefono=$3, 
+    fk_id_sexo=$4
+    WHERE id_usuario=$5`,
+    values: [email,nombre,telefono,id_sexo,id_usuario]
+  }
+ 
+  //console.log(usuario)
+  const { rowCount } = await pool.query(usuario)
+  return rowCount
+}
+
+const registraUsuario = async ({email, uid}) => {
     
-    const passwordEncriptada = bcrypt.hashSync(password);  
+    //const passwordEncriptada = bcrypt.hashSync(password);  
 
     const consulta ={
-      text: 'INSERT INTO usuarios VALUES (DEFAULT,$1, $2, $3, $4, $5)',
-      values: [email, nombre, telefono, passwordEncriptada, id_sexo],
+      text: 'INSERT INTO usuarios (id_usuario, email, uid) VALUES (DEFAULT,$1, $2)',
+      values: [email,uid]
     }
    
     //console.log(consulta)
@@ -47,22 +64,20 @@ const registraUsuario = async ({email, nombre, telefono, password, id_sexo}) => 
     
   };
 
-  const validaUsuario = async ({email, password}) => {
+  const validaUsuario = async ({email, uid}) => {
 
     const consulta ={
-      text: 'SELECT password clave_registrada, id_usuario FROM usuarios where email=$1',
-      values: [email]
+      text: 'SELECT id_usuario FROM usuarios where email=$1 and uid=$2',
+      values: [email, uid]
     }
-    const {rows} = await pool.query(consulta)
-    const  { clave_registrada, id_usuario }  = rows[0]
-   
-    const passwordValida = bcrypt.compareSync(password, clave_registrada);
-
-    if (passwordValida){
+    const {rows, rowCount} = await pool.query(consulta)
+    //const passwordValida = bcrypt.compareSync(password, clave_registrada);
+    if (rowCount>0){
+      const  { id_usuario }  = rows[0]
       return id_usuario
     }
     else {
-      throw { code: 401, message: "Password Incorrecta" };
+      throw { code: 401, message: "Usuario no registrado" };
     }
 
   };
@@ -206,5 +221,5 @@ const registraUsuario = async ({email, nombre, telefono, password, id_sexo}) => 
   
 
   
-module.exports= { existeEmail, registraUsuario, validaUsuario, retornarUsuario, registrarProducto, traeProductos, 
+module.exports= { existeEmail, registraUsuario, validaUsuario, retornarUsuario, registrarProducto, traeProductos, modificarUsuario,
                   traeProductosUsuario, traeProductosCategoria, traeProducto, registraLike, eliminaLike, registraMensaje, traeMensajesUsuario };

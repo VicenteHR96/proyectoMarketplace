@@ -2,10 +2,10 @@ const { existeEmail } = require("../models/tiendaModels.js");
 const jwt = require("jsonwebtoken");
 
 const validaRegistro = async (req, res, next) => {
-  const { email, nombre, telefono, password, id_sexo } = req.body;
+  const { email, uid } = req.body;
 
   // Verificar si algún campo no está definido o no tiene datos.
-  if (!email || !nombre || !telefono || !password || !id_sexo) {
+  if (!email || !uid) {
     console.log("Los datos están incompletos, no puede continuar.");
     return res.status(400).json({ message: "Datos incompletos" });
   }
@@ -24,10 +24,10 @@ const validaRegistro = async (req, res, next) => {
 };
 
 const validaLogin = async (req, res, next) => {
-  const { email, password } = req.body;
+  const { email, uid } = req.body;
 
   // Verificar si algún campo no está definido o no tiene datos.
-  if (!email || !password) {
+  if (!email || !uid) {
     console.log("Los datos están incompletos, no puede continuar.");
     return res.status(400).json({ message: "Datos incompletos" });
   }

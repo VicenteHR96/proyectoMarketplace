@@ -9,10 +9,10 @@ const router = express.Router();
 
 router.use(registroActividad);
 
-router.post("/login", validaLogin, controladorUsuario.validaUsuario); //Valida las credenciales y retorna TOKEN
-router.get("/usuarios",  controladorUsuario.retornarUsuario); //Retorna la información del usuario
-// router.put("/usuarios/profile", validaRegistro, controladorUsuario.modificarUsuario); //Registra un nuevo usuario
-// router.post("/usuarios/registro", validaRegistro, controladorUsuario.registrarUsuario); //Registra un nuevo usuario
+router.post("/login", validaLogin, controladorUsuario.validaUsuario); //Valida las credenciales email y uid de google, además, retorna TOKEN
+router.get("/usuario/profile", controladorUsuario.retornarUsuario); //Retorna la información del usuario
+router.put("/usuario/profile", validarToken, controladorUsuario.modificarUsuario); //Actualiza los datos de un usuario
+router.post("/usuario/registro", validaRegistro, controladorUsuario.registrarUsuario); //Registra un nuevo usuario solo con el email y uid de google
 
 
 //PRODUCTOS uso publico

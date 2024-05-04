@@ -29,6 +29,11 @@ INSERT INTO categorias VALUES (DEFAULT,'Vestuario');
 SELECT * FROM categorias;
 
 
+ALTER TABLE usuarios 
+ADD COLUMN uid VARCHAR(30);
+
+ALTER TABLE usuarios 
+DROP COLUMN password
 
 CREATE TABLE usuarios
 (
@@ -36,13 +41,14 @@ CREATE TABLE usuarios
     email character varying(100),
     nombre character varying(50),
 	telefono character varying(10),
-	password character varying(70),
+	uid character varying(30),
 	fk_id_sexo INT, 
     PRIMARY KEY("id_usuario"),
     FOREIGN KEY("fk_id_sexo") REFERENCES "sexos"("id_sexo")
 );
 
 select * from usuarios
+update usuarios set uid='guR7xvc1dqXxEevAa8Eo5l1TXLo1' where id_usuario=1
 
 CREATE TABLE productos
 (
@@ -71,6 +77,7 @@ CREATE TABLE likes
 	FOREIGN KEY("fk_id_producto") REFERENCES "productos"("id_producto")
 );
 
+DELETE from likes
 select * from likes
 
 CREATE TABLE mensajes

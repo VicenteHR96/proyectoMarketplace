@@ -1,4 +1,4 @@
-const { registraUsuario, validaUsuario, retornarUsuario } = require('../models/tiendaModels.js');
+const { registraUsuario, validaUsuario, retornarUsuario, modificarUsuario } = require('../models/tiendaModels.js');
 const jwt = require("jsonwebtoken");
 
 class usuarioController{
@@ -6,7 +6,7 @@ class usuarioController{
     async registrarUsuario (req, res) {
         try {
             const usuarios = await registraUsuario(req.body);
-            res.status(200).json(usuarios)
+            res.status(200).json({"message": "Usuario registrado"})
         } catch ({ code, message }) {
             console.log(message);
             res.status(code || 500).json({message});
@@ -20,10 +20,23 @@ class usuarioController{
             const token = Authorization.split("Bearer ")[1]
             //console.log("TOKEN: " + token)
             jwt.verify(token, process.env.CLAVE_JWT)
-            const { email } = jwt.decode(token)
-            const user = await retornarUsuario(email);
+            const { email, id_usuario } = jwt.decode(token)
+            const user = await retornarUsuario(email, id_usuario);
             //console.log(user)
             res.status(200).json(user)
+        } catch ({ code, message }) {
+            console.log(message);
+            res.status(code || 500).json({message});
+        }
+    }
+    async modificarUsuario (req, res) {
+        try {
+            
+            
+            const user = await modificarUsuario(req.body);
+            user > 0 ? res.status(200).json({"message": "Usuario actualizado"})
+                     : res.status(400).json({"message": "La actualizacion no se realizo"}) 
+            
         } catch ({ code, message }) {
             console.log(message);
             res.status(code || 500).json({message});

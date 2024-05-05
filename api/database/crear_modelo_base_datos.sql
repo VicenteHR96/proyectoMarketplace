@@ -29,11 +29,6 @@ INSERT INTO categorias VALUES (DEFAULT,'Vestuario');
 SELECT * FROM categorias;
 
 
-ALTER TABLE usuarios 
-ADD COLUMN uid VARCHAR(30);
-
-ALTER TABLE usuarios 
-DROP COLUMN password
 
 CREATE TABLE usuarios
 (
@@ -47,8 +42,6 @@ CREATE TABLE usuarios
     FOREIGN KEY("fk_id_sexo") REFERENCES "sexos"("id_sexo")
 );
 
-select * from usuarios
-update usuarios set uid='guR7xvc1dqXxEevAa8Eo5l1TXLo1' where id_usuario=1
 
 CREATE TABLE productos
 (

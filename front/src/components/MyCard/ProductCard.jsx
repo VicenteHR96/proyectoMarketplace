@@ -57,7 +57,7 @@ export default function ProductCard({ pizza }) {
           <CardMedia
             component="img"
             height="194"
-            image={pizza.img}
+            image={`/public/${pizza.foto}`}
             alt="Paella dish"
             className="img-card"
           />
@@ -65,21 +65,19 @@ export default function ProductCard({ pizza }) {
 
         <div className="d-flex justify-content-between">
           <CardHeader
-            title={pizza.name[0].toUpperCase() + pizza.name.slice(1)}
+            title={pizza.nombre_producto}
           />
           <Typography
             variant="body2"
             color="text.secondary"
             className="MuiCardHeader-root css-185gdzj-MuiCardHeader-root"
           >
-            {`$${pizza.price}`}
+            {`$${pizza.precio}`}
           </Typography>
         </div>
         <CardContent>
           <Typography variant="body2" color="text.secondary">
-            This impressive paella is a perfect party dish and a fun meal to
-            cook together with your guests. Add 1 cup of frozen peas along with
-            the mussels, if you like.
+          {`${pizza.descripcion_corta}`}
           </Typography>
         </CardContent>
         <CardActions disableSpacing>

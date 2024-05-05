@@ -110,7 +110,7 @@ const armarDatosProductos=(datos)=>{
     const results = datos.map((producto) => {
         return {
         id: producto.id_producto,            
-        nombre_producto: producto.nombre,
+        nombre_producto: producto.nombre_producto,
         descripcion_corta: producto.descripcion_corta,
         descripcion_completa: producto.descripcion_completa,
         foto: producto.foto,

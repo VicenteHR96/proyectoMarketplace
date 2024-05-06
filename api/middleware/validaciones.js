@@ -46,6 +46,21 @@ const validaLogin = async (req, res, next) => {
 };
 
 const validarProducto = async (req, res, next) => {
+
+  const Authorization = req.header("Authorization");
+    if (!Authorization) {
+      return res.status(400).json({ message: "El token no esta adjunto" });
+    }
+
+    const token = Authorization.split("Bearer ")[1];
+    //console.log("TOKEN: " + token)
+    try{  
+      jwt.verify(token, process.env.CLAVE_JWT);
+      console.log("Token correcto, puede continuar");
+    } catch (error) {
+      return res.status(400).json({ message: "El token adjunto no es correcto" });
+    }
+
   const {
     nombre,
     descripcion_corta,

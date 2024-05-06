@@ -97,7 +97,7 @@ const registraUsuario = async ({email, uid}) => {
     
   };
 
-  const traeProductos = async({limits=3, page=1, order_by="precio_ASC"})=>{
+  const traeProductos = async({limits=10, page=1, order_by="precio_ASC"})=>{
     const [campo, direccion] = order_by.split("_");
     const offset = Math.abs(((page <= 0 ? 1 : page) - 1) * limits);
 

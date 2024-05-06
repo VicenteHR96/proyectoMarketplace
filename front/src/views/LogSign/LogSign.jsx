@@ -17,7 +17,7 @@ const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
 const initialForm = { email: "docente@desafiolatam.com", password: "123456" };
 
 const LogSign = () => {
-  const [isSignUp, setIsSignUp] = useState(true);
+  const [isSignUp, setIsSignUp] = useState(false);
 
   const toggleView = () => {
     setIsSignUp(!isSignUp);
@@ -62,7 +62,7 @@ const LogSign = () => {
       <div className={`container-logsign ${isSignUp ? "active" : ""}`}>
         <SignUp></SignUp>
         <SignIn></SignIn>
-        
+
         <div className="toggle-container">
           <div className="toggle">
             <div className="toggle-panel toggle-left">

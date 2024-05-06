@@ -12,6 +12,7 @@ import Button from "@mui/material/Button";
 import CustomInput from "./CustomInput";
 import UserDatos from "./UserDatos";
 import Gallery from "../Gallery/Gallery";
+import DataTable from "../DataTable/DataTable";
 
 //APP
 const SettingsCard = (props) => {
@@ -43,9 +44,9 @@ const SettingsCard = (props) => {
       <CardContent
         sx={{
           p: 3,
-          maxHeight: { md: "40vh" },
           textAlign: { xs: "center", md: "start" },
         }}
+        style={{ maxWidth: "100vw" }}
       >
         {/* FIELDS */}
         {value === 0 && (
@@ -61,15 +62,15 @@ const SettingsCard = (props) => {
           />
         )}
         {value === 1 && (
-          <form>
+          <form style={{ margin: 0 }}>
             {/* Componentes para la pestaña "Publicaciones" */}
-            <div>Contenido de la pestaña Publicaciones</div>
+            <DataTable></DataTable> {/*Conectar a Publicaciones de usuario*/}
           </form>
         )}
         {value === 2 && (
           <form>
             {/* Componentes para la pestaña "Favoritos" */}
-            <Gallery />
+            <DataTable></DataTable> {/*Conectar a Favoritos de usuario*/}
           </form>
         )}
       </CardContent>

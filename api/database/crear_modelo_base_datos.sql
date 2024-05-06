@@ -42,6 +42,11 @@ CREATE TABLE usuarios
     FOREIGN KEY("fk_id_sexo") REFERENCES "sexos"("id_sexo")
 );
 
+INSERT INTO usuarios (id_usuario, email, uid) 
+values (DEFAULT, 'leo.figueroa.a@gmail.com','guR7xvc1dqXxEevAa8Eo5l1TXLo1'),
+       (DEFAULT, 'ejemplo@ejemplo.com','RWRLDyON10cSreYdOIZmIe3KpzT2');
+
+
 
 CREATE TABLE productos
 (

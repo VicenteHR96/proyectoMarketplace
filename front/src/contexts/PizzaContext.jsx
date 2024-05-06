@@ -1,4 +1,6 @@
 import { createContext, useEffect, useState } from "react";
+import { ENDPOINT } from "../config/constans";
+import axios from "axios";
 
 export const PizzaContext = createContext({});
 
@@ -9,10 +11,8 @@ const PizzaContextProvider = ({ children }) => {
   const url = "/pizzas.json";
 
   const getData = async () => {
-    const res = await fetch(url);
-    const data = await res.json();
-    console.log(data);
-    setPizzas([...data]);
+    const { data } = await axios.get(ENDPOINT.productos);
+    setPizzas([...data.datos]);
   };
 
   useEffect(() => {

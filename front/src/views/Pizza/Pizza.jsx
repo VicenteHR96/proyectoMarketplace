@@ -6,10 +6,20 @@ import { Card, CardActions, CardContent, Typography } from "@mui/material";
 
 const Pizza = () => {
   const { id } = useParams();
+  
+
+  console.log(`Este es el id: ${id}`)
+
   const { pizzas, setPizzas, setTotal } = useContext(PizzaContext);
 
-  const index = pizzas.findIndex((pizza) => pizza.id === id);
+  console.log(pizzas)
+  
+
+  const index = pizzas.findIndex((pizza) => pizza.id == id);
+  console.log(`Este es el index de la pizza seleecionada: ${index}`)
   const pizzaX = pizzas[index];
+
+  console.log(pizzaX)
 
   const handleClick = () => {
     const index = pizzas.findIndex((p) => p.id === pizzaX.id);
@@ -21,16 +31,16 @@ const Pizza = () => {
     }
 
     setPizzas(pizzasCarrito);
-    setTotal((prev) => prev + pizzaX.price);
+    setTotal((prev) => prev + pizzaX.precio);
   };
 
   return (
     <div className="cont-detalle">
       <div className="section-detalle">
-        <h3>{pizzaX.name[0].toUpperCase() + pizzaX.name.slice(1)}</h3>
+        <h3>{pizzaX.nombre_producto}</h3>
         <div className="card-detalle">
           <div className="img-detalle">
-            <img src={pizzaX.img} alt={pizzaX.name} />
+            <img src={`/public/${pizzaX.foto}`} alt={pizzaX.nombre_producto} />
           </div>
           {/* <div className="detalle-texto">
           <p style={{ textAlign: "justify" }}>{pizzaX.desc}</p>
@@ -55,25 +65,17 @@ const Pizza = () => {
                   color="text.secondary"
                   gutterBottom
                 >
-                  {pizzaX.name[0].toUpperCase() + pizzaX.name.slice(1)}
+                  {pizzaX.nombre_producto}
                 </Typography>
                 <Typography variant="h5" component="div">
-                  $ {pizzaX.price}
+                  $ {pizzaX.precio}
                 </Typography>
               </div>
               <Typography sx={{ mb: 1.5 }} color="text.secondary">
                 Descripción del producto
               </Typography>
               <Typography variant="body2">
-                {pizzaX.desc}
-                <br />
-                <ul style={{ listStyle: "none" }}>
-                  {pizzaX.ingredients.map((i, index) => {
-                    return (
-                      <li key={index}>🍕 {i[0].toUpperCase() + i.slice(1)}</li>
-                    );
-                  })}
-                </ul>
+                {pizzaX.descripcion_corta}
               </Typography>
             </CardContent>
             <CardActions>

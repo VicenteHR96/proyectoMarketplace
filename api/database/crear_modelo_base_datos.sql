@@ -97,3 +97,17 @@ inner join usuarios us on id_usuario=fk_id_usuario
 inner join categorias on id_categoria = fk_id_categoria
 where fk_id_usuario = 1
 order by nombre_producto 
+
+
+select * from usuarios
+
+
+/*Categorias
+1	"Deportes"
+2	"Mascotas"
+3	"Vestuario"
+*/
+
+
+select * from productos
+INSERT INTO productos VALUES (DEFAULT, 'Zapatillas','Zapatillas descripcion corta', 'Zapatillas descripcion larga','zapatillas.jpeg','80500','50',1,1)

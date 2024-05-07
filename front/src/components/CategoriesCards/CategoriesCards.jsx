@@ -4,6 +4,7 @@ import { FaPaw, FaTshirt } from "react-icons/fa";
 import { FcSportsMode } from "react-icons/fc";
 import "./CategoriesCards.css";
 import MyPopOver from "../MyPopOver/MyPopOver";
+import { Fade, Toolbar, Tooltip } from "@mui/material";
 
 const CategoriesCard = ({ onCategoryClick }) => {
   const [hoveredCategory, setHoveredCategory] = useState(null);
@@ -15,18 +16,21 @@ const CategoriesCard = ({ onCategoryClick }) => {
       description:
         "Descubre los mejores productos para tu actividad deportiva.",
       icon: <FcSportsMode size={50} />,
+      img: "https://lasflores.gob.ar/wp-content/uploads/2024/04/2147813141-1024x1024.webp ",
     },
     {
       id: 2,
       name: "Mascotas",
       description: "Encuentra todo lo que necesitas para tus mascotas.",
       icon: <FaPaw size={50} />,
+      img: "https://www.hola.com/imagenes/mascotas/20210324186573/perros-gatos-felices-necesidades/0-933-511/perros-gatos-m.jpg",
     },
     {
       id: 3,
       name: "Ropa",
       description: "Explora nuestra colección de ropa de moda.",
       icon: <FaTshirt size={50} />,
+      img: "https://static.vecteezy.com/system/resources/previews/029/325/080/non_2x/young-couple-in-trendy-streetwear-free-photo.jpg",
     },
   ];
 
@@ -66,27 +70,39 @@ const CategoriesCard = ({ onCategoryClick }) => {
           onMouseEnter={() => handleHover(category)}
           onMouseLeave={handleHoverLeave}
         >
-          <div
-            className={`category-card ${
-              hoveredCategory === category.id ? "hovered" : ""
-            }`}
-            aria-owns={open ? "mouse-over-popover" : undefined}
-            aria-haspopup="true"
-            onMouseEnter={handlePopoverOpen}
-            onMouseLeave={handlePopoverClose}
+          <Tooltip
+            title={category.description}
+            placement="top"
+            arrow
+            TransitionComponent={Fade}
+            TransitionProps={{ timeout: 600 }}
+            sx={{ textAlign: "center" }}
           >
-            {category.icon}
-          </div>
-          <MyPopOver
+            <div
+              className={`category-card ${
+                hoveredCategory === category.id ? "hovered" : ""
+              }`}
+              aria-owns={open ? "mouse-over-popover" : undefined}
+              aria-haspopup="true"
+              onMouseEnter={handlePopoverOpen}
+              onMouseLeave={handlePopoverClose}
+              style={{
+                backgroundImage: `url(${category.img})`,
+                backgroundSize: "cover",
+              }}
+            >
+              {/* {category.icon} */}
+            </div>
+          </Tooltip>
+          {/* <MyPopOver
             anchorEl={anchorEl}
             handlePopoverClose={handlePopoverClose}
             open={hoveredCategory === category.id ? open : false}
             description={
               hoveredCategory === category.id ? category.description : null
             }
-          ></MyPopOver>
+          ></MyPopOver> */}
           <h6 className="category-name">{category.name}</h6>
-        
         </div>
       ))}
     </div>

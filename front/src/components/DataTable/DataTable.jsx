@@ -176,7 +176,7 @@ EnhancedTableToolbar.propTypes = {
   numSelected: PropTypes.number.isRequired,
 };
 
-export default function DataTable() {
+export default function DataTable({ options }) {
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("calories");
   const [selected, setSelected] = React.useState([]);
@@ -301,7 +301,7 @@ export default function DataTable() {
                     <TableCell align="left">{p.descripcion_corta}</TableCell>
                     <TableCell align="left">{`$${p.precio}`}</TableCell>
                     <TableCell padding="checkbox">
-                      <LongMenu />
+                      <LongMenu options={options} />
                     </TableCell>
                   </TableRow>
                 );

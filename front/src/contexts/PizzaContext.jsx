@@ -20,7 +20,14 @@ const PizzaContextProvider = ({ children }) => {
   }, []);
 
   return (
-    <PizzaContext.Provider value={{ pizzas, setPizzas, total, setTotal }}>
+    <PizzaContext.Provider
+      value={{
+        pizzas,
+        setPizzas,
+        total,
+        setTotal,
+      }}
+    >
       {children}
     </PizzaContext.Provider>
   );

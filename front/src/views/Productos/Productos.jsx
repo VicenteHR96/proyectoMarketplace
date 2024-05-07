@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
-import Gallery from '../../components/Gallery/Gallery';
-import Filtros from '../../components/Filtros/Filtros.jsx';
+import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+import Gallery from "../../components/Gallery/Gallery";
+import Filtros from "../../components/Filtros/Filtros.jsx";
 
 const Productos = () => {
   // Obtenemos el objeto location desde React Router
@@ -33,7 +33,9 @@ const Productos = () => {
       </section>
       <section>
         {/* Pasamos la categoría seleccionada al componente Gallery */}
-        <Gallery selectedCategories={selectedCategory ? [selectedCategory] : []} />
+        <Gallery
+          selectedCategories={selectedCategory ? [selectedCategory] : []}
+        />
       </section>
     </div>
   );

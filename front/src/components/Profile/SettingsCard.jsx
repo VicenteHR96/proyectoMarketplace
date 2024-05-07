@@ -2,16 +2,9 @@
 import React, { useState } from "react";
 import Card from "@mui/material/Card";
 import Divider from "@mui/material/Divider";
-import MenuItem from "@mui/material/MenuItem";
-import IconButton from "@mui/material/IconButton";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import Visibility from "@mui/icons-material/Visibility";
 import CardContent from "@mui/material/CardContent";
-import { Grid, FormControl, Tabs, Tab } from "@mui/material";
-import Button from "@mui/material/Button";
-import CustomInput from "./CustomInput";
+import { Tabs, Tab } from "@mui/material";
 import UserDatos from "./UserDatos";
-import Gallery from "../Gallery/Gallery";
 import DataTable from "../DataTable/DataTable";
 
 //APP
@@ -68,7 +61,7 @@ const SettingsCard = (props) => {
           </form>
         )}
         {value === 2 && (
-          <form>
+          <form style={{ margin: 0 }}>
             {/* Componentes para la pestaña "Favoritos" */}
             <DataTable></DataTable> {/*Conectar a Favoritos de usuario*/}
           </form>

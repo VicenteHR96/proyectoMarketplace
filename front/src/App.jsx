@@ -16,8 +16,6 @@ import Perfil from "./views/Perfil/Perfil.jsx";
 function App() {
   const globalState = useDeveloper();
 
-  
-
   return (
     <Context.Provider value={globalState}>
       <MyNav />

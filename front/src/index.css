@@ -488,6 +488,13 @@ button:focus-visible {
 .categoryCheck {
   display: none !important;
 }
+.pagination {
+  justify-content: center;
+}
+
+.pagination p {
+  margin: 0;
+}
 
 @media (prefers-color-scheme: light) {
   :root {

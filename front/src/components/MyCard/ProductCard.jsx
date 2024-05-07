@@ -27,6 +27,14 @@ export default function ProductCard({ pizza }) {
   const { pizzas, setPizzas, setTotal } = React.useContext(PizzaContext);
   const navigate = useNavigate();
 
+  function truncateText(text, maxLength) {
+    if (text.length > maxLength) {
+      return text.slice(0, maxLength) + "...";
+    } else {
+      return text;
+    }
+  }
+
   const handleClick = (event) => {
     event.stopPropagation();
     const index = pizzas.findIndex((p) => p.id === pizza.id);
@@ -51,22 +59,24 @@ export default function ProductCard({ pizza }) {
   };
 
   return (
-    <Card sx={{ maxWidth: 345 }} className="card h-100" onClick={handleDetalle}>
+    <Card
+      sx={{ width: 345, height: 450 }}
+      className="card"
+      onClick={handleDetalle}
+    >
       <div className="d-flex flex-column justify-content-between h-100">
         <div className="cont-imgcard">
           <CardMedia
             component="img"
             height="194"
             image={`/public/${pizza.foto}`}
-            alt="Paella dish"
+            alt={pizza.nombre_producto}
             className="img-card"
           />
         </div>
 
         <div className="d-flex justify-content-between">
-          <CardHeader
-            title={pizza.nombre_producto}
-          />
+          <CardHeader title={truncateText(pizza.nombre_producto, 35)} />
           <Typography
             variant="body2"
             color="text.secondary"
@@ -77,7 +87,7 @@ export default function ProductCard({ pizza }) {
         </div>
         <CardContent>
           <Typography variant="body2" color="text.secondary">
-          {`${pizza.descripcion_corta}`}
+            {truncateText(pizza.descripcion_corta, 100)}
           </Typography>
         </CardContent>
         <CardActions disableSpacing>

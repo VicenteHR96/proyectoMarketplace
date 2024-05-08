@@ -10,8 +10,8 @@
 
 /* Estilos para cada tarjeta de categoría */
 .category-card {
-  width: 80px; /* Aumentamos el ancho de las tarjetas */
-  height: 80px;
+  width: 90px; /* Aumentamos el ancho de las tarjetas */
+  height: 90px;
   /* padding: 30px; Aumentamos el padding interno */
   background-color: #f4f4f4;
   border-radius: 50%;

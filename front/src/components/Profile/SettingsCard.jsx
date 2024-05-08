@@ -57,13 +57,15 @@ const SettingsCard = (props) => {
         {value === 1 && (
           <form style={{ margin: 0 }}>
             {/* Componentes para la pestaña "Publicaciones" */}
-            <DataTable></DataTable> {/*Conectar a Publicaciones de usuario*/}
+            <DataTable options={["Editar", "Borrar"]}></DataTable>{" "}
+            {/*Conectar a Publicaciones de usuario*/}
           </form>
         )}
         {value === 2 && (
           <form style={{ margin: 0 }}>
             {/* Componentes para la pestaña "Favoritos" */}
-            <DataTable></DataTable> {/*Conectar a Favoritos de usuario*/}
+            <DataTable options={["Quitar de Favoritos"]}></DataTable>{" "}
+            {/*Conectar a Favoritos de usuario*/}
           </form>
         )}
       </CardContent>

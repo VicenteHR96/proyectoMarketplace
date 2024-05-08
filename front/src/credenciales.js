@@ -77,7 +77,7 @@ export const loginUsuario = (formData, setFormData, setUserData) => {
   signInWithEmailAndPassword(auth, formData.email, formData.password)
     .then((result) => {
       const { email, uid } = result.user;
-      setUserData({ email, localId: uid });
+      setUserData({ email, uid });
     })
     .catch((err) => {
       setFormData({ ...formData, error: handleError(err.code, err.message) });

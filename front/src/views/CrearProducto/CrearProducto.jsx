@@ -1,15 +1,16 @@
-import React, { useState } from 'react';
-import './CrearProducto.css';
+import React, { useState } from "react";
+import "./CrearProducto.css";
 import Button from "@mui/material/Button";
+import CustomInput from "../../components/Profile/CustomInput";
 
 const CrearProducto = () => {
   const [formData, setFormData] = useState({
-    name: '',
-    description: '',
-    price: '',
+    name: "",
+    description: "",
+    price: "",
     images: [],
-    condition: 'new',
-    category: 'sports', // Cambiar el estado inicial de la categoría
+    condition: "new",
+    category: "sports", // Cambiar el estado inicial de la categoría
   });
 
   const handleChange = (e) => {
@@ -28,12 +29,12 @@ const CrearProducto = () => {
   };
 
   return (
-    <div className="product-form-container">
+    <div>
       <h2>Crear Producto</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="name">Nombre del producto</label>
-          <input
+          <CustomInput
             type="text"
             id="name"
             name="name"
@@ -48,11 +49,12 @@ const CrearProducto = () => {
             name="description"
             value={formData.description}
             onChange={handleChange}
-          ></textarea>
+            style={{ backgroundColor: "white" }}
+          />
         </div>
         <div className="form-group">
           <label htmlFor="price">Precio</label>
-          <input
+          <CustomInput
             type="number"
             id="price"
             name="price"
@@ -78,6 +80,7 @@ const CrearProducto = () => {
               name="condition"
               value={formData.condition}
               onChange={handleChange}
+              style={{ backgroundColor: "white", color: "black" }}
             >
               <option value="new">Nuevo</option>
               <option value="used">Usado</option>
@@ -90,6 +93,7 @@ const CrearProducto = () => {
               name="category"
               value={formData.category}
               onChange={handleChange}
+              style={{ backgroundColor: "white", color: "black" }}
             >
               <option value="sports">Deportes</option>
               <option value="pets">Mascotas</option>
@@ -101,7 +105,6 @@ const CrearProducto = () => {
           variant="contained"
           color="primary"
           sx={{ width: "99%", p: 1, my: 2 }}
-       
         >
           Agregar producto
         </Button>

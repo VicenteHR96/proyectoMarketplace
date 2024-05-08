@@ -2,7 +2,7 @@ import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import { Button, Dialog, DialogContent, IconButton } from "@mui/material";
 import ImageCropper from "../ImageCropper/ImageCropper";
 
-const Modal = ({ updateAvatar, closeModal }) => {
+const Modal = ({ updateAvatar, closeModal, contenido }) => {
   return (
     <Dialog
       open={true} // Ajusta el estado de apertura según sea necesario
@@ -28,10 +28,11 @@ const Modal = ({ updateAvatar, closeModal }) => {
               >
                 <CloseRoundedIcon />
               </IconButton>
-              <ImageCropper
+              {/* <ImageCropper
                 updateAvatar={updateAvatar}
                 closeModal={closeModal}
-              />
+              /> */}
+              {contenido}
             </div>
           </div>
         </div>

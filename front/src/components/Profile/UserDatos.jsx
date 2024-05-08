@@ -81,7 +81,7 @@ const UserDatos = (props) => {
             name="firstName"
             value={user.firstName}
             onChange={changeField}
-            title="First Name"
+            title="Nombre"
             dis={edit.disabled}
             req={edit.required}
           ></CustomInput>
@@ -94,7 +94,7 @@ const UserDatos = (props) => {
             name="lastName"
             value={user.lastName}
             onChange={changeField}
-            title="Last Name"
+            title="Apellido"
             dis={edit.disabled}
             req={edit.required}
           ></CustomInput>
@@ -108,7 +108,7 @@ const UserDatos = (props) => {
             name="gender"
             value={user.gender}
             onChange={changeField}
-            title="Gender"
+            title="Sexo"
             dis={edit.disabled}
             req={edit.required}
             //MAP THRU OPTIONS
@@ -127,7 +127,7 @@ const UserDatos = (props) => {
             name="phone"
             value={user.phone}
             onChange={changeField}
-            title="Phone Number"
+            title="Teléfono"
             dis={edit.disabled}
             req={edit.required}
             //DIALING CODE
@@ -147,7 +147,7 @@ const UserDatos = (props) => {
             name="email"
             value={user.email}
             onChange={changeField}
-            title="Email Address"
+            title="Email"
             dis={edit.disabled}
             req={edit.required}
           ></CustomInput>
@@ -160,7 +160,7 @@ const UserDatos = (props) => {
             name="pass"
             value={user.pass}
             onChange={changeField}
-            title="Password"
+            title="Contraseña"
             dis={edit.disabled}
             req={edit.required}
             type={user.showPassword ? "text" : "password"}

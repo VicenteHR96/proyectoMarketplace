@@ -13,38 +13,25 @@ const theme = createTheme();
 export default function ProfileBase() {
   const [text, setText] = useState("");
   const [mainUser, setMainUser] = useState(null);
-  const { userData, getUserData } = React.useContext(PizzaContext);
+  const { userProfile, setUserProfile, getUserData } =
+    React.useContext(PizzaContext);
+  const token = window.sessionStorage.getItem("token");
+  console.log("Recuperar Token:" + token);
 
   // Obtener los datos del usuario cuando el componente se monta
   useEffect(() => {
-    getUserData()
-      .then((userData) => {
-        // Cuando los datos del usuario estén disponibles, actualiza el estado
-        setMainUser({
-          title: "CEO of Apple",
-          dt1: 32,
-          dt2: 40,
-          dt3: 50,
-          firstName: "Jana",
-          lastName: "Doe",
-          midName: "Baker",
-          gender: "female",
-          phone: "932-555-4247",
-          email: "janedoe@gmail.com",
-          pass: "password123",
-        });
-      })
-      .catch((error) => {
-        console.error("Error fetching user data:", error);
-      });
-  }, [getUserData]);
+    // Llamar a getUserData solo si userProfile está vacío
+    if (!userProfile.id_usuario || !userProfile) {
+      getUserData();
+    }
+  }, [userProfile]);
 
   // Esperar a que se carguen los datos del usuario antes de renderizar
-  if (!mainUser) {
+  if (!userProfile) {
     return <div>Loading...</div>;
   }
 
-  const fullName = `${mainUser.firstName} ${mainUser.lastName}`;
+  const fullName = `${userProfile.nombre}`;
 
   return (
     <ThemeProvider theme={theme}>
@@ -62,21 +49,21 @@ export default function ProfileBase() {
           <Grid item md={3}>
             <ProfileCard
               name={fullName}
-              sub={mainUser.email}
-              dt1={mainUser.dt1}
-              dt2={mainUser.dt2}
-              dt3={mainUser.dt3}
+              sub={userProfile.email}
+              dt1="2"
+              dt2="23"
+              dt3="23"
             />
           </Grid>
           <Grid item md={9}>
             <SettingsCard
-              firstName={mainUser.firstName}
-              lastName={mainUser.lastName}
-              midName={mainUser.midName}
-              phone={mainUser.phone}
-              email={mainUser.email}
-              pass={mainUser.pass}
-              gender={mainUser.gender}
+              firstName={userProfile.nombre}
+              lastName=""
+              midName=""
+              phone={userProfile.telefono}
+              email={userProfile.email}
+              pass=""
+              gender={userProfile.sexo}
               setText={setText}
             />
           </Grid>

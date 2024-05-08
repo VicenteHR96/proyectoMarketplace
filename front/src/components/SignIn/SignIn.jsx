@@ -17,12 +17,14 @@ import {
   registroUsuario,
 } from "../../credenciales.js";
 import useUsuairo from "../../hooks/useUsuario";
+import { PizzaContext } from "../../contexts/PizzaContext.jsx";
 
 const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
 const initialForm = { email: "docente@desafiolatam.com", password: "123456" };
 
 const SignIn = () => {
   const [isSignUp, setIsSignUp] = useState(true);
+  const { userData, setUserData } = useContext(PizzaContext);
 
   const toggleView = () => {
     setIsSignUp(!isSignUp);
@@ -36,22 +38,15 @@ const SignIn = () => {
     error: "",
   });
 
-  const [userData, setUserData] = useState({
-    email: "",
-    uid: "",
-    token:""
-  });
-
   useEffect(() => {
     // console.log('userData actualizado:', userData);
     if (userData.email != "") {
       axios
         .post(ENDPOINT.login, userData)
         .then(({ data }) => {
+          console.log("Token:" + data.token);
           window.sessionStorage.setItem("token", data.token);
-          window.alert("Usuario identificado con éxito 😀.");
           setDeveloper({});
-          navigate("/");
         })
         .catch(({ response: { data } }) => {
           console.error(data);

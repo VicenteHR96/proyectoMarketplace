@@ -12,17 +12,13 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
-import Switch from "@mui/material/Switch";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import FormGroup from "@mui/material/FormGroup";
 import { NavLink, useNavigate } from "react-router-dom";
 import { Badge, ThemeProvider, createTheme } from "@mui/material";
-import NotificationsIcon from "@mui/icons-material/Notifications";
 import ShoppingCart from "@mui/icons-material/ShoppingCart";
-import DoorFrontRoundedIcon from "@mui/icons-material/DoorFrontRounded";
 import Context from "../../contexts/Context";
 import useUsuairo from "../../hooks/useUsuario";
 import { onSignOut } from "../../credenciales";
+import { PizzaContext } from "../../contexts/PizzaContext";
 
 const pages = ["INICIO", "PRODUCTOS"];
 const settings = ["Perfil", "Publicaciones", "Favoritos", "Salir"];
@@ -33,6 +29,7 @@ const MyNav = () => {
   // Prueba conexión real
   const navigate = useNavigate();
   const { getDeveloper, setDeveloper } = React.useContext(Context);
+  const { userData, getUserData } = React.useContext(PizzaContext);
 
   const logout = () => {
     setDeveloper();
@@ -89,13 +86,19 @@ const MyNav = () => {
       );
     }
 
+    // Prueba
+
+    // Obtener la inicial del email del usuario
+    const emailInitial = userData?.email
+      ? userData.email.charAt(0).toUpperCase()
+      : "";
+
     return (
-      
       <>
         <Box sx={{ flexGrow: 0 }}>
           <Tooltip title="Open settings">
             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-              <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+              <Avatar alt="Remy" src="/static/images/avatar/2.jpg" />
             </IconButton>
           </Tooltip>
           <Menu

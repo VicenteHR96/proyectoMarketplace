@@ -22,7 +22,7 @@ function App() {
       <Routes>
         {/* Público */}
         <Route path="/" element={<Home />} />
-        <Route path="/pizza/:id" element={<Pizza />} />
+        <Route path="/productos/producto/:id" element={<Pizza />} />
         <Route path="/login" element={<LogSign />} />
         <Route path="/productos" element={<Productos />} />
         {/* Privado */}

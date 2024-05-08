@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import * as React from "react";
 import { useParams } from "react-router-dom";
 import { PizzaContext } from "../../contexts/PizzaContext";
 import Button from "@mui/material/Button";
@@ -6,20 +6,19 @@ import { Card, CardActions, CardContent, Typography } from "@mui/material";
 
 const Pizza = () => {
   const { id } = useParams();
-  
+  const { pizzas, setPizzas, setTotal, getProductDetails } =
+    React.useContext(PizzaContext);
 
-  console.log(`Este es el id: ${id}`)
+  const [pizzaX, setPizzaX] = React.useState(null);
 
-  const { pizzas, setPizzas, setTotal } = useContext(PizzaContext);
+  React.useEffect(() => {
+    const fetchProductDetails = async () => {
+      const productDetails = await getProductDetails(id);
+      setPizzaX(productDetails);
+    };
 
-  console.log(pizzas)
-  
-
-  const index = pizzas.findIndex((pizza) => pizza.id == id);
-  console.log(`Este es el index de la pizza seleecionada: ${index}`)
-  const pizzaX = pizzas[index];
-
-  console.log(pizzaX)
+    fetchProductDetails();
+  }, [id, getProductDetails]);
 
   const handleClick = () => {
     const index = pizzas.findIndex((p) => p.id === pizzaX.id);
@@ -34,6 +33,10 @@ const Pizza = () => {
     setTotal((prev) => prev + pizzaX.precio);
   };
 
+  if (!pizzaX) {
+    return <div>Cargando...</div>;
+  }
+
   return (
     <div className="cont-detalle">
       <div className="section-detalle">
@@ -42,21 +45,6 @@ const Pizza = () => {
           <div className="img-detalle">
             <img src={`/public/${pizzaX.foto}`} alt={pizzaX.nombre_producto} />
           </div>
-          {/* <div className="detalle-texto">
-          <p style={{ textAlign: "justify" }}>{pizzaX.desc}</p>
-
-          <h6>Ingredientes:</h6>
-          <ul style={{ listStyle: "none" }}>
-            {pizzaX.ingredients.map((i, index) => {
-              return <li key={index}>🍕 {i[0].toUpperCase() + i.slice(1)}</li>;
-            })}
-          </ul>
-          <hr />
-          <h3>Precio: $ {pizzaX.price}</h3>
-          <Button variant="danger" onClick={handleClick}>
-            Añadir 🛒
-          </Button>
-        </div> */}
           <Card sx={{ minWidth: 275 }}>
             <CardContent>
               <div className="d-flex justify-content-between">

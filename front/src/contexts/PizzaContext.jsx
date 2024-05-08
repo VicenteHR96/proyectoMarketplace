@@ -7,8 +7,29 @@ export const PizzaContext = createContext({});
 const PizzaContextProvider = ({ children }) => {
   const [pizzas, setPizzas] = useState([]);
   const [total, setTotal] = useState(0);
+  const [userData, setUserData] = useState(null);
 
   const url = "/pizzas.json";
+
+  //Obtener datos de usuario
+
+  const getUserData = async () => {
+    try {
+      const response = await axios.get(ENDPOINT.user);
+      setUserData(response.data);
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  };
+
+  useEffect(() => {
+    const isAuthenticated = localStorage.getItem("token") !== null;
+    if (isAuthenticated) {
+      getUserData();
+    }
+  }, []);
+
+  //Obtener productos
 
   const getData = async () => {
     const { data } = await axios.get(ENDPOINT.productos);
@@ -19,6 +40,18 @@ const PizzaContextProvider = ({ children }) => {
     getData();
   }, []);
 
+  //Obtener producto detalle
+
+  const getProductDetails = async (id) => {
+    try {
+      const response = await axios.get(ENDPOINT.producto(id));
+      return response.data; // Aquí asumo que tu backend devuelve los detalles del producto en el objeto de respuesta
+    } catch (error) {
+      console.error("Error fetching pizza details:", error);
+      return null;
+    }
+  };
+
   return (
     <PizzaContext.Provider
       value={{
@@ -26,6 +59,8 @@ const PizzaContextProvider = ({ children }) => {
         setPizzas,
         total,
         setTotal,
+        getProductDetails,
+        getUserData,
       }}
     >
       {children}

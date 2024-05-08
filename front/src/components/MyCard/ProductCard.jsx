@@ -25,6 +25,7 @@ const AddtoCart = styled((props) => {
 
 export default function ProductCard({ pizza }) {
   const { pizzas, setPizzas, setTotal } = React.useContext(PizzaContext);
+  const { getProductDetails } = React.useContext(PizzaContext);
   const navigate = useNavigate();
 
   function truncateText(text, maxLength) {
@@ -44,18 +45,15 @@ export default function ProductCard({ pizza }) {
     } else {
       pizzasCarrito[index].cantidad = 1;
     }
-
-    setPizzas(pizzasCarrito);
-    setTotal((prev) => prev + pizza.price);
   };
 
-  const handleDetalle = () => {
-    navigate(`/pizza/${pizza.id}`);
-  };
-  const [expanded, setExpanded] = React.useState(false);
-
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
+  const handleDetalle = async () => {
+    const pizzaDetails = await getProductDetails(pizza.id);
+    if (pizzaDetails) {
+      navigate(`/productos/producto/${pizza.id}`, { state: { pizzaDetails } });
+    } else {
+      // Handle error or show feedback to the user
+    }
   };
 
   return (
@@ -92,11 +90,7 @@ export default function ProductCard({ pizza }) {
         </CardContent>
         <CardActions disableSpacing>
           <Fav></Fav>
-          <AddtoCart
-            onClick={handleClick}
-            aria-expanded={expanded}
-            aria-label="Añadir al carrito"
-          >
+          <AddtoCart onClick={handleClick} aria-label="Añadir al carrito">
             <AddShoppingCartRoundedIcon />
           </AddtoCart>
         </CardActions>

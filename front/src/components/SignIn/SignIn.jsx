@@ -38,17 +38,31 @@ const SignIn = () => {
 
   const [userData, setUserData] = useState({
     email: "",
-    localId: "",
+    uid: "",
+    token:""
   });
 
   useEffect(() => {
-    console.log('userData actualizado:', userData);
+    // console.log('userData actualizado:', userData);
+    if (userData.email != "") {
+      axios
+        .post(ENDPOINT.login, userData)
+        .then(({ data }) => {
+          window.sessionStorage.setItem("token", data.token);
+          window.alert("Usuario identificado con éxito 😀.");
+          setDeveloper({});
+          navigate("/");
+        })
+        .catch(({ response: { data } }) => {
+          console.error(data);
+          window.alert(`${data.message} 🙁.`);
+        });
+    }
     // Aquí puedes realizar otras acciones con los datos actualizados
   }, [userData]);
 
   const handleSubmit = () => {
     loginUsuario(formData, setFormData, setUserData);
-    console.log(userData);
   };
 
   // setTimeout(() => setFormData({ ...formData, error: "" }), 3000);

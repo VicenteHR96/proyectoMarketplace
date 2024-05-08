@@ -25,6 +25,7 @@ const validaRegistro = async (req, res, next) => {
 
 const validaLogin = async (req, res, next) => {
   const { email, uid } = req.body;
+  console.log(`BACK email: ${email}, uid:${uid}`)
 
   // Verificar si algún campo no está definido o no tiene datos.
   if (!email || !uid) {

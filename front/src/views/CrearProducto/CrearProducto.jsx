@@ -50,16 +50,7 @@ const CrearProducto = () => {
             onChange={handleChange}
           ></textarea>
         </div>
-        <div className="form-group">
-          <label htmlFor="price">Precio</label>
-          <input
-            type="number"
-            id="price"
-            name="price"
-            value={formData.price}
-            onChange={handleChange}
-          />
-        </div>
+       
         <div className="form-group">
           <label htmlFor="images">Imágenes</label>
           <input
@@ -68,6 +59,16 @@ const CrearProducto = () => {
             name="images"
             multiple
             onChange={handleImageUpload}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="price">Precio</label>
+          <input
+            type="number"
+            id="price"
+            name="price"
+            value={formData.price}
+            onChange={handleChange}
           />
         </div>
         <div className="form-row">

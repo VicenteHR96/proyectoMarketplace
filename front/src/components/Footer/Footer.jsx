@@ -1,29 +1,34 @@
 import React, { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import "./Footer.css";
 
-function Footer({ onCategoryClick }) {
+function Footer() {
+  const navigate = useNavigate();
   const [hoveredCategory, setHoveredCategory] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
 
   const handleCategoryClick = (category) => {
-    onCategoryClick(category.name);
+    setSelectedCategory(category);
+    navigate('/productos', { state: { selectedCategory: category } });
   };
 
   const handleHover = (category) => {
-    setHoveredCategory(category.id);
+    setHoveredCategory(category);
   };
 
   const handleHoverLeave = () => {
     setHoveredCategory(null);
   };
 
-  const [anchorEl, setAnchorEl] = React.useState(null);
-
-  const handlePopoverOpen = (event) => {
+  const handlePopoverOpen = (event, category) => {
     setAnchorEl(event.currentTarget);
+    handleHover(category);
   };
 
   const handlePopoverClose = () => {
     setAnchorEl(null);
+    handleHoverLeave();
   };
 
   const open = Boolean(anchorEl);
@@ -49,35 +54,47 @@ function Footer({ onCategoryClick }) {
             </p>
           </div>
           <nav className="footer-body__nav">
-            <ul className="footer-body__nav-list">
-              <li className="footer-body__nav-item">
-                Categorías
+        <ul className="footer-body__nav-list">
+          <li className="footer-body__nav-item">
+          Categorías
                 <ul className="footer-body__nav-sublist">
                   <li className="footer-body__nav-subitem">
                     <a
                       href="#"
                       className="footer-body__nav-link"
-                      onClick={() => handleCategoryClick("Ropa de moda")}
+                      onClick={() => handleCategoryClick("Deportes")}
+                      onMouseEnter={(e) => handlePopoverOpen(e, "Deportes")}
+                      onMouseLeave={handlePopoverClose}
+                      aria-owns={open && hoveredCategory === "Deportes" ? "mouse-over-popover" : undefined}
+                      aria-haspopup="true"
                     >
-                      Ropa de moda
+                      Deportes
                     </a>
                   </li>
                   <li className="footer-body__nav-subitem">
                     <a
                       href="#"
                       className="footer-body__nav-link"
-                      onClick={() => handleCategoryClick("Ropa deportiva")}
+                      onClick={() => handleCategoryClick("Mascotas")}
+                      onMouseEnter={(e) => handlePopoverOpen(e, "Mascotas")}
+                      onMouseLeave={handlePopoverClose}
+                      aria-owns={open && hoveredCategory === "Mascotas" ? "mouse-over-popover" : undefined}
+                      aria-haspopup="true"
                     >
-                      Ropa deportiva
+                      Mascotas
                     </a>
                   </li>
                   <li className="footer-body__nav-subitem">
                     <a
                       href="#"
                       className="footer-body__nav-link"
-                      onClick={() => handleCategoryClick("Accesorios para mascotas")}
+                      onClick={() => handleCategoryClick("Ropa")}
+                      onMouseEnter={(e) => handlePopoverOpen(e, "Ropa")}
+                      onMouseLeave={handlePopoverClose}
+                      aria-owns={open && hoveredCategory === "Ropa" ? "mouse-over-popover" : undefined}
+                      aria-haspopup="true"
                     >
-                      Accesorios para mascotas
+                      Ropa
                     </a>
                   </li>
                 </ul>
@@ -86,17 +103,38 @@ function Footer({ onCategoryClick }) {
                 Sobre nosotros
                 <ul className="footer-body__nav-sublist">
                   <li className="footer-body__nav-subitem">
-                    <a href="" className="footer-body__nav-link">
+                    <a
+                      href="#"
+                      className="footer-body__nav-link"
+                      onMouseEnter={(e) => handlePopoverOpen(e, "Sobre Nosotros")}
+                      onMouseLeave={handlePopoverClose}
+                      aria-owns={open && hoveredCategory === "Sobre Nosotros" ? "mouse-over-popover" : undefined}
+                      aria-haspopup="true"
+                    >
                       Nuestra empresa
                     </a>
                   </li>
                   <li className="footer-body__nav-subitem">
-                    <a href="" className="footer-body__nav-link">
+                    <a
+                      href="#"
+                      className="footer-body__nav-link"
+                      onMouseEnter={(e) => handlePopoverOpen(e, "Sobre Nosotros")}
+                      onMouseLeave={handlePopoverClose}
+                      aria-owns={open && hoveredCategory === "Sobre Nosotros" ? "mouse-over-popover" : undefined}
+                      aria-haspopup="true"
+                    >
                       Trabaja con nosotros
                     </a>
                   </li>
                   <li className="footer-body__nav-subitem">
-                    <a href="" className="footer-body__nav-link">
+                    <a
+                      href="#"
+                      className="footer-body__nav-link"
+                      onMouseEnter={(e) => handlePopoverOpen(e, "Sobre Nosotros")}
+                      onMouseLeave={handlePopoverClose}
+                      aria-owns={open && hoveredCategory === "Sobre Nosotros" ? "mouse-over-popover" : undefined}
+                      aria-haspopup="true"
+                    >
                       Sostenibilidad
                     </a>
                   </li>
@@ -106,17 +144,38 @@ function Footer({ onCategoryClick }) {
                 Ayuda
                 <ul className="footer-body__nav-sublist">
                   <li className="footer-body__nav-subitem">
-                    <a href="" className="footer-body__nav-link">
+                    <a
+                      href="#"
+                      className="footer-body__nav-link"
+                      onMouseEnter={(e) => handlePopoverOpen(e, "Ayuda")}
+                      onMouseLeave={handlePopoverClose}
+                      aria-owns={open && hoveredCategory === "Ayuda" ? "mouse-over-popover" : undefined}
+                      aria-haspopup="true"
+                    >
                       Preguntas frecuentes
                     </a>
                   </li>
                   <li className="footer-body__nav-subitem">
-                    <a href="" className="footer-body__nav-link">
+                    <a
+                      href="#"
+                      className="footer-body__nav-link"
+                      onMouseEnter={(e) => handlePopoverOpen(e, "Ayuda")}
+                      onMouseLeave={handlePopoverClose}
+                      aria-owns={open && hoveredCategory === "Ayuda" ? "mouse-over-popover" : undefined}
+                      aria-haspopup="true"
+                    >
                       Contacto
                     </a>
                   </li>
                   <li className="footer-body__nav-subitem">
-                    <a href="" className="footer-body__nav-link">
+                    <a
+                      href="#"
+                      className="footer-body__nav-link"
+                      onMouseEnter={(e) => handlePopoverOpen(e, "Ayuda")}
+                      onMouseLeave={handlePopoverClose}
+                      aria-owns={open && hoveredCategory === "Ayuda" ? "mouse-over-popover" : undefined}
+                      aria-haspopup="true"
+                    >
                       Devoluciones y cambios
                     </a>
                   </li>

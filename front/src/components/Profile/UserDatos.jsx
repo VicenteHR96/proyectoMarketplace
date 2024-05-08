@@ -189,7 +189,7 @@ const UserDatos = (props) => {
         xs={12}
       >
         <Button
-          sx={{ p: "1rem 2rem", my: 2, height: "3rem" }}
+          sx={{ p: "1rem 2rem", mt: 3, height: "2.5rem" }}
           component="button"
           size="large"
           variant="contained"

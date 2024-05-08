@@ -92,8 +92,8 @@ export default function ProfileCard(props) {
         </Grid>
         <Grid container>
           <Grid item xs={6}>
-            <Typography style={styles.details}>Datos de usuario</Typography>
-            <Typography style={styles.details}>Mis publicaciones</Typography>
+            <Typography style={styles.details}>Mensajes</Typography>
+            <Typography style={styles.details}>Publicaciones</Typography>
             <Typography style={styles.details}>Favoritos</Typography>
           </Grid>
           <Grid item xs={6} sx={{ textAlign: "end" }}>

@@ -11,6 +11,7 @@ import AddShoppingCartRoundedIcon from "@mui/icons-material/AddShoppingCartRound
 import { useNavigate } from "react-router-dom";
 import { PizzaContext } from "../../contexts/PizzaContext";
 import Fav from "../Fav/Fav";
+import useUsuairo from "../../hooks/useUsuario";
 
 const AddtoCart = styled((props) => {
   const { expand, ...other } = props;
@@ -24,9 +25,20 @@ const AddtoCart = styled((props) => {
 }));
 
 export default function ProductCard({ pizza }) {
+  const usuario = useUsuairo();
   const { pizzas, setPizzas, setTotal } = React.useContext(PizzaContext);
   const { getProductDetails } = React.useContext(PizzaContext);
   const navigate = useNavigate();
+
+  const isLogin = () => {
+    if (usuario) {
+      return (
+        <>
+          <Fav></Fav>
+        </>
+      );
+    }
+  };
 
   function truncateText(text, maxLength) {
     if (text.length > maxLength) {
@@ -92,7 +104,7 @@ export default function ProductCard({ pizza }) {
           </Typography>
         </CardContent>
         <CardActions disableSpacing>
-          <Fav></Fav>
+          {isLogin()}
           <AddtoCart onClick={handleClick} aria-label="Añadir al carrito">
             <AddShoppingCartRoundedIcon />
           </AddtoCart>

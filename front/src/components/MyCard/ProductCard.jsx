@@ -45,6 +45,9 @@ export default function ProductCard({ pizza }) {
     } else {
       pizzasCarrito[index].cantidad = 1;
     }
+
+    setPizzas(pizzasCarrito);
+    setTotal((prev) => prev + pizza.precio);
   };
 
   const handleDetalle = async () => {

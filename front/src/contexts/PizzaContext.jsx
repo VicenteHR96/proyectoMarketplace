@@ -7,7 +7,19 @@ export const PizzaContext = createContext({});
 const PizzaContextProvider = ({ children }) => {
   const [pizzas, setPizzas] = useState([]);
   const [total, setTotal] = useState(0);
-  const [userData, setUserData] = useState(null);
+  const [userProfile, setUserProfile] = useState({
+    id_usuario: "",
+    email: "",
+    nombre: "",
+    telefono: "",
+    sexo: "",
+  });
+
+  const [userData, setUserData] = useState({
+    email: "",
+    uid: "",
+    token: "",
+  });
 
   const url = "/pizzas.json";
 
@@ -15,8 +27,11 @@ const PizzaContextProvider = ({ children }) => {
 
   const getUserData = async () => {
     try {
-      const response = await axios.get(ENDPOINT.user);
-      setUserData(response.data);
+      const token = window.sessionStorage.getItem("token");
+      const response = await axios.get(ENDPOINT.user, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setUserProfile(response.data);
     } catch (error) {
       console.error("Error fetching user data:", error);
     }
@@ -61,6 +76,10 @@ const PizzaContextProvider = ({ children }) => {
         setTotal,
         getProductDetails,
         getUserData,
+        userData,
+        setUserData,
+        userProfile,
+        setUserProfile,
       }}
     >
       {children}

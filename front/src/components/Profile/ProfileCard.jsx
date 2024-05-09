@@ -10,6 +10,8 @@ import Button from "@mui/material/Button";
 import { IconButton } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import Modal from "../Modal/Modal";
+import ImageCropper from "../ImageCropper/ImageCropper";
+import CrearProducto from "../../views/CrearProducto/CrearProducto";
 
 const styles = {
   details: {
@@ -25,6 +27,7 @@ const styles = {
 
 export default function ProfileCard(props) {
   const [modalOpen, setModalOpen] = useState(false);
+  const [crearProductoOpen, setCrearProductoOpen] = useState(false);
   const [avatarUrl, setAvatarUrl] = useState(
     "https://media.glamour.com/photos/5a425fd3b6bcee68da9f86f8/master/pass/best-face-oil.png"
   );
@@ -89,8 +92,8 @@ export default function ProfileCard(props) {
         </Grid>
         <Grid container>
           <Grid item xs={6}>
-            <Typography style={styles.details}>Datos de usuario</Typography>
-            <Typography style={styles.details}>Mis publicaciones</Typography>
+            <Typography style={styles.details}>Mensajes</Typography>
+            <Typography style={styles.details}>Publicaciones</Typography>
             <Typography style={styles.details}>Favoritos</Typography>
           </Grid>
           <Grid item xs={6} sx={{ textAlign: "end" }}>
@@ -104,7 +107,7 @@ export default function ProfileCard(props) {
             variant="contained"
             color="primary"
             sx={{ width: "99%", p: 1, my: 2 }}
-            onClick={handleAddProduct}
+            onClick={() => setCrearProductoOpen(true)}
           >
             Agregar producto
           </Button>
@@ -114,6 +117,19 @@ export default function ProfileCard(props) {
         <Modal
           updateAvatar={updateAvatar}
           closeModal={() => setModalOpen(false)}
+          contenido={
+            <ImageCropper
+              updateAvatar={updateAvatar}
+              closeModal={() => setModalOpen(false)}
+            />
+          }
+        />
+      )}
+      {crearProductoOpen && (
+        <Modal
+          updateAvatar={updateAvatar}
+          closeModal={() => setCrearProductoOpen(false)}
+          contenido={<CrearProducto></CrearProducto>}
         />
       )}
     </Card>

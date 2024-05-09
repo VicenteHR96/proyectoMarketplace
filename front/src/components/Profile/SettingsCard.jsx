@@ -36,23 +36,25 @@ const SettingsCard = (props) => {
       {/* MAIN CONTENT CONTAINER */}
       <CardContent
         sx={{
-          p: 3,
+          p: 0,
           textAlign: { xs: "center", md: "start" },
         }}
-        style={{ maxWidth: "100vw" }}
+        style={{ maxWidth: "100vw", paddingBottom: "0" }}
       >
         {/* FIELDS */}
         {value === 0 && (
-          <UserDatos
-            firstName={props.firstName}
-            lastName={props.lastName}
-            midName={props.midName}
-            phone={props.phone}
-            email={props.email}
-            pass={props.pass}
-            gender={props.gender}
-            setText={props.setText}
-          />
+          <div style={{ padding: "2rem" }}>
+            <UserDatos
+              firstName={props.firstName}
+              lastName={props.lastName}
+              midName={props.midName}
+              phone={props.phone}
+              email={props.email}
+              pass={props.pass}
+              gender={props.gender}
+              setText={props.setText}
+            />
+          </div>
         )}
         {value === 1 && (
           <form style={{ margin: 0 }}>

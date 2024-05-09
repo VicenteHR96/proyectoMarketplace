@@ -1,8 +1,16 @@
-require('dotenv').config();
+require("dotenv").config();
 
+const express = require("express");
+const cors = require("cors");
 
-const express = require('express');
-const cors = require('cors');
+// SDK de Mercado Pago
+const { MercadoPagoConfig, Preference } = require("mercadopago");
+
+// Agrega credenciales
+const client = new MercadoPagoConfig({
+  accessToken:
+    "TEST-3636920895992403-050822-e861d98480e993f3f214350aff217649-721796664",
+});
 
 const app = express();
 const PORT = process.env.PGPORT || 3000;
@@ -12,9 +20,39 @@ app.use(express.json());
 app.use(cors());
 app.use("/", route);
 
- 
+//Prueba MercadoPago
+
+app.post("/create_preference", async (req, res) => {
+  try {
+    const body = {
+      items: [
+        {
+          title: req.body.title,
+          quantity: Number(req.body.quantity),
+          unit_price: Number(req.body.price),
+          currency_id: "CL",
+        },
+      ],
+      back_urls: {
+        success: "www.youtube.com",
+        failure: "www.youtube.com",
+        pending: "www.youtube.com",
+      },
+      auto_return: "approved",
+    };
+
+    const preference = new Preference(client);
+    const result = await preference.create({ body });
+    res.json({
+      id: result.id,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "Error al crear la preferencia." });
+  }
+});
 
 //Levanta el servidor
-app.listen(PORT,console.log("Servidor iniciado!!!"));
+app.listen(PORT, console.log("Servidor iniciado!!!"));
 
-module.exports = app
+module.exports = app;

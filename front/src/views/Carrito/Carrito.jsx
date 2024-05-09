@@ -129,15 +129,27 @@ const Carrito = () => {
           })}
         <hr />
         <div className="total">
-          <h3>Total: $ {total}</h3>
           {/* Prueba MercadoPago */}
-          <Button onClick={handleBuy}> Comprar</Button>
-          {preferenceId && (
-            <Wallet
-              initialization={{ preferenceId: preferenceId }}
-              customization={{ texts: { valueProp: "smart_option" } }}
-            />
-          )}
+          <div className="d-flex flex-column justify-content-center align-items-between">
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleBuy}
+              style={{ minWidth: "280px", height: "48px" }}
+            >
+              Realizar compra
+            </Button>
+            {preferenceId && (
+              <Wallet
+                initialization={{
+                  preferenceId: preferenceId,
+                  redirectMode: "modal",
+                }}
+                customization={{ texts: { valueProp: "smart_option" } }}
+              />
+            )}
+          </div>
+          <h3>Total: $ {total}</h3>
         </div>
       </div>
     </div>

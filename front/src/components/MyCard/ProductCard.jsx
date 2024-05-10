@@ -28,7 +28,7 @@ export default function ProductCard({ pizza }) {
   const usuario = useUsuairo();
   const { pizzas, setPizzas, setTotal, userProfile, getUserData } =
     React.useContext(PizzaContext);
-  const { getProductDetails, postLike, deleteLike } =
+  const { getProductDetails, getLike, postLike, deleteLike } =
     React.useContext(PizzaContext);
   const navigate = useNavigate();
 
@@ -60,31 +60,26 @@ export default function ProductCard({ pizza }) {
       await getUserData();
     }
     await getProductDetails(pizza.id);
-    await postLike(pizza.id, userProfile.id_usuario);
-    console.log(
-      "id producto:" + pizza.id + "id usuario:" + userProfile.id_usuario
-    );
+    const likeData = await getLike(pizza.id, userProfile.id_usuario);
+    if (!likeData.id_like) {
+      await postLike(pizza.id, userProfile.id_usuario);
+      console.log(
+        "id producto like:" +
+          pizza.id +
+          "id usuario like:" +
+          userProfile.id_usuario
+      );
+    } else {
+      await deleteLike(pizza.id, userProfile.id_usuario);
+      console.log(
+        "id producto like delete:" +
+          pizza.id +
+          "id usuario like delete:" +
+          userProfile.id_usuario
+      );
+    }
 
-    // if (!userProfile.id_usuario || !userProfile) {
-    //   getUserData();
-    // }
-    // getProductDetails(pizza.id);
-    // deleteLike(pizza.id, userProfile.id_usuario);
-    // console.log(
-    //   "id producto:" + pizza.id + "id usuario:" + userProfile.id_usuario
-    // );
-    // setIsFav(false);
-
-    // const index = pizzas.findIndex((p) => p.id === pizza.id);
-    // const pizzasCarrito = [...pizzas];
-    // if (typeof pizzasCarrito[index].cantidad != "undefined") {
-    //   pizzasCarrito[index].cantidad++;
-    // } else {
-    //   pizzasCarrito[index].cantidad = 1;
-    // }
-
-    // setPizzas(pizzasCarrito);
-    // setTotal((prev) => prev + pizza.precio);
+    console.log(userProfile);
   };
 
   const handleClick = (event) => {

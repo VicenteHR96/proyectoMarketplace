@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import { ENDPOINT } from "../config/constans";
 import axios from "axios";
 
@@ -37,8 +37,8 @@ const PizzaContextProvider = ({ children }) => {
     }
   };
 
-  useEffect(() => {
-    const isAuthenticated = localStorage.getItem("token") !== null;
+  React.useEffect(() => {
+    const isAuthenticated = sessionStorage.getItem("token") !== null;
     if (isAuthenticated) {
       getUserData();
     }
@@ -64,6 +64,21 @@ const PizzaContextProvider = ({ children }) => {
     } catch (error) {
       console.error("Error fetching pizza details:", error);
       return null;
+    }
+  };
+
+  //Get Like
+
+  const getLike = async (id_producto, id_usuario) => {
+    try {
+      const response = await axios.get(ENDPOINT.productoLike, {
+        id_usuario,
+        id_producto,
+      });
+      console.log(response.data);
+      return response.data;
+    } catch (error) {
+      console.error("Error get like:", error);
     }
   };
 
@@ -114,6 +129,7 @@ const PizzaContextProvider = ({ children }) => {
         setUserData,
         userProfile,
         setUserProfile,
+        getLike,
         postLike,
         deleteLike,
       }}

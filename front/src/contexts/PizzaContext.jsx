@@ -67,6 +67,40 @@ const PizzaContextProvider = ({ children }) => {
     }
   };
 
+  //Post Like
+
+  const postLike = async (id_producto, id_usuario) => {
+    try {
+      const token = window.sessionStorage.getItem("token");
+      await axios.post(
+        ENDPOINT.productoLike,
+        { id_usuario, id_producto },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+    } catch (error) {
+      console.error("Error post like:", error);
+    }
+  };
+
+  //Delete Like
+
+  const deleteLike = async (id_producto, id_usuario) => {
+    try {
+      const token = window.sessionStorage.getItem("token");
+      await axios.delete(
+        ENDPOINT.productoLikeDelete,
+        { id_usuario, id_producto },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+    } catch (error) {
+      console.error("Error delete like:", error);
+    }
+  };
+
   return (
     <PizzaContext.Provider
       value={{
@@ -80,6 +114,8 @@ const PizzaContextProvider = ({ children }) => {
         setUserData,
         userProfile,
         setUserProfile,
+        postLike,
+        deleteLike,
       }}
     >
       {children}

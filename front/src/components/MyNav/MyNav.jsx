@@ -18,7 +18,7 @@ import ShoppingCart from "@mui/icons-material/ShoppingCart";
 import Context from "../../contexts/Context";
 import useUsuairo from "../../hooks/useUsuario";
 import { onSignOut } from "../../credenciales";
-import { PizzaContext } from "../../contexts/PizzaContext";
+import { PizzaContext } from "../../contexts/PizzaContext.jsx";
 
 const pages = ["INICIO", "PRODUCTOS"];
 const settings = ["Perfil", "Publicaciones", "Favoritos", "Salir"];

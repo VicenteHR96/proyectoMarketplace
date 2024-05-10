@@ -5,7 +5,7 @@ import LogSign from "../LogSign/LogSign";
 import Context from "../../contexts/Context";
 import useUsuairo from "../../hooks/useUsuario";
 
-const Profile = () => {
+const Perfil = () => {
   const { getDeveloper } = useContext(Context);
   const usuario = useUsuairo();
 
@@ -28,4 +28,4 @@ const Profile = () => {
   return <>{isLogin()}</>;
 };
 
-export default Profile;
+export default Perfil;

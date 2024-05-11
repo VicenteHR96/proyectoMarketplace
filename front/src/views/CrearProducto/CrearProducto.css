@@ -48,7 +48,6 @@ select {
 .form-row {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 20px;
 }
 
 .form-group.product-state,
@@ -66,7 +65,7 @@ select {
 }
 
 form {
-  margin: 40px 0; /* Aumentar el margen superior e inferior del formulario */
+  margin: 25px 0; /* Aumentar el margen superior e inferior del formulario */
 }
 
 button[type="submit"] {

@@ -5,6 +5,16 @@ import axios from "axios";
 export const PizzaContext = createContext({});
 
 const PizzaContextProvider = ({ children }) => {
+  //crearproducto
+  const [nombre, setNombre] = useState("");
+  const [descripcion_corta, setDescripcion_corta] = useState("");
+  const [descripcion_completa, setDescripcion_completa] = useState("");
+  const [foto, setFoto] = useState("");
+  const [precio, setPrecio] = useState(0);
+  const [stock, setStock] = useState(0);
+  const [id_categoria, setId_categoria] = useState(0);
+  const [id_usuario, setId_usuario] = useState(0);
+  //
   const [pizzas, setPizzas] = useState([]);
   const [total, setTotal] = useState(0);
   const [userProfile, setUserProfile] = useState({
@@ -44,6 +54,8 @@ const PizzaContextProvider = ({ children }) => {
     }
   }, []);
 
+  // Modificar User Profile
+
   //Obtener productos
 
   const getData = async () => {
@@ -64,6 +76,40 @@ const PizzaContextProvider = ({ children }) => {
     } catch (error) {
       console.error("Error fetching pizza details:", error);
       return null;
+    }
+  };
+
+  //Agregar Producto
+
+  const registrarProducto = async (
+    nombre,
+    descripcion_corta,
+    descripcion_completa,
+    foto,
+    precio,
+    stock,
+    id_usuario,
+    id_categoria
+  ) => {
+    try {
+      const token = window.sessionStorage.getItem("token");
+      const post = {
+        nombre,
+        descripcion_corta,
+        descripcion_completa,
+        foto,
+        precio,
+        stock,
+        id_usuario,
+        id_categoria,
+      };
+      await axios.post(ENDPOINT.productoRegistro, post, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      console.log(post);
+      getData();
+    } catch (error) {
+      console.error("Error Post Producto:", error);
     }
   };
 
@@ -124,6 +170,7 @@ const PizzaContextProvider = ({ children }) => {
         total,
         setTotal,
         getProductDetails,
+        registrarProducto,
         getUserData,
         userData,
         setUserData,
@@ -132,6 +179,23 @@ const PizzaContextProvider = ({ children }) => {
         getLike,
         postLike,
         deleteLike,
+        //producto crear
+        nombre,
+        setNombre,
+        descripcion_corta,
+        setDescripcion_corta,
+        descripcion_completa,
+        setDescripcion_completa,
+        foto,
+        setFoto,
+        precio,
+        setPrecio,
+        stock,
+        setStock,
+        id_categoria,
+        setId_categoria,
+        id_usuario,
+        setId_usuario,
       }}
     >
       {children}

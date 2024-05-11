@@ -25,7 +25,7 @@ const validaRegistro = async (req, res, next) => {
 
 const validaLogin = async (req, res, next) => {
   const { email, uid } = req.body;
-  console.log(`BACK email: ${email}, uid:${uid}`)
+  console.log(`BACK email: ${email}, uid:${uid}`);
 
   // Verificar si algún campo no está definido o no tiene datos.
   if (!email || !uid) {
@@ -47,20 +47,19 @@ const validaLogin = async (req, res, next) => {
 };
 
 const validarProducto = async (req, res, next) => {
-
   const Authorization = req.header("Authorization");
-    if (!Authorization) {
-      return res.status(400).json({ message: "El token no esta adjunto" });
-    }
+  if (!Authorization) {
+    return res.status(400).json({ message: "El token no esta adjunto" });
+  }
 
-    const token = Authorization.split("Bearer ")[1];
-    //console.log("TOKEN: " + token)
-    try{  
-      jwt.verify(token, process.env.CLAVE_JWT);
-      console.log("Token correcto, puede continuar");
-    } catch (error) {
-      return res.status(400).json({ message: "El token adjunto no es correcto" });
-    }
+  const token = Authorization.split("Bearer ")[1];
+  //console.log("TOKEN: " + token)
+  try {
+    jwt.verify(token, process.env.CLAVE_JWT);
+    console.log("Token correcto, puede continuar");
+  } catch (error) {
+    return res.status(400).json({ message: "El token adjunto no es correcto" });
+  }
 
   const {
     nombre,
@@ -84,7 +83,7 @@ const validarProducto = async (req, res, next) => {
     !id_usuario ||
     !id_categoria
   ) {
-    console.log("Los datos están incompletos, no puede continuar.");
+    console.log("Los datos están incompletos, no puede continuar1.");
     return res.status(400).json({ message: "Datos incompletos" });
   }
 

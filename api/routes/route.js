@@ -42,6 +42,7 @@ router.post(
   validarProducto,
   controladorProducto.registrarProducto
 ); //Registra un nuevo producto
+router.get("/producto/like", controladorProducto.traeLike); //Trae like de un producto
 router.post("/producto/like", validarToken, controladorProducto.registrarLike); //Registra un nuevo like
 router.delete("/producto/like", validarToken, controladorProducto.eliminarLike); //Elimina un like
 

@@ -565,7 +565,7 @@ button:focus-visible {
 
   .total {
     display: flex;
-    justify-content: end;
+    justify-content: space-between;
   }
 
   .total h3 {

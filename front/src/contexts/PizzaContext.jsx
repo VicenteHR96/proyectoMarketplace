@@ -1,10 +1,20 @@
-import { createContext, useEffect, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import { ENDPOINT } from "../config/constans";
 import axios from "axios";
 
 export const PizzaContext = createContext({});
 
 const PizzaContextProvider = ({ children }) => {
+  //crearproducto
+  const [nombre, setNombre] = useState("");
+  const [descripcion_corta, setDescripcion_corta] = useState("");
+  const [descripcion_completa, setDescripcion_completa] = useState("");
+  const [foto, setFoto] = useState("");
+  const [precio, setPrecio] = useState(0);
+  const [stock, setStock] = useState(0);
+  const [id_categoria, setId_categoria] = useState(0);
+  const [id_usuario, setId_usuario] = useState(0);
+  //
   const [pizzas, setPizzas] = useState([]);
   const [total, setTotal] = useState(0);
   const [userProfile, setUserProfile] = useState({
@@ -37,12 +47,14 @@ const PizzaContextProvider = ({ children }) => {
     }
   };
 
-  useEffect(() => {
-    const isAuthenticated = localStorage.getItem("token") !== null;
+  React.useEffect(() => {
+    const isAuthenticated = sessionStorage.getItem("token") !== null;
     if (isAuthenticated) {
       getUserData();
     }
   }, []);
+
+  // Modificar User Profile
 
   //Obtener productos
 
@@ -67,6 +79,89 @@ const PizzaContextProvider = ({ children }) => {
     }
   };
 
+  //Agregar Producto
+
+  const registrarProducto = async (
+    nombre,
+    descripcion_corta,
+    descripcion_completa,
+    foto,
+    precio,
+    stock,
+    id_usuario,
+    id_categoria
+  ) => {
+    try {
+      const token = window.sessionStorage.getItem("token");
+      const post = {
+        nombre,
+        descripcion_corta,
+        descripcion_completa,
+        foto,
+        precio,
+        stock,
+        id_usuario,
+        id_categoria,
+      };
+      await axios.post(ENDPOINT.productoRegistro, post, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      console.log(post);
+      getData();
+    } catch (error) {
+      console.error("Error Post Producto:", error);
+    }
+  };
+
+  //Get Like
+
+  const getLike = async (id_producto, id_usuario) => {
+    try {
+      const response = await axios.get(ENDPOINT.productoLike, {
+        id_usuario,
+        id_producto,
+      });
+      console.log(response.data);
+      return response.data;
+    } catch (error) {
+      console.error("Error get like:", error);
+    }
+  };
+
+  //Post Like
+
+  const postLike = async (id_producto, id_usuario) => {
+    try {
+      const token = window.sessionStorage.getItem("token");
+      await axios.post(
+        ENDPOINT.productoLike,
+        { id_usuario, id_producto },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+    } catch (error) {
+      console.error("Error post like:", error);
+    }
+  };
+
+  //Delete Like
+
+  const deleteLike = async (id_producto, id_usuario) => {
+    try {
+      const token = window.sessionStorage.getItem("token");
+      await axios.delete(
+        ENDPOINT.productoLikeDelete,
+        { id_usuario, id_producto },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+    } catch (error) {
+      console.error("Error delete like:", error);
+    }
+  };
+
   return (
     <PizzaContext.Provider
       value={{
@@ -75,11 +170,32 @@ const PizzaContextProvider = ({ children }) => {
         total,
         setTotal,
         getProductDetails,
+        registrarProducto,
         getUserData,
         userData,
         setUserData,
         userProfile,
         setUserProfile,
+        getLike,
+        postLike,
+        deleteLike,
+        //producto crear
+        nombre,
+        setNombre,
+        descripcion_corta,
+        setDescripcion_corta,
+        descripcion_completa,
+        setDescripcion_completa,
+        foto,
+        setFoto,
+        precio,
+        setPrecio,
+        stock,
+        setStock,
+        id_categoria,
+        setId_categoria,
+        id_usuario,
+        setId_usuario,
       }}
     >
       {children}

@@ -11,6 +11,7 @@ import AddShoppingCartRoundedIcon from "@mui/icons-material/AddShoppingCartRound
 import { useNavigate } from "react-router-dom";
 import { PizzaContext } from "../../contexts/PizzaContext";
 import Fav from "../Fav/Fav";
+import useUsuairo from "../../hooks/useUsuario";
 
 const AddtoCart = styled((props) => {
   const { expand, ...other } = props;
@@ -24,9 +25,25 @@ const AddtoCart = styled((props) => {
 }));
 
 export default function ProductCard({ pizza }) {
-  const { pizzas, setPizzas, setTotal } = React.useContext(PizzaContext);
-  const { getProductDetails } = React.useContext(PizzaContext);
+  const usuario = useUsuairo();
+  const { pizzas, setPizzas, setTotal, userProfile, getUserData } =
+    React.useContext(PizzaContext);
+  const { getProductDetails, getLike, postLike, deleteLike } =
+    React.useContext(PizzaContext);
   const navigate = useNavigate();
+
+  const setActiveClass = ({ isActive }) =>
+    isActive ? "activeLink" : "inactiveLink";
+
+  const isLogin = () => {
+    if (usuario) {
+      return (
+        <>
+          <Fav onClick={handleLike}></Fav>
+        </>
+      );
+    }
+  };
 
   function truncateText(text, maxLength) {
     if (text.length > maxLength) {
@@ -35,6 +52,35 @@ export default function ProductCard({ pizza }) {
       return text;
     }
   }
+
+  const handleLike = async (event) => {
+    event.stopPropagation();
+
+    if (!userProfile.id_usuario || !userProfile) {
+      await getUserData();
+    }
+    await getProductDetails(pizza.id);
+    const likeData = await getLike(pizza.id, userProfile.id_usuario);
+    if (!likeData.id_like) {
+      await postLike(pizza.id, userProfile.id_usuario);
+      console.log(
+        "id producto like:" +
+          pizza.id +
+          "id usuario like:" +
+          userProfile.id_usuario
+      );
+    } else {
+      await deleteLike(pizza.id, userProfile.id_usuario);
+      console.log(
+        "id producto like delete:" +
+          pizza.id +
+          "id usuario like delete:" +
+          userProfile.id_usuario
+      );
+    }
+
+    console.log(userProfile);
+  };
 
   const handleClick = (event) => {
     event.stopPropagation();
@@ -92,7 +138,7 @@ export default function ProductCard({ pizza }) {
           </Typography>
         </CardContent>
         <CardActions disableSpacing>
-          <Fav></Fav>
+          {isLogin()}
           <AddtoCart onClick={handleClick} aria-label="Añadir al carrito">
             <AddShoppingCartRoundedIcon />
           </AddtoCart>

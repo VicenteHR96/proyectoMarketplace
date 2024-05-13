@@ -25,7 +25,7 @@ export default function ProfileBase() {
       getUserData();
     }
   }, [userProfile]);
-
+  console.log(userProfile);
   // Esperar a que se carguen los datos del usuario antes de renderizar
   if (!userProfile) {
     return <div>Loading...</div>;

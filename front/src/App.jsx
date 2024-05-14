@@ -12,6 +12,8 @@ import Context from "./contexts/Context.js";
 import CrearProducto from "./views/CrearProducto/CrearProducto.jsx";
 import "react-image-crop/dist/ReactCrop.css";
 import Perfil from "./views/Perfil/Perfil.jsx";
+import FAQ from './views/FAQ/FAQ.jsx';
+
 
 function App() {
   const globalState = useDeveloper();
@@ -25,6 +27,8 @@ function App() {
         <Route path="/productos/producto/:id" element={<Pizza />} />
         <Route path="/login" element={<LogSign />} />
         <Route path="/productos" element={<Productos />} />
+        <Route path="/faq" element={<FAQ />} />
+
         {/* Privado */}
         <Route path="/carrito" element={<Carrito />} />
         <Route path="/perfil" element={<Perfil />} />

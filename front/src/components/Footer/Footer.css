@@ -132,49 +132,12 @@
   color: #ffffff;
 }
 
-@media (max-width: 768px) {
-  .footer-container {
-    padding: 2rem;
-  }
-
-  .footer-body {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .footer-body__content {
-    padding-right: 0;
-    margin-bottom: 2rem;
-  }
-
-  .footer-body__nav-list {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .footer-body__nav-item {
-    margin-bottom: 1rem;
-  }
-
-  .footer-body__nav-sublist {
-    position: static;
-    background-color: transparent;
-    box-shadow: none;
-    padding: 0.5rem 0 0 1rem;
-  }
+/* Añade estos estilos para corregir el color del texto "Contacto" */
+.footer-body__nav-link.button {
+  color: #ffffff !important; /* El !important asegura que este estilo tenga prioridad */
 }
 
-@media (max-width: 480px) {
-  .footer-newsletter__form {
-    flex-direction: column;
-  }
-
-  .footer-newsletter__form input {
-    border-radius: 4px;
-    margin-bottom: 1rem;
-  }
-
-  .footer-newsletter__form button.submit-btn {
-    border-radius: 4px;
-  }
+/* Añade estos estilos para ajustar el color del texto en el modal */
+.modal-container {
+  color: #ffffff; /* Color del texto en el modal */
 }

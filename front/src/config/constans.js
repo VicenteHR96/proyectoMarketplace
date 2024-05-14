@@ -5,12 +5,15 @@ export const ENDPOINT = {
   user: `${URLBASE}/usuario/profile`, //Conectado
   productos: `${URLBASE}/productos`, //Conectado
   //nuevo
-  productosCategoria: `${URLBASE}/productos/categoria`,
+  productosCategoria: `${URLBASE}/productos/categoria`, //Lunes 13
   producto: (id) => `${URLBASE}/productos/producto/${id}`, //Conectado
-  productosUsuario: `${URLBASE}/productos/usuario`,
+  productosUsuario: `${URLBASE}/productos/usuario`, //Conectado (Falta unir parámetros de paginación y limites en Datatable)
   productoRegistro: `${URLBASE}/producto`, //Conectado
   productoLike: `${URLBASE}/producto/like`, //Conectado
-  productoLikeDelete: `${URLBASE}/producto/like`,
+  productoLikeDelete: `${URLBASE}/producto/like`, //Lunes 13
   productoMensajes: (id) => `${URLBASE}/producto/mensajes/${id}`,
   productoMensaje: `${URLBASE}/producto/mensaje`,
 };
+
+// Put del usuario, editar datos de usuarios
+// Registro firebase y conexión con base de datos

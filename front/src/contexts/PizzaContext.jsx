@@ -30,6 +30,8 @@ const PizzaContextProvider = ({ children }) => {
     uid: "",
     token: "",
   });
+  //Productos de usuario
+  const [productUser, setProductUser] = useState([]);
   //Likes
   const [likesUser, setLikesUser] = useState([]);
 
@@ -78,6 +80,22 @@ const PizzaContextProvider = ({ children }) => {
     } catch (error) {
       console.error("Error fetching pizza details:", error);
       return null;
+    }
+  };
+
+  // Obtener productos de usuario
+  const getProductUser = async () => {
+    try {
+      console.log("Consolelog de getProductUser:" + userProfile.id_usuario);
+      const token = window.sessionStorage.getItem("token");
+      const response = await axios.get(ENDPOINT.productosUsuario, {
+        headers: { Authorization: `Bearer ${token}` },
+        params: { id_usuario: userProfile.id_usuario }, // Pasa el ID del usuario como parámetro de consulta
+      });
+      setProductUser(response.data.datos);
+      console.log(response.data.datos);
+    } catch (error) {
+      console.error("Error get like:", error);
     }
   };
 
@@ -176,10 +194,16 @@ const PizzaContextProvider = ({ children }) => {
         getProductDetails,
         registrarProducto,
         getUserData,
+        //Datos de usuario
         userData,
         setUserData,
         userProfile,
         setUserProfile,
+        //Productos de usuario
+        productUser,
+        setProductUser,
+        getProductUser,
+        //Likes
         getLike,
         setLikesUser,
         likesUser,

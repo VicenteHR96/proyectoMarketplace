@@ -141,7 +141,7 @@ const traeProductos = async ({
 };
 
 const traeProductosUsuario = async ({
-  limits = 1,
+  limits = 5,
   page = 1,
   order_by = "pr.nombre_ASC",
   id_usuario,

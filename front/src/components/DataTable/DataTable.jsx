@@ -175,20 +175,29 @@ EnhancedTableToolbar.propTypes = {
   numSelected: PropTypes.number.isRequired,
 };
 
-export default function DataTable({ options }) {
+export default function DataTable({ options, getData }) {
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("calories");
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
-  const { pizzas, likesUser, userProfile, getLike } =
-    React.useContext(PizzaContext);
+  const {
+    pizzas,
+    likesUser,
+    userProfile,
+    getLike,
+    productUser,
+    getProductUser,
+  } = React.useContext(PizzaContext);
   console.log("Data Table Id_usuario:" + userProfile.id_usuario);
 
   React.useEffect(() => {
-    getLike();
+    getData();
   }, []);
+
+  // Mapea los datos según la función que se esté utilizando
+  const dataToMap = getData === getLike ? likesUser : productUser;
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -198,8 +207,9 @@ export default function DataTable({ options }) {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelected = pizzas.map((n) => n.id);
+      const newSelected = dataToMap.map((n) => n.id);
       setSelected(newSelected);
+      console.log(newSelected);
       return;
     }
     setSelected([]);
@@ -236,11 +246,11 @@ export default function DataTable({ options }) {
   const isSelected = (id) => selected.indexOf(id) !== -1;
 
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - pizzas.length) : 0;
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - dataToMap.length) : 0;
 
   const visibleRows = React.useMemo(
     () =>
-      stableSort(pizzas, getComparator(order, orderBy)).slice(
+      stableSort(dataToMap, getComparator(order, orderBy)).slice(
         page * rowsPerPage,
         page * rowsPerPage + rowsPerPage
       ),
@@ -262,10 +272,10 @@ export default function DataTable({ options }) {
               orderBy={orderBy}
               onSelectAllClick={handleSelectAllClick}
               onRequestSort={handleRequestSort}
-              rowCount={pizzas.length}
+              rowCount={dataToMap.length}
             />
             <TableBody>
-              {likesUser.map((p, index) => {
+              {dataToMap.map((p, index) => {
                 const isItemSelected = isSelected(p.id);
                 const labelId = `enhanced-table-checkbox-${index}`;
 
@@ -326,7 +336,7 @@ export default function DataTable({ options }) {
           className="pagination"
           rowsPerPageOptions={[5, 10, 25]}
           component="div"
-          count={pizzas.length}
+          count={dataToMap.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}

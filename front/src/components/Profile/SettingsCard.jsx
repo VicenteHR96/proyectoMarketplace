@@ -1,14 +1,16 @@
 // IMPORTS
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Card from "@mui/material/Card";
 import Divider from "@mui/material/Divider";
 import CardContent from "@mui/material/CardContent";
 import { Tabs, Tab } from "@mui/material";
 import UserDatos from "./UserDatos";
 import DataTable from "../DataTable/DataTable";
+import { PizzaContext } from "../../contexts/PizzaContext";
 
 //APP
 const SettingsCard = (props) => {
+  const { getProductUser, getLike } = useContext(PizzaContext);
   //TAB STATES
   const [value, setValue] = React.useState(0);
 
@@ -56,17 +58,24 @@ const SettingsCard = (props) => {
             />
           </div>
         )}
+
         {value === 1 && (
           <form style={{ margin: 0 }}>
             {/* Componentes para la pestaña "Publicaciones" */}
-            <DataTable options={["Editar", "Borrar"]}></DataTable>{" "}
+            <DataTable
+              options={["Editar", "Borrar"]}
+              getData={getProductUser}
+            ></DataTable>{" "}
             {/*Conectar a Publicaciones de usuario*/}
           </form>
         )}
         {value === 2 && (
           <form style={{ margin: 0 }}>
             {/* Componentes para la pestaña "Favoritos" */}
-            <DataTable options={["Quitar de Favoritos"]}></DataTable>{" "}
+            <DataTable
+              options={["Quitar de Favoritos"]}
+              getData={getLike}
+            ></DataTable>{" "}
             {/*Conectar a Favoritos de usuario*/}
           </form>
         )}

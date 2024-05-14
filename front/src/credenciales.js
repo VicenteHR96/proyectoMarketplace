@@ -81,6 +81,7 @@ export const loginUsuario = (formData, setFormData, setUserData) => {
     })
     .catch((err) => {
       setFormData({ ...formData, error: handleError(err.code, err.message) });
+      window.alert(`Los datos son incorrectos.`);
     });
 };
 

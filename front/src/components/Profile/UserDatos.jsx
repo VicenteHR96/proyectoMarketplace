@@ -18,12 +18,12 @@ const UserDatos = (props) => {
   // GENDER SELECT STATES
   const genderSelect = [
     {
-      value: "male",
-      label: "Male",
+      value: "Masculino",
+      label: "Masculino",
     },
     {
-      value: "female",
-      label: "Female",
+      value: "Femenino",
+      label: "Femenino",
     },
   ];
 

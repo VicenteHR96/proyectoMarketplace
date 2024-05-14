@@ -13,15 +13,31 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import { NavLink, useNavigate } from "react-router-dom";
-import { Badge, ThemeProvider, createTheme } from "@mui/material";
-import ShoppingCart from "@mui/icons-material/ShoppingCart";
+import { Badge, ListItemIcon, ThemeProvider, createTheme } from "@mui/material";
+import ShoppingCartRoundedIcon from "@mui/icons-material/ShoppingCartRounded.js";
 import Context from "../../contexts/Context";
 import useUsuairo from "../../hooks/useUsuario";
 import { onSignOut } from "../../credenciales";
 import { PizzaContext } from "../../contexts/PizzaContext.jsx";
+import Logout from "@mui/icons-material/Logout";
+import FavoriteBorderRoundedIcon from "@mui/icons-material/FavoriteBorderRounded.js";
+import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined.js";
+import StorefrontOutlinedIcon from "@mui/icons-material/StorefrontOutlined";
+import HomeRoundedIcon from "@mui/icons-material/HomeRounded.js";
 
-const pages = ["INICIO", "PRODUCTOS"];
-const settings = ["Perfil", "Publicaciones", "Favoritos", "Salir"];
+const pages = [
+  { nombre: "INICIO", icon: <HomeRoundedIcon fontSize="small" /> },
+  { nombre: "PRODUCTOS", icon: <StorefrontOutlinedIcon fontSize="small" /> },
+];
+const settings = [
+  { nombre: "Perfil", icon: <AccountCircleOutlinedIcon fontSize="small" /> },
+  {
+    nombre: "Publicaciones",
+    icon: <StorefrontOutlinedIcon fontSize="small" />,
+  },
+  { nombre: "Favoritos", icon: <FavoriteBorderRoundedIcon fontSize="small" /> },
+  { nombre: "Salir", icon: <Logout fontSize="small" /> },
+];
 
 const MyNav = () => {
   const usuario = useUsuairo();
@@ -89,11 +105,6 @@ const MyNav = () => {
 
     // Prueba
 
-    // Obtener la inicial del email del usuario
-    const emailInitial = userData?.email
-      ? userData.email.charAt(0).toUpperCase()
-      : "";
-
     return (
       <>
         <Box sx={{ flexGrow: 0 }}>
@@ -123,12 +134,24 @@ const MyNav = () => {
           >
             {settings.map((setting) => (
               <MenuItem
-                key={setting}
-                onClick={setting === "Salir" ? onSignOut : handleCloseUserMenu}
+                key={setting.nombre}
+                onClick={
+                  setting.nombre === "Salir"
+                    ? () => {
+                        onSignOut();
+                        handleCloseUserMenu();
+                      }
+                    : handleCloseUserMenu
+                }
                 component={NavLink}
-                to={setting === "Salir" ? "/" : `/${setting.toLowerCase()}`}
+                to={
+                  setting.nombre === "Salir"
+                    ? "/"
+                    : `/${setting.nombre.toLowerCase()}`
+                }
               >
-                <Typography textAlign="center">{setting}</Typography>
+                <ListItemIcon>{setting.icon}</ListItemIcon>
+                <Typography textAlign="center">{setting.nombre}</Typography>
               </MenuItem>
             ))}
           </Menu>
@@ -192,13 +215,14 @@ const MyNav = () => {
                   }}
                 >
                   {pages.map((page) => (
-                    <MenuItem key={page} onClick={handleCloseNavMenu}>
+                    <MenuItem key={page.nombre} onClick={handleCloseNavMenu}>
+                      <ListItemIcon>{page.icon}</ListItemIcon>
                       <Typography
                         textAlign="center"
                         component={NavLink}
-                        to={`/${page.toLowerCase()}`}
+                        to={`/${page.nombre.toLowerCase()}`}
                       >
-                        {page}
+                        {page.nombre}
                       </Typography>
                     </MenuItem>
                   ))}
@@ -229,11 +253,11 @@ const MyNav = () => {
                     key={page}
                     onClick={handleCloseNavMenu}
                     sx={{ my: 2, display: "block" }}
-                    to={`/${page.toLowerCase()}`}
+                    to={`/${page.nombre.toLowerCase()}`}
                     className={`pe-3 ${setActiveClass}`}
                     component={NavLink}
                   >
-                    {page}
+                    {page.nombre}
                   </NavLink>
                 ))}
               </Box>
@@ -247,7 +271,7 @@ const MyNav = () => {
                 className="me-3"
               >
                 <Badge badgeContent={17} color="error">
-                  <ShoppingCart />
+                  <ShoppingCartRoundedIcon />
                 </Badge>
               </IconButton>
               {isLogin()}

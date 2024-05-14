@@ -110,6 +110,7 @@ const PizzaContextProvider = ({ children }) => {
       getData();
     } catch (error) {
       console.error("Error Post Producto:", error);
+      window.alert(`${error.response.data.message} 🙁.`);
     }
   };
 

@@ -214,13 +214,19 @@ const traeProducto = async ({ id }) => {
   return rows[0];
 };
 
-const traeLike = async ({ id_producto, id_usuario }) => {
+const traeLike = async (id_usuario) => {
+  console.log("Resultado de id usuario:" + id_usuario);
   const formattedQuery = format(
-    `SELECT * FROM likes WHERE fk_id_producto=%L AND fk_id_usuario=%L`,
-    id_producto,
+    `select id_producto, nombre nombre_producto, descripcion_corta, descripcion_completa, foto, precio, stock, categoria
+    from likes lk
+  INNER JOIN productos ON id_producto=fk_id_producto
+    inner join categorias on id_categoria = fk_id_categoria
+    where lk.fk_id_usuario=%s
+  order by 2`,
+
     id_usuario
   );
-
+  console.log(formattedQuery);
   const { rows } = await pool.query(formattedQuery);
 
   return rows;

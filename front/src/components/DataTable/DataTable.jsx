@@ -182,7 +182,13 @@ export default function DataTable({ options }) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
-  const { pizzas } = React.useContext(PizzaContext);
+  const { pizzas, likesUser, userProfile, getLike } =
+    React.useContext(PizzaContext);
+  console.log("Data Table Id_usuario:" + userProfile.id_usuario);
+
+  React.useEffect(() => {
+    getLike();
+  }, []);
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -259,7 +265,7 @@ export default function DataTable({ options }) {
               rowCount={pizzas.length}
             />
             <TableBody>
-              {pizzas.map((p, index) => {
+              {likesUser.map((p, index) => {
                 const isItemSelected = isSelected(p.id);
                 const labelId = `enhanced-table-checkbox-${index}`;
 

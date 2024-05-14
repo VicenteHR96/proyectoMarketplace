@@ -30,6 +30,8 @@ const PizzaContextProvider = ({ children }) => {
     uid: "",
     token: "",
   });
+  //Likes
+  const [likesUser, setLikesUser] = useState([]);
 
   const url = "/pizzas.json";
 
@@ -115,15 +117,16 @@ const PizzaContextProvider = ({ children }) => {
   };
 
   //Get Like
-
-  const getLike = async (id_producto, id_usuario) => {
+  const getLike = async () => {
     try {
+      console.log("Consolelog de getLike:" + userProfile.id_usuario);
+      const token = window.sessionStorage.getItem("token");
       const response = await axios.get(ENDPOINT.productoLike, {
-        id_usuario,
-        id_producto,
+        headers: { Authorization: `Bearer ${token}` },
+        params: { id_usuario: userProfile.id_usuario }, // Pasa el ID del usuario como parámetro de consulta
       });
+      setLikesUser(response.data);
       console.log(response.data);
-      return response.data;
     } catch (error) {
       console.error("Error get like:", error);
     }
@@ -178,6 +181,8 @@ const PizzaContextProvider = ({ children }) => {
         userProfile,
         setUserProfile,
         getLike,
+        setLikesUser,
+        likesUser,
         postLike,
         deleteLike,
         //producto crear

@@ -60,26 +60,14 @@ export default function ProductCard({ pizza }) {
       await getUserData();
     }
     await getProductDetails(pizza.id);
-    const likeData = await getLike(pizza.id, userProfile.id_usuario);
-    if (!likeData.id_like) {
-      await postLike(pizza.id, userProfile.id_usuario);
-      console.log(
-        "id producto like:" +
-          pizza.id +
-          "id usuario like:" +
-          userProfile.id_usuario
-      );
-    } else {
-      await deleteLike(pizza.id, userProfile.id_usuario);
-      console.log(
-        "id producto like delete:" +
-          pizza.id +
-          "id usuario like delete:" +
-          userProfile.id_usuario
-      );
-    }
 
-    console.log(userProfile);
+    await postLike(pizza.id, userProfile.id_usuario);
+    console.log(
+      "id producto like:" +
+        pizza.id +
+        "id usuario like:" +
+        userProfile.id_usuario
+    );
   };
 
   const handleClick = (event) => {

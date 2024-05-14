@@ -24,10 +24,11 @@ import FavoriteBorderRoundedIcon from "@mui/icons-material/FavoriteBorderRounded
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined.js";
 import StorefrontOutlinedIcon from "@mui/icons-material/StorefrontOutlined";
 import HomeRoundedIcon from "@mui/icons-material/HomeRounded.js";
+import LocalMallOutlinedIcon from "@mui/icons-material/LocalMallOutlined";
 
 const pages = [
   { nombre: "INICIO", icon: <HomeRoundedIcon fontSize="small" /> },
-  { nombre: "PRODUCTOS", icon: <StorefrontOutlinedIcon fontSize="small" /> },
+  { nombre: "PRODUCTOS", icon: <LocalMallOutlinedIcon fontSize="small" /> },
 ];
 const settings = [
   { nombre: "Perfil", icon: <AccountCircleOutlinedIcon fontSize="small" /> },
@@ -250,7 +251,7 @@ const MyNav = () => {
               <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
                 {pages.map((page) => (
                   <NavLink
-                    key={page}
+                    key={page.nombre}
                     onClick={handleCloseNavMenu}
                     sx={{ my: 2, display: "block" }}
                     to={`/${page.nombre.toLowerCase()}`}

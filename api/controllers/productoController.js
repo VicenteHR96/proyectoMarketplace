@@ -77,8 +77,8 @@ class productoController {
   }
   async traeLike(req, res) {
     try {
-      const { id_producto, id_usuario } = req.body;
-      const like = await traeLike({ id_producto, id_usuario });
+      const { id_usuario } = req.query;
+      const like = await traeLike(id_usuario);
       res.status(200).json(like);
     } catch ({ code, message }) {
       console.log(message);

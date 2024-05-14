@@ -121,7 +121,6 @@ const CrearProducto = () => {
           <label htmlFor="description">Descripción del producto</label>
 
           <TextField
-            id="outlined-textarea"
             placeholder="Descripción breve..."
             multiline
             fullWidth
@@ -133,7 +132,6 @@ const CrearProducto = () => {
           <label htmlFor="description">Detalles del producto</label>
 
           <TextField
-            id="outlined-textarea"
             placeholder="Descripción completa..."
             multiline
             fullWidth
@@ -170,7 +168,6 @@ const CrearProducto = () => {
             <label htmlFor="stock">Stock</label>
 
             <TextField
-              id="outlined-number"
               type="number"
               placeholder="Cantidad..."
               value={stock}
@@ -191,12 +188,7 @@ const CrearProducto = () => {
               <option value="3">Ropa</option>
             </select> */}
             <FormControl fullWidth>
-              <Select
-                id="demo-simple-select"
-                displayEmpty
-                value={id_categoria}
-                onChange={handleChange}
-              >
+              <Select displayEmpty value={id_categoria} onChange={handleChange}>
                 <MenuItem disabled value="0">
                   Seleccionar...
                 </MenuItem>

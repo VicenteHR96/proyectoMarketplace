@@ -276,7 +276,7 @@ export default function DataTable({ options }) {
                     role="checkbox"
                     aria-checked={isItemSelected}
                     tabIndex={-1}
-                    key={p.id}
+                    key={p.id_producto}
                     selected={isItemSelected}
                     sx={{ cursor: "pointer" }}
                   >

@@ -217,7 +217,7 @@ const traeProducto = async ({ id }) => {
 const traeLike = async (id_usuario) => {
   console.log("Resultado de id usuario:" + id_usuario);
   const formattedQuery = format(
-    `select id_producto, nombre nombre_producto, descripcion_corta, descripcion_completa, foto, precio, stock, categoria
+    `select id_producto, nombre nombre_producto, descripcion_corta, descripcion_completa, foto, precio, stock, categoria, id_like
     from likes lk
   INNER JOIN productos ON id_producto=fk_id_producto
     inner join categorias on id_categoria = fk_id_categoria

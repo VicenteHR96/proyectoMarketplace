@@ -207,7 +207,9 @@ export default function DataTable({ options, getData }) {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelected = dataToMap.map((n) => n.id);
+      const newSelected = dataToMap.map((n) =>
+        dataToMap === likesUser ? n.id_like : n.id
+      );
       setSelected(newSelected);
       console.log(newSelected);
       return;
@@ -276,22 +278,29 @@ export default function DataTable({ options, getData }) {
             />
             <TableBody>
               {dataToMap.map((p, index) => {
-                const isItemSelected = isSelected(p.id);
+                const isItemSelected = isSelected(
+                  dataToMap === likesUser ? p.id_like : p.id
+                );
                 const labelId = `enhanced-table-checkbox-${index}`;
 
                 return (
                   <TableRow
                     hover
-                    onClick={(event) => handleClick(event, p.id)}
                     role="checkbox"
                     aria-checked={isItemSelected}
                     tabIndex={-1}
-                    key={p.id_producto}
+                    key={dataToMap === likesUser ? p.id_like : p.id}
                     selected={isItemSelected}
                     sx={{ cursor: "pointer" }}
                   >
                     <TableCell padding="checkbox">
                       <Checkbox
+                        onClick={(event) =>
+                          handleClick(
+                            event,
+                            dataToMap === likesUser ? p.id_like : p.id
+                          )
+                        }
                         color="primary"
                         checked={isItemSelected}
                         inputProps={{

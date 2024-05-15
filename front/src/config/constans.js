@@ -10,7 +10,7 @@ export const ENDPOINT = {
   productosUsuario: `${URLBASE}/productos/usuario`, //Conectado (Falta unir parámetros de paginación y limites en Datatable)
   productoRegistro: `${URLBASE}/producto`, //Conectado
   productoLike: `${URLBASE}/producto/like`, //Conectado
-  productoLikeDelete: `${URLBASE}/producto/like`, //Lunes 13
+  productoLikeDelete: `${URLBASE}/producto/like`, //Conectado
   productoMensajes: (id) => `${URLBASE}/producto/mensajes/${id}`,
   productoMensaje: `${URLBASE}/producto/mensaje`,
 };

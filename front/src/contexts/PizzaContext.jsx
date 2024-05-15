@@ -30,6 +30,8 @@ const PizzaContextProvider = ({ children }) => {
     uid: "",
     token: "",
   });
+  //Categoria de productos
+  const [selectedCategory, setSelectedCategory] = useState(0);
   //Productos de usuario
   const [productUser, setProductUser] = useState([]);
   //Likes
@@ -58,6 +60,12 @@ const PizzaContextProvider = ({ children }) => {
     }
   }, []);
 
+  React.useEffect(() => {
+    if (userProfile.id_usuario) {
+      getLike();
+    }
+  }, [userProfile]);
+
   // Modificar User Profile
 
   //Obtener productos
@@ -80,6 +88,18 @@ const PizzaContextProvider = ({ children }) => {
     } catch (error) {
       console.error("Error fetching pizza details:", error);
       return null;
+    }
+  };
+
+  // Obtener categoría de productos
+  const getCategoryProduct = async () => {
+    try {
+      const response = await axios.get(ENDPOINT.productosCategoria, {
+        params: { id_categoria: userProfile.id_usuario }, // Pasa el ID del usuario como parámetro de consulta
+      });
+      setSelectedCategory(response);
+    } catch (error) {
+      console.error("Error get categoryProduct:", error);
     }
   };
 
@@ -174,8 +194,9 @@ const PizzaContextProvider = ({ children }) => {
       const token = window.sessionStorage.getItem("token");
       await axios.delete(
         ENDPOINT.productoLikeDelete,
-        { id_usuario, id_producto },
+
         {
+          data: { id_usuario, id_producto },
           headers: { Authorization: `Bearer ${token}` },
         }
       );

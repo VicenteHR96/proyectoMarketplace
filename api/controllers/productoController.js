@@ -103,6 +103,7 @@ class productoController {
   }
   async eliminarLike(req, res) {
     try {
+      const { id_usuario, id_producto } = req.body;
       if (!req.body.id_usuario || !req.body.id_producto) {
         return res.status(500).json({
           message: "Verifique que los ID esten incorporados en el body",

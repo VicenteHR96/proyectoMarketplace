@@ -1,14 +1,16 @@
-import { IconButton } from "@mui/material";
+import { Checkbox } from "@mui/material";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import React from "react";
 
-const Fav = ({ onClick }) => {
+const Fav = ({ checked, onClick }) => {
   return (
-    <>
-      <IconButton aria-label="add to favorites" onClick={onClick}>
-        <FavoriteIcon />
-      </IconButton>
-    </>
+    <Checkbox
+      icon={<FavoriteBorderIcon />}
+      checkedIcon={<FavoriteIcon color="error" />}
+      checked={checked}
+      onClick={onClick}
+    />
   );
 };
 

@@ -94,12 +94,13 @@ const Filtros = ({ onCategorySelect, initialCategory }) => {
       {/* Checkboxes de categorías */}
       <FormGroup className="categoryCheck mt-4">
         <FormLabel>Categorías</FormLabel>
+
         <FormControlLabel
           control={
             <Checkbox
-              checked={selectedCategories.includes("Deportes")}
+              checked={selectedCategories.includes("1")}
               onChange={handleCategoryChange}
-              value="Deportes"
+              value="1"
             />
           }
           label="Deportes"
@@ -107,9 +108,9 @@ const Filtros = ({ onCategorySelect, initialCategory }) => {
         <FormControlLabel
           control={
             <Checkbox
-              checked={selectedCategories.includes("Mascotas")}
+              checked={selectedCategories.includes("2")}
               onChange={handleCategoryChange}
-              value="Mascotas"
+              value="2"
             />
           }
           label="Mascotas"
@@ -117,9 +118,9 @@ const Filtros = ({ onCategorySelect, initialCategory }) => {
         <FormControlLabel
           control={
             <Checkbox
-              checked={selectedCategories.includes("Ropa")}
+              checked={selectedCategories.includes("3")}
               onChange={handleCategoryChange}
-              value="Ropa"
+              value="3"
             />
           }
           label="Vestuario"

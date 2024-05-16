@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import MenuItem from "@mui/material/MenuItem";
 import IconButton from "@mui/material/IconButton";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
@@ -6,8 +6,10 @@ import Visibility from "@mui/icons-material/Visibility";
 import { Grid, InputAdornment } from "@mui/material";
 import Button from "@mui/material/Button";
 import CustomInput from "./CustomInput";
+import { PizzaContext } from "../../contexts/PizzaContext";
 
 const UserDatos = (props) => {
+  const { updateUserData, userProfile } = useContext(PizzaContext);
   //TAB STATES
   const [value, setValue] = React.useState("one");
 
@@ -18,11 +20,11 @@ const UserDatos = (props) => {
   // GENDER SELECT STATES
   const genderSelect = [
     {
-      value: "Masculino",
+      value: 2,
       label: "Masculino",
     },
     {
-      value: "Femenino",
+      value: 1,
       label: "Femenino",
     },
   ];
@@ -40,7 +42,7 @@ const UserDatos = (props) => {
     showPassword: false,
   });
 
-  const changeField = (event) => {
+  const changeField = async (event) => {
     setUser({ ...user, [event.target.name]: event.target.value });
   };
 
@@ -52,13 +54,31 @@ const UserDatos = (props) => {
   });
 
   // EDIT -> UPDATE
-  const changeButton = (event) => {
+  const changeButton = async (event) => {
     event.preventDefault();
     user.showPassword = false;
     edit.disabled = !edit.disabled;
     edit.isEdit = !edit.isEdit;
+
+    // Actualiza el estado del botón
+
+    // Llama a la función para actualizar los datos del usuario
+    if (edit.disabled) {
+      try {
+        await updateUserData({
+          id_usuario: userProfile.id_usuario,
+          email: user.email,
+          nombre: user.firstName,
+          telefono: user.phone,
+          id_sexo: user.gender,
+          pass: user.pass,
+        });
+        console.log("user: ", user);
+      } catch (error) {
+        console.error("Error updating user data:", error);
+      }
+    }
     update({ ...edit });
-    console.log("user: ", user);
   };
 
   // TOGGLE PASSWORD VISIBILITY
@@ -148,7 +168,7 @@ const UserDatos = (props) => {
             value={user.email}
             onChange={changeField}
             title="Email"
-            dis={edit.disabled}
+            dis={true} // Email field is always disabled
             req={edit.required}
           ></CustomInput>
         </Grid>

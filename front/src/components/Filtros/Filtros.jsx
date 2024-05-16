@@ -98,9 +98,9 @@ const Filtros = ({ onCategorySelect, initialCategory }) => {
         <FormControlLabel
           control={
             <Checkbox
-              checked={selectedCategories.includes("1")}
+              checked={selectedCategories.includes("Deportes")}
               onChange={handleCategoryChange}
-              value="1"
+              value="Deportes"
             />
           }
           label="Deportes"
@@ -108,9 +108,9 @@ const Filtros = ({ onCategorySelect, initialCategory }) => {
         <FormControlLabel
           control={
             <Checkbox
-              checked={selectedCategories.includes("2")}
+              checked={selectedCategories.includes("Mascotas")}
               onChange={handleCategoryChange}
-              value="2"
+              value="Mascotas"
             />
           }
           label="Mascotas"
@@ -118,9 +118,9 @@ const Filtros = ({ onCategorySelect, initialCategory }) => {
         <FormControlLabel
           control={
             <Checkbox
-              checked={selectedCategories.includes("3")}
+              checked={selectedCategories.includes("Ropa")}
               onChange={handleCategoryChange}
-              value="3"
+              value="Ropa"
             />
           }
           label="Vestuario"

@@ -63,7 +63,7 @@ export default function ProfileBase() {
               phone={userProfile.telefono}
               email={userProfile.email}
               pass=""
-              gender={userProfile.sexo}
+              gender={userProfile.id_sexo}
               setText={setText}
             />
           </Grid>

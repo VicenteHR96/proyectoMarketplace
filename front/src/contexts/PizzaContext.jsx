@@ -23,6 +23,7 @@ const PizzaContextProvider = ({ children }) => {
     nombre: "",
     telefono: "",
     sexo: "",
+    id_sexo: 4,
   });
 
   const [userData, setUserData] = useState({
@@ -68,6 +69,18 @@ const PizzaContextProvider = ({ children }) => {
 
   // Modificar User Profile
 
+  const updateUserData = async (userProfile) => {
+    try {
+      const token = window.sessionStorage.getItem("token");
+      const response = await axios.put(ENDPOINT.user, userProfile, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setUserProfile(response.data);
+    } catch (error) {
+      console.error("Error updating user data:", error);
+    }
+  };
+
   //Obtener productos
 
   const getData = async () => {
@@ -84,7 +97,7 @@ const PizzaContextProvider = ({ children }) => {
   const getProductDetails = async (id) => {
     try {
       const response = await axios.get(ENDPOINT.producto(id));
-      return response.data; // Aquí asumo que tu backend devuelve los detalles del producto en el objeto de respuesta
+      return response.data;
     } catch (error) {
       console.error("Error fetching pizza details:", error);
       return null;
@@ -220,6 +233,7 @@ const PizzaContextProvider = ({ children }) => {
         setUserData,
         userProfile,
         setUserProfile,
+        updateUserData,
         //Productos de usuario
         productUser,
         setProductUser,

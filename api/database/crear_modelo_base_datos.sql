@@ -36,6 +36,7 @@ CREATE TABLE usuarios
     email character varying(100),
     nombre character varying(50),
 	telefono character varying(10),
+	avatar character varying(100),
 	uid character varying(30),
 	fk_id_sexo INT, 
     PRIMARY KEY("id_usuario"),

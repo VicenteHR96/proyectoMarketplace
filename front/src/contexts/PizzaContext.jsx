@@ -24,6 +24,7 @@ const PizzaContextProvider = ({ children }) => {
     telefono: "",
     sexo: "",
     id_sexo: 4,
+    avatar: "",
   });
 
   const [userData, setUserData] = useState({

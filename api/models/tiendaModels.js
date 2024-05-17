@@ -17,7 +17,7 @@ const retornarUsuario = async (email, id_usuario) => {
   // console.log(email)
 
   const usuario = {
-    text: `SELECT id_usuario, email, nombre, telefono, sexo, id_sexo
+    text: `SELECT id_usuario, email, nombre, telefono, sexo, id_sexo, avatar
     FROM usuarios 
     INNER JOIN sexos ON id_sexo=fk_id_sexo
     WHERE email=$1

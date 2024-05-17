@@ -15,5 +15,5 @@ export const ENDPOINT = {
   productoMensaje: `${URLBASE}/producto/mensaje`,
 };
 
-// Put del usuario, editar datos de usuarios
+// Put del usuario, editar datos de usuarios //Conectado
 // Registro firebase y conexión con base de datos

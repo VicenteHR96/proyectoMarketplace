@@ -28,18 +28,32 @@ export default function ProductCard({ pizza }) {
   const usuario = useUsuairo();
   const { pizzas, setPizzas, setTotal, userProfile, getUserData } =
     React.useContext(PizzaContext);
-  const { getProductDetails, getLike, postLike, deleteLike } =
+  const { getProductDetails, getLike, postLike, deleteLike, likesUser } =
     React.useContext(PizzaContext);
   const navigate = useNavigate();
+  const [liked, setLiked] = React.useState(false);
 
-  const setActiveClass = ({ isActive }) =>
-    isActive ? "activeLink" : "inactiveLink";
-
+  React.useEffect(() => {
+    if (likesUser.length > 0) {
+      const checkLikeStatus = async () => {
+        try {
+          const isLiked = likesUser.some(
+            (like) => like.id_producto === pizza.id
+          );
+          setLiked(isLiked);
+        } catch (error) {
+          console.error("Error al verificar el estado del like:", error);
+        }
+      };
+      checkLikeStatus();
+    }
+  }, [likesUser, pizza.id]); // El segundo argumento del useEffect es un array vacío para asegurarse de que este efecto solo se ejecute una vez al montar el componente
+  // likesUser.map((item) => console.log("id_producto:", item.id_producto));
   const isLogin = () => {
     if (usuario) {
       return (
         <>
-          <Fav onClick={handleLike}></Fav>
+          <Fav onClick={handleLike} checked={liked}></Fav>
         </>
       );
     }
@@ -61,13 +75,34 @@ export default function ProductCard({ pizza }) {
     }
     await getProductDetails(pizza.id);
 
-    await postLike(pizza.id, userProfile.id_usuario);
-    console.log(
-      "id producto like:" +
-        pizza.id +
-        "id usuario like:" +
-        userProfile.id_usuario
-    );
+    if (liked) {
+      await deleteLike(pizza.id, userProfile.id_usuario);
+      console.log(
+        "id producto eliminar like:" +
+          pizza.id +
+          "id usuario eliminar like:" +
+          userProfile.id_usuario
+      );
+    } else {
+      await postLike(pizza.id, userProfile.id_usuario);
+      console.log(
+        "id producto like:" +
+          pizza.id +
+          "id usuario like:" +
+          userProfile.id_usuario
+      );
+    }
+
+    // Alternar el estado de liked
+    setLiked(!liked);
+    //Antiguo código
+    // await postLike(pizza.id, userProfile.id_usuario);
+    // console.log(
+    //   "id producto like:" +
+    //     pizza.id +
+    //     "id usuario like:" +
+    //     userProfile.id_usuario
+    // );
   };
 
   const handleClick = (event) => {

@@ -12,6 +12,7 @@ import Context from "./contexts/Context.js";
 import CrearProducto from "./views/CrearProducto/CrearProducto.jsx";
 import "react-image-crop/dist/ReactCrop.css";
 import Perfil from "./views/Perfil/Perfil.jsx";
+import CarritoII from "./views/Carrito/CarritoII.jsx";
 import FAQ from './views/FAQ/FAQ.jsx';
 
 
@@ -30,7 +31,7 @@ function App() {
         <Route path="/faq" element={<FAQ />} />
 
         {/* Privado */}
-        <Route path="/carrito" element={<Carrito />} />
+        <Route path="/carrito" element={<CarritoII />} />
         <Route path="/perfil" element={<Perfil />} />
         <Route path="/crear-producto" element={<CrearProducto />} />
         <Route path="*" element={<Home />} />

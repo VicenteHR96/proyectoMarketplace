@@ -94,6 +94,7 @@ const Filtros = ({ onCategorySelect, initialCategory }) => {
       {/* Checkboxes de categorías */}
       <FormGroup className="categoryCheck mt-4">
         <FormLabel>Categorías</FormLabel>
+
         <FormControlLabel
           control={
             <Checkbox

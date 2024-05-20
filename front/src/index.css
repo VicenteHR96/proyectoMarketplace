@@ -280,6 +280,19 @@ button:focus-visible {
   text-align: center;
 }
 
+button.svelte-1ruergu.svelte-1ruergu {
+  min-width: 231px !important;
+}
+
+.cartItem {
+  transition: all 400ms ease !important;
+  cursor: pointer;
+}
+
+.cartItem:hover {
+  box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.4);
+}
+
 /* LogSign */
 
 .cont-gen-logsign {

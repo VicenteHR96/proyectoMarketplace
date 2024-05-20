@@ -23,13 +23,19 @@ const PizzaContextProvider = ({ children }) => {
     nombre: "",
     telefono: "",
     sexo: "",
+    id_sexo: 4,
   });
 
   const [userData, setUserData] = useState({
     email: "",
     uid: "",
     token: "",
+    tipoAcceso:"",
   });
+  //Categoria de productos
+  const [selectedCategory, setSelectedCategory] = useState(0);
+  //Productos de usuario
+  const [productUser, setProductUser] = useState([]);
   //Likes
   const [likesUser, setLikesUser] = useState([]);
 
@@ -40,6 +46,7 @@ const PizzaContextProvider = ({ children }) => {
   const getUserData = async () => {
     try {
       const token = window.sessionStorage.getItem("token");
+      console.log(`Token getUserData: ${token}`)
       const response = await axios.get(ENDPOINT.user, {
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -56,7 +63,25 @@ const PizzaContextProvider = ({ children }) => {
     }
   }, []);
 
+  React.useEffect(() => {
+    if (userProfile.id_usuario) {
+      getLike();
+    }
+  }, [userProfile]);
+
   // Modificar User Profile
+
+  const updateUserData = async (userProfile) => {
+    try {
+      const token = window.sessionStorage.getItem("token");
+      const response = await axios.put(ENDPOINT.user, userProfile, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setUserProfile(response.data);
+    } catch (error) {
+      console.error("Error updating user data:", error);
+    }
+  };
 
   //Obtener productos
 
@@ -74,10 +99,38 @@ const PizzaContextProvider = ({ children }) => {
   const getProductDetails = async (id) => {
     try {
       const response = await axios.get(ENDPOINT.producto(id));
-      return response.data; // Aquí asumo que tu backend devuelve los detalles del producto en el objeto de respuesta
+      return response.data;
     } catch (error) {
       console.error("Error fetching pizza details:", error);
       return null;
+    }
+  };
+
+  // Obtener categoría de productos
+  const getCategoryProduct = async () => {
+    try {
+      const response = await axios.get(ENDPOINT.productosCategoria, {
+        params: { id_categoria: userProfile.id_usuario }, // Pasa el ID del usuario como parámetro de consulta
+      });
+      setSelectedCategory(response);
+    } catch (error) {
+      console.error("Error get categoryProduct:", error);
+    }
+  };
+
+  // Obtener productos de usuario
+  const getProductUser = async () => {
+    try {
+      console.log("Consolelog de getProductUser:" + userProfile.id_usuario);
+      const token = window.sessionStorage.getItem("token");
+      const response = await axios.get(ENDPOINT.productosUsuario, {
+        headers: { Authorization: `Bearer ${token}` },
+        params: { id_usuario: userProfile.id_usuario }, // Pasa el ID del usuario como parámetro de consulta
+      });
+      setProductUser(response.data.datos);
+      console.log(response.data.datos);
+    } catch (error) {
+      console.error("Error get like:", error);
     }
   };
 
@@ -156,8 +209,9 @@ const PizzaContextProvider = ({ children }) => {
       const token = window.sessionStorage.getItem("token");
       await axios.delete(
         ENDPOINT.productoLikeDelete,
-        { id_usuario, id_producto },
+
         {
+          data: { id_usuario, id_producto },
           headers: { Authorization: `Bearer ${token}` },
         }
       );
@@ -176,10 +230,17 @@ const PizzaContextProvider = ({ children }) => {
         getProductDetails,
         registrarProducto,
         getUserData,
+        //Datos de usuario
         userData,
         setUserData,
         userProfile,
         setUserProfile,
+        updateUserData,
+        //Productos de usuario
+        productUser,
+        setProductUser,
+        getProductUser,
+        //Likes
         getLike,
         setLikesUser,
         likesUser,

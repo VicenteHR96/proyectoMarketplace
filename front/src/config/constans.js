@@ -2,6 +2,7 @@ export const URLBASE = "http://localhost:3000";
 
 export const ENDPOINT = {
   login: `${URLBASE}/login`, //Conectado
+  registro: `${URLBASE}/usuario/registro`, //Conectado
   user: `${URLBASE}/usuario/profile`, //Conectado
   productos: `${URLBASE}/productos`, //Conectado
   //nuevo

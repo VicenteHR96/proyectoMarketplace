@@ -40,13 +40,16 @@ const SignIn = () => {
 
   useEffect(() => {
     // console.log('userData actualizado:', userData);
-    if (userData.email != "") {
+    if (userData.email != "" && userData.tipoAcceso=="") {
       axios
         .post(ENDPOINT.login, userData)
         .then(({ data }) => {
           console.log("Token:" + data.token);
           window.sessionStorage.setItem("token", data.token);
           setDeveloper({});
+          const {email, uid} = userData
+          setUserData({email, uid, tipoAcceso:"R"})
+            console.log('userData actualizado:', userData);
         })
         .catch(({ response: { data } }) => {
           console.error(data);

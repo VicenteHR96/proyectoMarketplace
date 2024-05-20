@@ -41,35 +41,39 @@ const ItemTotal = styled(Paper)(({ theme }) => ({
 const CarritoII = () => {
   const { pizzas, setPizzas, total, setTotal } = React.useContext(PizzaContext);
 
-  const handleSuma = (event) => {
-    const index = pizzas.findIndex((p) => p.id_producto === pizzas.id);
-    console.log(index);
+  const handleSuma = (id) => {
+    const index = pizzas.findIndex((p) => p.id_producto === id);
     if (index !== -1) {
       const pizzasCarrito = [...pizzas];
-
       if (typeof pizzasCarrito[index].cantidad !== "undefined") {
-        // Si la cantidad está definida, la incrementamos
         pizzasCarrito[index].cantidad++;
       } else {
-        // Si la cantidad no está definida, la establecemos en 1
         pizzasCarrito[index].cantidad = 1;
       }
+
       setPizzas(pizzasCarrito);
-      console.log("pizzasCarrito:" + pizzasCarrito);
-      console.dir(pizzasCarrito);
       setTotal((prev) => prev + pizzasCarrito[index].precio);
+    } else {
+      console.error(`Producto con id ${id} no encontrado`);
     }
   };
 
-  const handleResta = (id_producto) => {
-    const index = pizzas.findIndex((p) => p.id_producto === id_producto);
+  const handleResta = (id) => {
+    const index = pizzas.findIndex((p) => p.id_producto === id);
     if (index !== -1) {
       const pizzasCarrito = [...pizzas];
-      if (pizzasCarrito[index].cantidad > 0) {
+      if (
+        typeof pizzasCarrito[index].cantidad !== "undefined" &&
+        pizzasCarrito[index].cantidad > 0
+      ) {
         pizzasCarrito[index].cantidad--;
         setPizzas(pizzasCarrito);
         setTotal((prev) => prev - pizzasCarrito[index].precio);
+      } else {
+        console.error(`Cantidad del producto con id ${id} es inválida`);
       }
+    } else {
+      console.error(`Producto con id ${id} no encontrado`);
     }
   };
 

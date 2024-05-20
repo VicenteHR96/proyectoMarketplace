@@ -1,25 +1,24 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import Banner from '../../components/Banner/Banner';
-import Gallery from '../../components/Gallery/Gallery';
-import CategoriesCard from '../../components/CategoriesCards/CategoriesCards.jsx';
+import React, { useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import Banner from "../../components/Banner/Banner";
+import Gallery from "../../components/Gallery/Gallery";
+import CategoriesCard from "../../components/CategoriesCards/CategoriesCards.jsx";
+import { PizzaContext } from "../../contexts/PizzaContext.jsx";
 
 const Home = () => {
-  // Obtenemos la función navigate desde React Router
   const navigate = useNavigate();
+  const { pizzas } = useContext(PizzaContext);
 
-  // Función para manejar el clic en una categoría y navegar a la vista de Productos
   const handleCategoryClick = (category) => {
-    navigate('/productos', { state: { selectedCategory: category } });
+    navigate("/productos", { state: { selectedCategory: category } });
   };
 
   return (
     <>
       <Banner />
-      {/* Pasamos la función handleCategoryClick al componente CategoriesCard */}
       <CategoriesCard onCategoryClick={handleCategoryClick} />
       <div className="cont-gallery">
-        <Gallery />
+        <Gallery pizzas={pizzas} />
       </div>
     </>
   );

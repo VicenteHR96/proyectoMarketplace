@@ -25,7 +25,7 @@ const retornarUsuario = async (email, id_usuario) => {
     values: [email, id_usuario],
   };
 
-  console.log(usuario)
+  console.log(usuario);
   const { rows } = await pool.query(usuario);
 
   return rows[0];
@@ -37,15 +37,17 @@ const modificarUsuario = async ({
   nombre,
   telefono,
   id_sexo,
+  avatar,
 }) => {
   const usuario = {
     text: `UPDATE usuarios SET 
     email=$1, 
     nombre=$2, 
     telefono=$3, 
-    fk_id_sexo=$4
-    WHERE id_usuario=$5`,
-    values: [email, nombre, telefono, id_sexo, id_usuario],
+    fk_id_sexo=$4,
+    avatar=$5
+    WHERE id_usuario=$6`,
+    values: [email, nombre, telefono, id_sexo, avatar, id_usuario],
   };
 
   //console.log(usuario)
@@ -114,7 +116,7 @@ const registrarProducto = async ({
 };
 
 const traeProductos = async ({
-  limits = 10,
+  limits = 9,
   page = 1,
   order_by = "precio_ASC",
 }) => {
@@ -141,7 +143,7 @@ const traeProductos = async ({
 };
 
 const traeProductosUsuario = async ({
-  limits = 5,
+  limits = 15,
   page = 1,
   order_by = "pr.nombre_ASC",
   id_usuario,

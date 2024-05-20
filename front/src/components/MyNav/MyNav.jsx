@@ -137,9 +137,15 @@ const MyNav = () => {
                   setting.nombre === "Salir"
                     ? () => {
                         onSignOut();
-                        console.log("cerrar sesion")
-                        setUserData({email:"", uid:"", token:"", tipoAcceso:""})
-                        console.log('userData actualizado:', userData);
+                        console.log("cerrar sesion");
+                        setUserData({
+                          email: "",
+                          uid: "",
+                          token: "",
+                          tipoAcceso: "",
+                        });
+                        window.sessionStorage.removeItem("token");
+                        console.log("userData actualizado:", userData);
                         handleCloseUserMenu();
                       }
                     : handleCloseUserMenu
@@ -171,7 +177,8 @@ const MyNav = () => {
               <Typography
                 variant="h6"
                 noWrap
-                component="a"
+                component={NavLink}
+                to="/"
                 href="#app-bar-with-responsive-menu"
                 sx={{
                   mr: 2,
@@ -183,7 +190,7 @@ const MyNav = () => {
                   textDecoration: "none",
                 }}
               >
-                LOGO
+                DiMarket
               </Typography>
 
               <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -233,8 +240,8 @@ const MyNav = () => {
               <Typography
                 variant="h5"
                 noWrap
-                component="a"
-                href="#app-bar-with-responsive-menu"
+                component={NavLink}
+                to="/"
                 sx={{
                   mr: 2,
                   display: { xs: "flex", md: "none" },
@@ -246,7 +253,7 @@ const MyNav = () => {
                   textDecoration: "none",
                 }}
               >
-                LOGO
+                DiMarket
               </Typography>
               <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
                 {pages.map((page) => (

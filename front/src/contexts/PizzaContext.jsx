@@ -17,6 +17,8 @@ const PizzaContextProvider = ({ children }) => {
   //
   const [pizzas, setPizzas] = useState([]);
   const [total, setTotal] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
   const [userProfile, setUserProfile] = useState({
     id_usuario: "",
     email: "",
@@ -31,7 +33,7 @@ const PizzaContextProvider = ({ children }) => {
     email: "",
     uid: "",
     token: "",
-    tipoAcceso:"",
+    tipoAcceso: "",
   });
   //Categoria de productos
   const [selectedCategory, setSelectedCategory] = useState(0);
@@ -47,7 +49,7 @@ const PizzaContextProvider = ({ children }) => {
   const getUserData = async () => {
     try {
       const token = window.sessionStorage.getItem("token");
-      console.log(`Token getUserData: ${token}`)
+      console.log(`Token getUserData: ${token}`);
       const response = await axios.get(ENDPOINT.user, {
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -62,7 +64,7 @@ const PizzaContextProvider = ({ children }) => {
     if (isAuthenticated) {
       getUserData();
     }
-  }, []);
+  }, [userData]);
 
   React.useEffect(() => {
     if (userProfile.id_usuario) {
@@ -86,14 +88,18 @@ const PizzaContextProvider = ({ children }) => {
 
   //Obtener productos
 
-  const getData = async () => {
-    const { data } = await axios.get(ENDPOINT.productos);
-    setPizzas([...data.datos]);
+  const getData = async (page = 1) => {
+    const { data } = await axios.get(ENDPOINT.productos, {
+      params: { page, limit: 10 },
+    });
+    setPizzas(data.datos);
+    setTotalPages(data.totalPages); // Assuming the API response includes the total number of pages
+    setCurrentPage(page);
   };
 
   useEffect(() => {
-    getData();
-  }, []);
+    getData(currentPage);
+  }, [currentPage]);
 
   //Obtener producto detalle
 
@@ -134,6 +140,12 @@ const PizzaContextProvider = ({ children }) => {
       console.error("Error get like:", error);
     }
   };
+
+  React.useEffect(() => {
+    if (userProfile.id_usuario) {
+      getProductUser();
+    }
+  }, [userProfile]);
 
   //Agregar Producto
 
@@ -228,6 +240,9 @@ const PizzaContextProvider = ({ children }) => {
         setPizzas,
         total,
         setTotal,
+        currentPage,
+        setCurrentPage,
+        totalPages,
         getProductDetails,
         registrarProducto,
         getUserData,

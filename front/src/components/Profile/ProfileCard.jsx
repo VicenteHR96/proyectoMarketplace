@@ -1,4 +1,3 @@
-// ProfileCard.jsx
 import React, { useContext, useEffect, useState } from "react";
 import Card from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
@@ -7,12 +6,12 @@ import Avatar from "@mui/material/Avatar";
 import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
 import Badge from "@mui/material/Badge";
 import Button from "@mui/material/Button";
-import { IconButton } from "@mui/material";
+import { IconButton, TextField } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import Modal from "../Modal/Modal";
-import ImageCropper from "../ImageCropper/ImageCropper";
-import CrearProducto from "../../views/CrearProducto/CrearProducto";
 import { PizzaContext } from "../../contexts/PizzaContext";
+import useUsuario from "../../hooks/useUsuario";
+import CrearProducto from "../../views/CrearProducto/CrearProducto";
 
 const styles = {
   details: {
@@ -30,11 +29,31 @@ export default function ProfileCard(props) {
   const [modalOpen, setModalOpen] = useState(false);
   const [crearProductoOpen, setCrearProductoOpen] = useState(false);
   const [avatarUrl, setAvatarUrl] = useState("");
+  const [newAvatarUrl, setNewAvatarUrl] = useState("");
 
-  const { getUserData, userProfile } = useContext(PizzaContext);
+  const { getUserData, userProfile, setUserProfile, updateUserData } =
+    useContext(PizzaContext);
+  const usuario = useUsuario();
+
+  const handleUrlChange = (event) => {
+    setNewAvatarUrl(event.target.value);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!userProfile.id_usuario || !userProfile) {
+      await getUserData();
+    }
+
+    if (newAvatarUrl) {
+      const updatedProfile = { ...userProfile, avatar: newAvatarUrl };
+      await updateUserData(updatedProfile);
+      setAvatarUrl(newAvatarUrl);
+      setModalOpen(false);
+    }
+  };
 
   useEffect(() => {
-    // Llamar a getUserData solo si userProfile está vacío
     if (!userProfile.id_usuario) {
       getUserData();
     }
@@ -51,10 +70,6 @@ export default function ProfileCard(props) {
   }
 
   const navigate = useNavigate();
-
-  const updateAvatar = (imgSrc) => {
-    setAvatarUrl(imgSrc);
-  };
 
   const handleAddProduct = () => {
     navigate("/crear-producto");
@@ -73,18 +88,7 @@ export default function ProfileCard(props) {
             overlap="circular"
             anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
             badgeContent={
-              <label
-                htmlFor="image-upload"
-                className="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorInherit MuiIconButton-sizeSmall me-3 css-v52rcf-MuiButtonBase-root-MuiIconButton-root"
-              >
-                <IconButton
-                  id="image-upload"
-                  onClick={() => setModalOpen(true)}
-                  type="file"
-                  accept="image/*"
-                  style={{ display: "none" }}
-                  color="success"
-                />
+              <IconButton onClick={() => setModalOpen(true)} color="primary">
                 <PhotoCameraIcon
                   sx={{
                     border: "5px solid white",
@@ -96,7 +100,7 @@ export default function ProfileCard(props) {
                     color: "white",
                   }}
                 />
-              </label>
+              </IconButton>
             }
           >
             <Avatar
@@ -106,7 +110,9 @@ export default function ProfileCard(props) {
             />
           </Badge>
           <Typography variant="h6">{props.name}</Typography>
-          <Typography color="text.secondary">{props.sub}</Typography>
+          <Typography color="text.secondary" style={{ fontSize: "smaller" }}>
+            {props.sub}
+          </Typography>
         </Grid>
         <Grid container>
           <Grid item xs={6}>
@@ -133,21 +139,34 @@ export default function ProfileCard(props) {
       </Grid>
       {modalOpen && (
         <Modal
-          updateAvatar={updateAvatar}
           closeModal={() => setModalOpen(false)}
           contenido={
-            <ImageCropper
-              updateAvatar={updateAvatar}
-              closeModal={() => setModalOpen(false)}
-            />
+            <>
+              <label htmlFor="avatar-url">Insertar URL de su Avatar</label>
+              <TextField
+                id="avatar-url"
+                fullWidth
+                placeholder="Inserte su avatar..."
+                value={newAvatarUrl}
+                onChange={handleUrlChange}
+                type="text"
+              />
+              <Button
+                onClick={handleSubmit}
+                variant="contained"
+                color="primary"
+                sx={{ width: "100%", p: 1, my: 1 }}
+              >
+                Agregar avatar
+              </Button>
+            </>
           }
         />
       )}
       {crearProductoOpen && (
         <Modal
-          updateAvatar={updateAvatar}
           closeModal={() => setCrearProductoOpen(false)}
-          contenido={<CrearProducto></CrearProducto>}
+          contenido={<CrearProducto />}
         />
       )}
     </Card>

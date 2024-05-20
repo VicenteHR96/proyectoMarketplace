@@ -13,8 +13,8 @@ import CrearProducto from "./views/CrearProducto/CrearProducto.jsx";
 import "react-image-crop/dist/ReactCrop.css";
 import Perfil from "./views/Perfil/Perfil.jsx";
 import CarritoII from "./views/Carrito/CarritoII.jsx";
-import FAQ from './views/FAQ/FAQ.jsx';
-
+import Publicaciones from "./views/Publicaciones/Publicaciones.jsx";
+import Favoritos from "./views/Favoritos/Favoritos.jsx";
 
 function App() {
   const globalState = useDeveloper();
@@ -28,12 +28,12 @@ function App() {
         <Route path="/productos/producto/:id" element={<Pizza />} />
         <Route path="/login" element={<LogSign />} />
         <Route path="/productos" element={<Productos />} />
-        <Route path="/faq" element={<FAQ />} />
-
         {/* Privado */}
         <Route path="/carrito" element={<CarritoII />} />
         <Route path="/perfil" element={<Perfil />} />
         <Route path="/crear-producto" element={<CrearProducto />} />
+        <Route path="/publicaciones" element={<Publicaciones />} />
+        <Route path="/favoritos" element={<Favoritos />} />
         <Route path="*" element={<Home />} />
       </Routes>
       <Footer />

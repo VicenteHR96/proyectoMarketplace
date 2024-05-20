@@ -39,24 +39,22 @@ const SignIn = () => {
   });
 
   useEffect(() => {
-    // console.log('userData actualizado:', userData);
-    if (userData.email != "" && userData.tipoAcceso=="") {
+    if (userData.email !== "" && userData.tipoAcceso === "") {
       axios
         .post(ENDPOINT.login, userData)
         .then(({ data }) => {
-          console.log("Token:" + data.token);
           window.sessionStorage.setItem("token", data.token);
-          setDeveloper({});
-          const {email, uid} = userData
-          setUserData({email, uid, tipoAcceso:"R"})
-            console.log('userData actualizado:', userData);
+          const { email, uid } = userData;
+          // Utiliza un setTimeout para desacoplar la actualización del estado
+          setTimeout(() => {
+            setUserData({ email, uid, tipoAcceso: "L" });
+          }, 0);
         })
         .catch(({ response: { data } }) => {
           console.error(data);
           window.alert(`${data.message} 🙁.`);
         });
     }
-    // Aquí puedes realizar otras acciones con los datos actualizados
   }, [userData]);
 
   const handleSubmit = () => {

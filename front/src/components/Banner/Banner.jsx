@@ -10,8 +10,8 @@ function Banner() {
           alt="First slide"
         />
         <Carousel.Caption>
-          <h3>¡Obtén un 20% de descuento con nuestro cupón: MAMMAMIA!</h3>
-          <p>Solo válido haste el 31 de diciembre del 2023.</p>
+          <h3>¡Obtén un 20% de descuento con nuestro cupón: MIMKT!</h3>
+          <p>Solo válido haste el 31 de mayo del 2024.</p>
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item>
@@ -21,8 +21,8 @@ function Banner() {
           alt="First slide"
         />
         <Carousel.Caption>
-          <h3>Prueba nuestros deliciosos panes de ajo.</h3>
-          <p>Disponibles en tienda física y reparto a domicilio.</p>
+          <h3>Compra lo nuevo de Adidas.</h3>
+          <p>Disponibles en tienda física y envíos a tu domicilio.</p>
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item>
@@ -32,8 +32,10 @@ function Banner() {
           alt="First slide"
         />
         <Carousel.Caption>
-          <h3>Prueba nuestros deliciosos panes de ajo.</h3>
-          <p>Disponibles en tienda física y reparto a domicilio.</p>
+          <h3>Regalonea a tu mejor amigo con productos de la mejor calidad.</h3>
+          <p>
+            Encuentra la más amplia variedad de productos para tus mascotas.
+          </p>
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item>
@@ -43,11 +45,8 @@ function Banner() {
           alt="First slide"
         />
         <Carousel.Caption>
-          <h3>¡Prueba nuestras distintas variedades de Pizza!</h3>
-          <p>
-            Opciones para amantes de la carne, vegetarianos y muchos otros
-            gustos.
-          </p>
+          <h3>¡Spuerstar XLG llegó para quedarse!</h3>
+          <p>Encuentra el modelo que más te guste y no dudes en llevártelo.</p>
         </Carousel.Caption>
       </Carousel.Item>
     </Carousel>

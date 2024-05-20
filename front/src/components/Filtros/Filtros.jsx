@@ -1,38 +1,36 @@
-import * as React from "react";
-import { useEffect } from "react";
-import TextField from "@mui/material/TextField";
-import Autocomplete from "@mui/material/Autocomplete";
-import Stack from "@mui/material/Stack";
+import React, { useEffect, useState, useContext } from "react";
+
 import {
-  Box,
-  Checkbox,
   FormControl,
   FormControlLabel,
   FormGroup,
   FormLabel,
-  IconButton,
+  Checkbox,
   Input,
   InputAdornment,
   InputLabel,
   MenuItem,
   Select,
+  Stack,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
+import { PizzaContext } from "../../contexts/PizzaContext";
 
 const Filtros = ({ onCategorySelect, initialCategory }) => {
-  // Estado para controlar el orden de los productos
-  const [orderBy, setOrderBy] = React.useState("");
-  // Estado para almacenar las categorías seleccionadas
-  const [selectedCategories, setSelectedCategories] = React.useState([]);
+  const { getCategoryProduct } = useContext(PizzaContext);
+  const [orderBy, setOrderBy] = useState("");
+  const [selectedCategories, setSelectedCategories] = useState([]);
 
-  // Efecto para establecer la categoría inicial
   useEffect(() => {
     if (initialCategory) {
       setSelectedCategories([initialCategory]);
     }
   }, [initialCategory]);
 
-  // Función para manejar el cambio en la selección de categorías
+  useEffect(() => {
+    onCategorySelect(selectedCategories);
+  }, [selectedCategories, onCategorySelect]);
+
   const handleCategoryChange = (event) => {
     const category = event.target.value;
     const isChecked = event.target.checked;
@@ -44,19 +42,12 @@ const Filtros = ({ onCategorySelect, initialCategory }) => {
     }
   };
 
-  // Función para manejar el cambio en el orden de los productos
   const handleChange = (event) => {
     setOrderBy(event.target.value);
   };
 
-  // Efecto para pasar las categorías seleccionadas al componente padre
-  React.useEffect(() => {
-    onCategorySelect(selectedCategories);
-  }, [selectedCategories, onCategorySelect]);
-
   return (
     <Stack spacing={1} style={{ width: "85%" }} className="filterInput">
-      {/* Input de búsqueda */}
       <FormControl variant="standard">
         <InputLabel htmlFor="standard-adornment-password">Buscar...</InputLabel>
         <Input
@@ -69,7 +60,6 @@ const Filtros = ({ onCategorySelect, initialCategory }) => {
         />
       </FormControl>
 
-      {/* Selector de orden */}
       <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
         <InputLabel id="demo-simple-select-standard-label">
           Ordenar por...
@@ -79,22 +69,20 @@ const Filtros = ({ onCategorySelect, initialCategory }) => {
           id="demo-simple-select-standard"
           value={orderBy}
           onChange={handleChange}
-          label="Age"
+          label="Order"
         >
           <MenuItem value="">
             <em>Ordenar por...</em>
           </MenuItem>
-          <MenuItem value={10}>Nombre A-Z</MenuItem>
-          <MenuItem value={20}>Nombre Z-A</MenuItem>
-          <MenuItem value={30}>Precio Menor a Mayor</MenuItem>
-          <MenuItem value={30}>Precio Mayor a Menor</MenuItem>
+          <MenuItem value="name-asc">Nombre A-Z</MenuItem>
+          <MenuItem value="name-desc">Nombre Z-A</MenuItem>
+          <MenuItem value="price-asc">Precio Menor a Mayor</MenuItem>
+          <MenuItem value="price-desc">Precio Mayor a Menor</MenuItem>
         </Select>
       </FormControl>
 
-      {/* Checkboxes de categorías */}
       <FormGroup className="categoryCheck mt-4">
         <FormLabel>Categorías</FormLabel>
-
         <FormControlLabel
           control={
             <Checkbox
@@ -118,9 +106,9 @@ const Filtros = ({ onCategorySelect, initialCategory }) => {
         <FormControlLabel
           control={
             <Checkbox
-              checked={selectedCategories.includes("Ropa")}
+              checked={selectedCategories.includes("Vestuario")}
               onChange={handleCategoryChange}
-              value="Ropa"
+              value="Vestuario"
             />
           }
           label="Vestuario"

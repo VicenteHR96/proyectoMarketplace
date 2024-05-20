@@ -5,13 +5,20 @@ import { Typography } from "@mui/material";
 import SentimentDissatisfiedRoundedIcon from "@mui/icons-material/SentimentDissatisfiedRounded";
 
 const Favoritos = () => {
-  const { getLike, likesUser, userProfile } = useContext(PizzaContext);
+  const { getLike, likesUser, userProfile, pizzas, getData } =
+    useContext(PizzaContext);
 
   React.useEffect(() => {
     if (userProfile.id_usuario) {
       getLike();
     }
   }, [userProfile]);
+
+  useEffect(() => {
+    if (!pizzas.id_producto) {
+      getData;
+    }
+  }, [pizzas]);
 
   return (
     <div className="p-5">

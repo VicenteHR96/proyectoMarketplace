@@ -10,7 +10,7 @@ const Publicaciones = () => {
   return (
     <div className="p-5">
       <div className="w-100 mb-4 text-center">
-        <h2>Mis favoritos</h2>
+        <h2>Mis publicaciones</h2>
       </div>
       {productUser.length == 0 ? (
         <div>

@@ -45,7 +45,7 @@ function Banner() {
           alt="First slide"
         />
         <Carousel.Caption>
-          <h3>¡Spuerstar XLG llegó para quedarse!</h3>
+          <h3>¡Superstar XLG llegó para quedarse!</h3>
           <p>Encuentra el modelo que más te guste y no dudes en llevártelo.</p>
         </Carousel.Caption>
       </Carousel.Item>

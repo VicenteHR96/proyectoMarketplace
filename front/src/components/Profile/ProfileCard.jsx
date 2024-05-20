@@ -1,5 +1,5 @@
 // ProfileCard.jsx
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Card from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import Modal from "../Modal/Modal";
 import ImageCropper from "../ImageCropper/ImageCropper";
 import CrearProducto from "../../views/CrearProducto/CrearProducto";
+import { PizzaContext } from "../../contexts/PizzaContext";
 
 const styles = {
   details: {
@@ -28,9 +29,26 @@ const styles = {
 export default function ProfileCard(props) {
   const [modalOpen, setModalOpen] = useState(false);
   const [crearProductoOpen, setCrearProductoOpen] = useState(false);
-  const [avatarUrl, setAvatarUrl] = useState(
-    "https://media.glamour.com/photos/5a425fd3b6bcee68da9f86f8/master/pass/best-face-oil.png"
-  );
+  const [avatarUrl, setAvatarUrl] = useState("");
+
+  const { getUserData, userProfile } = useContext(PizzaContext);
+
+  useEffect(() => {
+    // Llamar a getUserData solo si userProfile está vacío
+    if (!userProfile.id_usuario) {
+      getUserData();
+    }
+  }, [userProfile, getUserData]);
+
+  useEffect(() => {
+    if (userProfile) {
+      setAvatarUrl(userProfile.avatar);
+    }
+  }, [userProfile]);
+
+  if (!userProfile) {
+    return <div>Loading...</div>;
+  }
 
   const navigate = useNavigate();
 

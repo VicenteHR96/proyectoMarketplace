@@ -17,7 +17,7 @@ const retornarUsuario = async (email, id_usuario) => {
   // console.log(email)
 
   const usuario = {
-    text: `SELECT id_usuario, email, COALESCE(nombre, '') nombre, COALESCE(telefono, '') telefono, COALESCE(sexo, 'No contesta') sexo, COALESCE(id_sexo, 4) id_sexo
+    text: `SELECT id_usuario, email, COALESCE(nombre, '') nombre, COALESCE(telefono, '') telefono, COALESCE(sexo, 'No contesta') sexo, COALESCE(id_sexo, 4) id_sexo, avatar
     FROM usuarios 
     LEFT OUTER JOIN sexos ON id_sexo=fk_id_sexo
     WHERE email=$1

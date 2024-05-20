@@ -27,7 +27,7 @@ const Detalle = () => {
     <div className="cont-detalle">
       <div className="section-detalle">
         <div className="img-detalle">
-          <img src={pizzaX.img} alt={pizzaX.name} />
+          <img src={pizzaX.foto} alt={pizzaX.name} />
         </div>
         <div className="detalle-texto">
           <h3>{pizzaX.name[0].toUpperCase() + pizzaX.name.slice(1)}</h3>

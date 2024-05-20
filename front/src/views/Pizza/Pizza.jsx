@@ -43,7 +43,7 @@ const Pizza = () => {
         <h3>{pizzaX.nombre_producto}</h3>
         <div className="card-detalle">
           <div className="img-detalle">
-            <img src={`/public/${pizzaX.foto}`} alt={pizzaX.nombre_producto} />
+            <img src={`${pizzaX.foto}`} alt={pizzaX.nombre_producto} />
           </div>
           <Card sx={{ minWidth: 275 }}>
             <CardContent>

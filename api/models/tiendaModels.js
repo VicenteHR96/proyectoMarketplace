@@ -37,15 +37,17 @@ const modificarUsuario = async ({
   nombre,
   telefono,
   id_sexo,
+  avatar,
 }) => {
   const usuario = {
     text: `UPDATE usuarios SET 
     email=$1, 
     nombre=$2, 
     telefono=$3, 
-    fk_id_sexo=$4
-    WHERE id_usuario=$5`,
-    values: [email, nombre, telefono, id_sexo, id_usuario],
+    fk_id_sexo=$4,
+    avatar=$5
+    WHERE id_usuario=$6`,
+    values: [email, nombre, telefono, id_sexo, avatar, id_usuario],
   };
 
   //console.log(usuario)

@@ -115,6 +115,9 @@ const CrearProducto = () => {
             value={nombre}
             onChange={(event) => setNombre(event.target.value)}
             type="text"
+            inputProps={{
+              maxLength: 50,
+            }}
           />
         </div>
         <div className="form-group">
@@ -126,6 +129,9 @@ const CrearProducto = () => {
             fullWidth
             value={descripcion_corta}
             onChange={(event) => setDescripcion_corta(event.target.value)}
+            inputProps={{
+              maxLength: 100,
+            }}
           />
         </div>
         <div className="form-group">
@@ -137,6 +143,9 @@ const CrearProducto = () => {
             fullWidth
             value={descripcion_completa}
             onChange={(event) => setDescripcion_completa(event.target.value)}
+            inputProps={{
+              maxLength: 500,
+            }}
           />
         </div>
         <div className="form-group">
@@ -161,6 +170,9 @@ const CrearProducto = () => {
             value={foto}
             onChange={(event) => setFoto(event.target.value)}
             type="text"
+            inputProps={{
+              maxLength: 500,
+            }}
           />
         </div>
         <div className="form-row">

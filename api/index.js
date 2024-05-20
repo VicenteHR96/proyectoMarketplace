@@ -8,8 +8,7 @@ const { MercadoPagoConfig, Preference } = require("mercadopago");
 
 // Agrega credenciales
 const client = new MercadoPagoConfig({
-  accessToken:
-    "TEST-3636920895992403-050822-e861d98480e993f3f214350aff217649-721796664",
+  accessToken: process.env.MERCADOPAGO_ACCESS_TOKEN,
 });
 
 const app = express();

@@ -138,59 +138,82 @@ const CarritoII = () => {
                       key={p.id}
                       style={{ paddingRight: "24px" }}
                     >
-                      <Item className="d-flex cartItem">
-                        <Avatar
-                          alt="Remy Sharp"
-                          src={p.foto}
-                          style={{
-                            width: "140px",
-                            height: "140px",
-                            display: "block",
-                          }}
-                        />
-                        <Box className="w-100 d-flex flex-column text-start">
-                          <div
-                            style={{ paddingLeft: "24px", height: "40px" }}
-                            className="d-flex align-items-center"
-                          >
-                            <Typography variant="h6" className="m-0 p-0">
-                              <b>{p.nombre_producto}</b>
-                            </Typography>
-                          </div>
-                          <div
-                            className="d-flex align-items-center"
-                            style={{ paddingLeft: "24px", height: "40px" }}
-                          >
-                            <Box>{`$ ${p.precio} x ${p.cantidad}`}</Box>
-                          </div>
-                          <div
-                            className="Add"
-                            style={{
-                              paddingLeft: "calc(-1rem + 28px)",
-                              width: "4rem",
-                            }}
-                          >
-                            <IconButton
-                              color="inherit"
-                              onClick={() => handleResta(p.id_producto)}
+                      <Item className="d-flex cartItem p-0">
+                        <Grid container>
+                          <Grid item xs={12} sm={4}>
+                            <Item
+                              className="d-flex"
+                              style={{
+                                boxShadow: "none",
+                                justifyContent: "center",
+                              }}
                             >
-                              <RemoveCircleRounded
-                                color="error"
-                                className="btn-add"
+                              <Avatar
+                                alt="Remy Sharp"
+                                src={p.foto}
+                                style={{
+                                  width: "140px",
+                                  height: "140px",
+                                  display: "block",
+                                }}
                               />
-                            </IconButton>{" "}
-                            {p.cantidad}
-                            <IconButton
-                              color="inherit"
-                              onClick={() => handleSuma(p.id_producto)}
+                            </Item>
+                          </Grid>
+
+                          <Grid item xs={12} sm={8}>
+                            <Item
+                              className="w-100 d-flex flex-column text-start"
+                              style={{
+                                boxShadow: "none",
+                                height: "100%",
+                                justifyContent: "space-between",
+                                padding: "24px 24px 24px 0",
+                              }}
                             >
-                              <AddCircleRounded
-                                color="primary"
-                                className="btn-add"
-                              />
-                            </IconButton>
-                          </div>
-                        </Box>
+                              <div
+                                style={{ paddingLeft: "24px", height: "40px" }}
+                                className="d-flex align-items-center"
+                              >
+                                <Typography variant="h6" className="m-0 p-0">
+                                  <b>{p.nombre_producto}</b>
+                                </Typography>
+                              </div>
+                              <div
+                                className="d-flex align-items-center"
+                                style={{ paddingLeft: "24px", height: "40px" }}
+                              >
+                                <Box>{`$ ${p.precio} x ${p.cantidad}`}</Box>
+                              </div>
+                              <div
+                                className="Add"
+                                style={{
+                                  paddingLeft: "calc(-1rem + 28px)",
+                                  width: "4rem",
+                                }}
+                              >
+                                <IconButton
+                                  color="inherit"
+                                  onClick={() => handleResta(p.id_producto)}
+                                >
+                                  <RemoveCircleRounded
+                                    color="error"
+                                    className="btn-add"
+                                  />
+                                </IconButton>{" "}
+                                {p.cantidad}
+                                <IconButton
+                                  color="inherit"
+                                  onClick={() => handleSuma(p.id_producto)}
+                                >
+                                  <AddCircleRounded
+                                    color="primary"
+                                    className="btn-add"
+                                  />
+                                </IconButton>
+                              </div>
+                            </Item>
+                          </Grid>
+                        </Grid>
                       </Item>
                     </Grid>
                   );

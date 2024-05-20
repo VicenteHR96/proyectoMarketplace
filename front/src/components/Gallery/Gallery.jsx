@@ -1,21 +1,30 @@
-import React, { useContext, useEffect, useState } from "react";
+// Gallery.js
+import React, { useContext } from "react";
 import { PizzaContext } from "../../contexts/PizzaContext";
-import MyCard from "../MyCard/MyCard";
 import ProductCard from "../MyCard/ProductCard";
-
-
-import Context from "../../contexts/Context.js";
-
-
+import { Pagination } from "@mui/material";
 
 const Gallery = () => {
-  const { pizzas } = useContext(PizzaContext);
+  const { pizzas, currentPage, setCurrentPage, totalPages } =
+    useContext(PizzaContext);
+
+  const handlePageChange = (event, page) => {
+    setCurrentPage(page);
+  };
+
   return (
-    
     <div className="gallery">
-      {pizzas.map((p) => {
-        return <ProductCard pizza={p} key={p.id}></ProductCard>;
-      }) }
+      {pizzas.map((p) => (
+        <ProductCard pizza={p} key={p.id} />
+      ))}
+      <div className="w-100 d-flex justify-content-center">
+        <Pagination
+          count={totalPages}
+          page={currentPage}
+          onChange={handlePageChange}
+          size="large"
+        />
+      </div>
     </div>
   );
 };

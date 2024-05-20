@@ -25,7 +25,7 @@ const retornarUsuario = async (email, id_usuario) => {
     values: [email, id_usuario],
   };
 
-  console.log(usuario)
+  console.log(usuario);
   const { rows } = await pool.query(usuario);
 
   return rows[0];
@@ -114,7 +114,7 @@ const registrarProducto = async ({
 };
 
 const traeProductos = async ({
-  limits = 10,
+  limits = 9,
   page = 1,
   order_by = "precio_ASC",
 }) => {
@@ -141,7 +141,7 @@ const traeProductos = async ({
 };
 
 const traeProductosUsuario = async ({
-  limits = 5,
+  limits = 15,
   page = 1,
   order_by = "pr.nombre_ASC",
   id_usuario,

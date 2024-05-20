@@ -106,7 +106,9 @@ export default function ProfileCard(props) {
             />
           </Badge>
           <Typography variant="h6">{props.name}</Typography>
-          <Typography color="text.secondary">{props.sub}</Typography>
+          <Typography color="text.secondary" style={{ fontSize: "smaller" }}>
+            {props.sub}
+          </Typography>
         </Grid>
         <Grid container>
           <Grid item xs={6}>

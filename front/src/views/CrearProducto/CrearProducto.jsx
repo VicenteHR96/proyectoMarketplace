@@ -154,13 +154,13 @@ const CrearProducto = () => {
           </FormControl>
         </div>
         <div className="form-group">
-          <label htmlFor="foto">Imágenes</label>
-          <input
-            type="text"
-            id="foto"
-            name="foto"
+          <label htmlFor="foto">URL de imagen</label>
+          <TextField
+            fullWidth
+            placeholder="Imagen..."
             value={foto}
             onChange={(event) => setFoto(event.target.value)}
+            type="text"
           />
         </div>
         <div className="form-row">

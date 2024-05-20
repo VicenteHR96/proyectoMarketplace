@@ -115,7 +115,7 @@ const UserDatos = (props) => {
           ></CustomInput>
         </Grid>
 
-        {/* ROW 1: LAST NAME */}
+        {/* ROW 1: LAST NAME
         <Grid component="form" item xs={6}>
           <CustomInput
             id="lastName"
@@ -124,6 +124,20 @@ const UserDatos = (props) => {
             onChange={changeField}
             title="Apellido"
             dis={edit.disabled}
+            req={edit.required}
+          ></CustomInput>
+        </Grid> */}
+
+        {/* ROW 3: EMAIL */}
+        <Grid item xs={6}>
+          <CustomInput
+            type="email"
+            id="email"
+            name="email"
+            value={user.email}
+            onChange={changeField}
+            title="Email"
+            dis={true} // Email field is always disabled
             req={edit.required}
           ></CustomInput>
         </Grid>
@@ -167,22 +181,8 @@ const UserDatos = (props) => {
           ></CustomInput>
         </Grid>
 
-        {/* ROW 3: EMAIL */}
-        <Grid item xs={6}>
-          <CustomInput
-            type="email"
-            id="email"
-            name="email"
-            value={user.email}
-            onChange={changeField}
-            title="Email"
-            dis={true} // Email field is always disabled
-            req={edit.required}
-          ></CustomInput>
-        </Grid>
-
         {/* ROW 4: PASSWORD */}
-        <Grid item xs={6}>
+        {/* <Grid item xs={6}>
           <CustomInput
             id="pass"
             name="pass"
@@ -207,7 +207,7 @@ const UserDatos = (props) => {
               ),
             }}
           ></CustomInput>
-        </Grid>
+        </Grid> */}
       </Grid>
       {/* BUTTON */}
       <Grid

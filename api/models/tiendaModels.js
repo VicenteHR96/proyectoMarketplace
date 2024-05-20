@@ -17,15 +17,15 @@ const retornarUsuario = async (email, id_usuario) => {
   // console.log(email)
 
   const usuario = {
-    text: `SELECT id_usuario, email, nombre, telefono, sexo, id_sexo
+    text: `SELECT id_usuario, email, COALESCE(nombre, '') nombre, COALESCE(telefono, '') telefono, COALESCE(sexo, 'No contesta') sexo, COALESCE(id_sexo, 4) id_sexo
     FROM usuarios 
-    INNER JOIN sexos ON id_sexo=fk_id_sexo
+    LEFT OUTER JOIN sexos ON id_sexo=fk_id_sexo
     WHERE email=$1
       AND id_usuario=$2`,
     values: [email, id_usuario],
   };
 
-  //console.log(usuario)
+  console.log(usuario)
   const { rows } = await pool.query(usuario);
 
   return rows[0];
@@ -57,14 +57,14 @@ const registraUsuario = async ({ email, uid }) => {
   //const passwordEncriptada = bcrypt.hashSync(password);
 
   const consulta = {
-    text: "INSERT INTO usuarios (id_usuario, email, uid) VALUES (DEFAULT,$1, $2)",
+    text: "INSERT INTO usuarios (id_usuario, email, uid) VALUES (DEFAULT,$1, $2) returning id_usuario",
     values: [email, uid],
   };
 
   //console.log(consulta)
-  const { rowsCount } = await pool.query(consulta);
-
-  return rowsCount;
+  const { rows } = await pool.query(consulta);
+  const { id_usuario } = rows[0];
+  return id_usuario;
 };
 
 const validaUsuario = async ({ email, uid }) => {

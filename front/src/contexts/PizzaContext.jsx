@@ -30,6 +30,7 @@ const PizzaContextProvider = ({ children }) => {
     email: "",
     uid: "",
     token: "",
+    tipoAcceso:"",
   });
   //Categoria de productos
   const [selectedCategory, setSelectedCategory] = useState(0);
@@ -45,6 +46,7 @@ const PizzaContextProvider = ({ children }) => {
   const getUserData = async () => {
     try {
       const token = window.sessionStorage.getItem("token");
+      console.log(`Token getUserData: ${token}`)
       const response = await axios.get(ENDPOINT.user, {
         headers: { Authorization: `Bearer ${token}` },
       });

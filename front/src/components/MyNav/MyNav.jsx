@@ -140,6 +140,9 @@ const MyNav = () => {
                   setting.nombre === "Salir"
                     ? () => {
                         onSignOut();
+                        console.log("cerrar sesion")
+                        setUserData({email:"", uid:"", token:"", tipoAcceso:""})
+                        console.log('userData actualizado:', userData);
                         handleCloseUserMenu();
                       }
                     : handleCloseUserMenu

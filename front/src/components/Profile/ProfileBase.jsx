@@ -13,11 +13,12 @@ const theme = createTheme();
 export default function ProfileBase() {
   const [text, setText] = useState("");
   const [mainUser, setMainUser] = useState(null);
-  const { userProfile, setUserProfile, getUserData } =
-    React.useContext(PizzaContext);
+  const { userProfile, setUserProfile, getUserData } = React.useContext(PizzaContext);
   const token = window.sessionStorage.getItem("token");
   console.log("Recuperar Token:" + token);
 
+
+  
   // Obtener los datos del usuario cuando el componente se monta
   useEffect(() => {
     // Llamar a getUserData solo si userProfile está vacío

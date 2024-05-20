@@ -47,13 +47,16 @@ export const onSignOut = () => {
   signOut(auth);
 };
 
-export const registroUsuario = (formData, setFormData) => {
+export const registroUsuario = (formData, setFormData, setUserData) => {
   const auth = getAuth();
   console.log("registroUsuario" + formData.email + formData.password);
   if (!formData.email || !formData.password) return;
 
   createUserWithEmailAndPassword(auth, formData.email, formData.password)
-    .then((result) => console.log(result))
+    .then((result) => {
+      const { email, uid } = result.user;
+      setUserData({ email, uid, tipoAcceso:"" });
+    })
     .catch((err) =>
       setFormData({ ...formData, error: handleError(err.code, err.message) })
     );
@@ -77,7 +80,7 @@ export const loginUsuario = (formData, setFormData, setUserData) => {
   signInWithEmailAndPassword(auth, formData.email, formData.password)
     .then((result) => {
       const { email, uid } = result.user;
-      setUserData({ email, uid });
+      setUserData({ email, uid, tipoAcceso:"" });
     })
     .catch((err) => {
       setFormData({ ...formData, error: handleError(err.code, err.message) });

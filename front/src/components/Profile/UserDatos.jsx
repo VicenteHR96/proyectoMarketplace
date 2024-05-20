@@ -20,6 +20,14 @@ const UserDatos = (props) => {
   // GENDER SELECT STATES
   const genderSelect = [
     {
+      value: 4,
+      label: "No Contesta",
+    },
+    {
+      value: 3,
+      label: "No Binario",
+    },
+    {
       value: 2,
       label: "Masculino",
     },

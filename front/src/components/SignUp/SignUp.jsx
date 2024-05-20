@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import RrssBtn from "../rrssBtn/RrssBtn";
 import {
   faApple,
@@ -11,6 +11,7 @@ import { ENDPOINT } from "../../config/constans";
 import { useNavigate } from "react-router-dom";
 import { registroUsuario,loginGoogle, loginUsuario, onSignOut} from "../../credenciales";
 import useUsuairo from "../../hooks/useUsuario";
+import { PizzaContext } from "../../contexts/PizzaContext.jsx";
 
 const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
 const initialForm = {
@@ -20,6 +21,7 @@ const initialForm = {
 
 const SignUp = () => {
   const navigate = useNavigate();
+  const { userData, setUserData } = useContext(PizzaContext);
   const [user, setUser] = useState(initialForm);
   const [formData, setFormData] = useState({
     email: "",
@@ -55,17 +57,32 @@ const SignUp = () => {
 
   const handleSubmit = () => {
    
-      registroUsuario(formData, setFormData)
+      registroUsuario(formData, setFormData, setUserData)
     };
 
     const usuario = useUsuairo();
 
 
-  // useEffect(() => {
-  //   if (window.sessionStorage.getItem("token")) {
-  //     navigate("/carrito");
-  //   }
-  // }, []);
+    useEffect(() => {
+      console.log('userData actualizado:', userData);
+      if (userData.email != "" && userData.tipoAcceso=="" ) {
+        axios
+          .post(ENDPOINT.registro, userData)
+          .then(({ data }) => {
+            console.log("Token:" + data.token);
+            window.sessionStorage.setItem("token", data.token);
+            setDeveloper({});
+            const {email, uid} = userData
+            setUserData({email, uid, tipoAcceso:"R"})
+            console.log('userData actualizado:', userData);
+          })
+          .catch(({ response: { data } }) => {
+            console.error(data);
+            window.alert(`${data.message} 🙁.`);
+          });
+      }
+      // Aquí puedes realizar otras acciones con los datos actualizados
+    }, [userData]);
 
   return (
     <>

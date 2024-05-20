@@ -5,8 +5,13 @@ class usuarioController{
     constructor(){}
     async registrarUsuario (req, res) {
         try {
-            const usuarios = await registraUsuario(req.body);
-            res.status(200).json({"message": "Usuario registrado"})
+            const { email } = req.body
+            const id_usuario = await registraUsuario(req.body);
+            console.log(id_usuario)
+            const token = jwt.sign( {email, "id_usuario": id_usuario} , process.env.CLAVE_JWT);
+            console.log("Token generado para usuario: ",email);
+            console.log(token);
+            res.status(200).json({token});
         } catch ({ code, message }) {
             console.log(message);
             res.status(code || 500).json({message});
@@ -21,6 +26,10 @@ class usuarioController{
             //console.log("TOKEN: " + token)
             jwt.verify(token, process.env.CLAVE_JWT)
             const { email, id_usuario } = jwt.decode(token)
+
+            console.log(`Token: ${token}`)
+            console.log(`Email: ${email}, Id: ${id_usuario}`)
+
             const user = await retornarUsuario(email, id_usuario);
             //console.log(user)
             res.status(200).json(user)

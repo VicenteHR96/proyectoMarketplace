@@ -64,6 +64,7 @@ const SignUp = () => {
 
 
     useEffect(() => {
+      console.log(`SignUp login ${login}`)
       console.log('userData actualizado:', userData);
       if (userData.email != "" && login==false ) {
         axios

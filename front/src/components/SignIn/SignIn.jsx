@@ -41,7 +41,8 @@ const SignIn = () => {
 
   useEffect(() => {
     // console.log('userData actualizado:', userData);
-    if (userData.email != "" && login==true) {
+    console.log(`SignIN login ${login}`)
+    if (userData.email != "" && login==false) {
       axios
         .post(ENDPOINT.login, userData)
         .then(({ data }) => {
@@ -49,6 +50,7 @@ const SignIn = () => {
           window.sessionStorage.setItem("token", data.token);
           setDeveloper({});
           const {email, uid} = userData
+          setLogin(true)
           setUserData({email, uid, tipoAcceso:"R"})
           console.log('userData actualizado:', userData);
         })

@@ -9,7 +9,12 @@ import {
 import axios from "axios";
 import { ENDPOINT } from "../../config/constans";
 import { useNavigate } from "react-router-dom";
-import { registroUsuario,loginGoogle, loginUsuario, onSignOut} from "../../credenciales";
+import {
+  registroUsuario,
+  loginGoogle,
+  loginUsuario,
+  onSignOut,
+} from "../../credenciales";
 import useUsuairo from "../../hooks/useUsuario";
 import { PizzaContext } from "../../contexts/PizzaContext.jsx";
 
@@ -43,16 +48,16 @@ const SignUp = () => {
       return window.alert("El formato del email no es correcto!");
     }
 
-  //   axios
-  //     .post(ENDPOINT.users, user)
-  //     .then(() => {
-  //       window.alert("Usuario registrado con éxito.");
-  //       navigate("/login");
-  //     })
-  //     .catch(({ response: { data } }) => {
-  //       console.error(data);
-  //       window.alert(`${data.message}.`);
-  //     });
+    //   axios
+    //     .post(ENDPOINT.users, user)
+    //     .then(() => {
+    //       window.alert("Usuario registrado con éxito.");
+    //       navigate("/login");
+    //     })
+    //     .catch(({ response: { data } }) => {
+    //       console.error(data);
+    //       window.alert(`${data.message}.`);
+    //     });
   };
 
   const handleSubmit = () => {
@@ -61,6 +66,8 @@ const SignUp = () => {
     };
 
     const usuario = useUsuairo();
+
+  const usuario = useUsuairo();
 
 
     useEffect(() => {
@@ -86,6 +93,7 @@ const SignUp = () => {
       // Aquí puedes realizar otras acciones con los datos actualizados
     }, [userData]);
 
+
   return (
     <>
       <div className="form-container sign-up">
@@ -102,9 +110,10 @@ const SignUp = () => {
           </div>
           <span>or use your email for registeration</span>
           <input
-             value={formData.email}
-             onChange={(e) =>
-               setFormData({ ...formData, email: e.target.value })}
+            value={formData.email}
+            onChange={(e) =>
+              setFormData({ ...formData, email: e.target.value })
+            }
             type="email"
             name="email"
             className="form-control"

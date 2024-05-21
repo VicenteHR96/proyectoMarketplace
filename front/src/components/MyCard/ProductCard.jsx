@@ -139,7 +139,7 @@ export default function ProductCard({ pizza }) {
           <CardMedia
             component="img"
             height="194"
-            image={`/public/${pizza.foto}`}
+            image={`${pizza.foto}`}
             alt={pizza.nombre_producto}
             className="img-card"
           />

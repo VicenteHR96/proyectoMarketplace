@@ -13,12 +13,19 @@ const theme = createTheme();
 export default function ProfileBase() {
   const [text, setText] = useState("");
   const [mainUser, setMainUser] = useState(null);
-  const { userProfile, setUserProfile, getUserData } = React.useContext(PizzaContext);
+
+  const {
+    userProfile,
+    setUserProfile,
+    getUserData,
+    getProductUser,
+    getLike,
+    likesUser,
+    productUser,
+  } = React.useContext(PizzaContext);
   const token = window.sessionStorage.getItem("token");
   console.log("Recuperar Token:" + token);
 
-
-  
   // Obtener los datos del usuario cuando el componente se monta
   useEffect(() => {
     // Llamar a getUserData solo si userProfile está vacío
@@ -31,6 +38,11 @@ export default function ProfileBase() {
   if (!userProfile) {
     return <div>Loading...</div>;
   }
+
+  React.useEffect(() => {
+    getLike();
+    getProductUser();
+  }, []);
 
   const fullName = `${userProfile.nombre}`;
 
@@ -52,8 +64,8 @@ export default function ProfileBase() {
               name={fullName}
               sub={userProfile.email}
               dt1="2"
-              dt2="23"
-              dt3="23"
+              dt2={productUser.length}
+              dt3={likesUser.length}
             />
           </Grid>
           <Grid item md={9}>

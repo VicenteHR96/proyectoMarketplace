@@ -55,7 +55,9 @@ export const registroUsuario = (formData, setFormData, setUserData, setLogin) =>
   createUserWithEmailAndPassword(auth, formData.email, formData.password)
     .then((result) => {
       const { email, uid } = result.user;
+
       setUserData({ email, uid, tipoAcceso:"" });
+
     })
     .catch((err) =>
       setFormData({ ...formData, error: handleError(err.code, err.message) })
@@ -80,8 +82,10 @@ export const loginUsuario = (formData, setFormData, setUserData, setLogin) => {
   signInWithEmailAndPassword(auth, formData.email, formData.password)
     .then((result) => {
       const { email, uid } = result.user;
+
       setLogin(true);
       setUserData({ email, uid, tipoAcceso:"" });
+
     })
     .catch((err) => {
       setFormData({ ...formData, error: handleError(err.code, err.message) });

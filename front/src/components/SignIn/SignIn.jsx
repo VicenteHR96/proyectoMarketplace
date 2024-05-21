@@ -24,7 +24,7 @@ const initialForm = { email: "docente@desafiolatam.com", password: "123456" };
 
 const SignIn = () => {
   const [isSignUp, setIsSignUp] = useState(true);
-  const { userData, setUserData } = useContext(PizzaContext);
+  const { userData, setUserData, login,setLogin } = useContext(PizzaContext);
 
   const toggleView = () => {
     setIsSignUp(!isSignUp);
@@ -39,16 +39,21 @@ const SignIn = () => {
   });
 
   useEffect(() => {
-    if (userData.email !== "" && userData.tipoAcceso === "") {
+
+    // console.log('userData actualizado:', userData);
+    if (userData.email != "" && login==true) {
+
+    
       axios
         .post(ENDPOINT.login, userData)
         .then(({ data }) => {
           window.sessionStorage.setItem("token", data.token);
-          const { email, uid } = userData;
-          // Utiliza un setTimeout para desacoplar la actualización del estado
-          setTimeout(() => {
-            setUserData({ email, uid, tipoAcceso: "L" });
-          }, 0);
+
+          setDeveloper({});
+          const {email, uid} = userData
+          setUserData({email, uid, tipoAcceso:"R"})
+          console.log('userData actualizado:', userData);
+
         })
         .catch(({ response: { data } }) => {
           console.error(data);
@@ -58,7 +63,7 @@ const SignIn = () => {
   }, [userData]);
 
   const handleSubmit = () => {
-    loginUsuario(formData, setFormData, setUserData);
+    loginUsuario(formData, setFormData, setUserData, setLogin);
   };
 
   // setTimeout(() => setFormData({ ...formData, error: "" }), 3000);

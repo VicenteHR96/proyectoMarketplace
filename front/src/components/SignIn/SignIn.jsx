@@ -24,7 +24,7 @@ const initialForm = { email: "docente@desafiolatam.com", password: "123456" };
 
 const SignIn = () => {
   const [isSignUp, setIsSignUp] = useState(true);
-  const { userData, setUserData } = useContext(PizzaContext);
+  const { userData, setUserData, login,setLogin } = useContext(PizzaContext);
   
 
   const toggleView = () => {
@@ -41,7 +41,7 @@ const SignIn = () => {
 
   useEffect(() => {
     // console.log('userData actualizado:', userData);
-    if (userData.email != "" && userData.tipoAcceso=="") {
+    if (userData.email != "" && login==true) {
       axios
         .post(ENDPOINT.login, userData)
         .then(({ data }) => {
@@ -50,7 +50,7 @@ const SignIn = () => {
           setDeveloper({});
           const {email, uid} = userData
           setUserData({email, uid, tipoAcceso:"R"})
-            console.log('userData actualizado:', userData);
+          console.log('userData actualizado:', userData);
         })
         .catch(({ response: { data } }) => {
           console.error(data);
@@ -61,7 +61,7 @@ const SignIn = () => {
   }, [userData]);
 
   const handleSubmit = () => {
-    loginUsuario(formData, setFormData, setUserData);
+    loginUsuario(formData, setFormData, setUserData, setLogin);
   };
 
   // setTimeout(() => setFormData({ ...formData, error: "" }), 3000);

@@ -22,7 +22,7 @@ export default function ProfileBase() {
   // Obtener los datos del usuario cuando el componente se monta
   useEffect(() => {
     // Llamar a getUserData solo si userProfile está vacío
-    if (!userProfile.id_usuario || !userProfile) {
+    if (!userProfile.id_usuario || !userProfile || userProfile.id_usuario=="") {
       getUserData();
     }
   }, [userProfile]);

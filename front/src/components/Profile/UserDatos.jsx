@@ -37,6 +37,8 @@ const UserDatos = (props) => {
     },
   ];
 
+  
+
   // FORM STATES
   const [user, setUser] = useState({
     // DEFAULT VALUES

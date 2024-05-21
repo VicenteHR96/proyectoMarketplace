@@ -46,7 +46,7 @@ const MyNav = () => {
   // Prueba conexión real
   const navigate = useNavigate();
   const { getDeveloper, setDeveloper } = React.useContext(Context);
-  const { userData, getUserData, setUserData, userProfile } =
+  const { userData, getUserData, setUserData, userProfile, setUserProfile, login, setLogin } =
     React.useContext(PizzaContext);
 
   const logout = () => {
@@ -137,15 +137,14 @@ const MyNav = () => {
                   setting.nombre === "Salir"
                     ? () => {
                         onSignOut();
-                        console.log("cerrar sesion");
-                        setUserData({
-                          email: "",
-                          uid: "",
-                          token: "",
-                          tipoAcceso: "",
-                        });
+
+                        console.log("cerrar sesion")
+                        setUserData({email:"", uid:"", token:"", tipoAcceso:""})
+                        setUserProfile({id_usuario:""})
                         window.sessionStorage.removeItem("token");
-                        console.log("userData actualizado:", userData);
+                        setLogin(false)
+                        console.log('userData actualizado:', userData);
+                     
                         handleCloseUserMenu();
                       }
                     : handleCloseUserMenu

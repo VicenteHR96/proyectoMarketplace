@@ -47,7 +47,7 @@ export const onSignOut = () => {
   signOut(auth);
 };
 
-export const registroUsuario = (formData, setFormData, setUserData) => {
+export const registroUsuario = (formData, setFormData, setUserData, setLogin) => {
   const auth = getAuth();
   console.log("registroUsuario" + formData.email + formData.password);
   if (!formData.email || !formData.password) return;
@@ -55,7 +55,9 @@ export const registroUsuario = (formData, setFormData, setUserData) => {
   createUserWithEmailAndPassword(auth, formData.email, formData.password)
     .then((result) => {
       const { email, uid } = result.user;
-      setUserData({ email, uid, tipoAcceso: "" });
+
+      setUserData({ email, uid, tipoAcceso:"" });
+
     })
     .catch((err) =>
       setFormData({ ...formData, error: handleError(err.code, err.message) })
@@ -72,7 +74,7 @@ export const registroUsuario = (formData, setFormData, setUserData) => {
 //   .catch((err) => setFormData({...formData, error: handleError(err.code, err.message) }))
 // }
 
-export const loginUsuario = (formData, setFormData, setUserData) => {
+export const loginUsuario = (formData, setFormData, setUserData, setLogin) => {
   const auth = getAuth();
 
   if (!formData.email || !formData.password) return;
@@ -80,7 +82,10 @@ export const loginUsuario = (formData, setFormData, setUserData) => {
   signInWithEmailAndPassword(auth, formData.email, formData.password)
     .then((result) => {
       const { email, uid } = result.user;
-      setUserData({ email, uid, tipoAcceso: "" });
+
+      setLogin(true);
+      setUserData({ email, uid, tipoAcceso:"" });
+
     })
     .catch((err) => {
       setFormData({ ...formData, error: handleError(err.code, err.message) });

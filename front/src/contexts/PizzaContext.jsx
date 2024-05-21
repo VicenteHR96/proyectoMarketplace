@@ -14,6 +14,7 @@ const PizzaContextProvider = ({ children }) => {
   const [stock, setStock] = useState(0);
   const [id_categoria, setId_categoria] = useState(0);
   const [id_usuario, setId_usuario] = useState(0);
+  const [login, setLogin] = useState(false);
   //
   const [pizzas, setPizzas] = useState([]);
   const [total, setTotal] = useState(0);
@@ -279,6 +280,8 @@ const PizzaContextProvider = ({ children }) => {
         setId_categoria,
         id_usuario,
         setId_usuario,
+        login,
+        setLogin
       }}
     >
       {children}

@@ -25,6 +25,7 @@ const initialForm = { email: "docente@desafiolatam.com", password: "123456" };
 const SignIn = () => {
   const [isSignUp, setIsSignUp] = useState(true);
   const { userData, setUserData, login,setLogin } = useContext(PizzaContext);
+  
 
   const toggleView = () => {
     setIsSignUp(!isSignUp);
@@ -39,27 +40,26 @@ const SignIn = () => {
   });
 
   useEffect(() => {
-
     // console.log('userData actualizado:', userData);
-    if (userData.email != "" && login==true) {
-
-    
+    console.log(`SignIN login ${login}`)
+    if (userData.email != "" && login==false) {
       axios
         .post(ENDPOINT.login, userData)
         .then(({ data }) => {
+          console.log("Token:" + data.token);
           window.sessionStorage.setItem("token", data.token);
-
           setDeveloper({});
           const {email, uid} = userData
+          setLogin(true)
           setUserData({email, uid, tipoAcceso:"R"})
           console.log('userData actualizado:', userData);
-
         })
         .catch(({ response: { data } }) => {
           console.error(data);
           window.alert(`${data.message} 🙁.`);
         });
     }
+    // Aquí puedes realizar otras acciones con los datos actualizados
   }, [userData]);
 
   const handleSubmit = () => {

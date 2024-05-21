@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { PizzaContext } from "../../contexts/PizzaContext";
 import Button from "@mui/material/Button";
 import { Card, CardActions, CardContent, Typography } from "@mui/material";
+import Fav from "../../components/Fav/Fav";
 
 const Pizza = () => {
   const { id } = useParams();
@@ -43,9 +44,12 @@ const Pizza = () => {
         <h3>{pizzaX.nombre_producto}</h3>
         <div className="card-detalle">
           <div className="img-detalle">
-            <img src={`/public/${pizzaX.foto}`} alt={pizzaX.nombre_producto} />
+            <img src={`${pizzaX.foto}`} alt={pizzaX.nombre_producto} />
           </div>
-          <Card sx={{ minWidth: 275 }}>
+          <Card
+            sx={{ minWidth: 275 }}
+            className="d-flex flex-column justify-content-between"
+          >
             <CardContent>
               <div className="d-flex justify-content-between">
                 <Typography
@@ -66,10 +70,11 @@ const Pizza = () => {
                 {pizzaX.descripcion_corta}
               </Typography>
             </CardContent>
-            <CardActions>
+            <CardActions className="d-flex justify-content-between">
               <Button size="small" onClick={handleClick}>
                 Añadir al carrito 🛒
               </Button>
+              <Fav></Fav>
             </CardActions>
           </Card>
         </div>

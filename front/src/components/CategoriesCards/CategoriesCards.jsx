@@ -27,7 +27,7 @@ const CategoriesCard = ({ onCategoryClick }) => {
     },
     {
       id: 3,
-      name: "Ropa",
+      name: "Vestuario",
       description: "Explora nuestra colección de ropa de moda.",
       icon: <FaTshirt size={50} />,
       img: "https://static.vecteezy.com/system/resources/previews/029/325/080/non_2x/young-couple-in-trendy-streetwear-free-photo.jpg",

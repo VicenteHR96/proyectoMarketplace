@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
+import { Modal, Button } from '@mui/material';
 import "./Footer.css";
 
 function Footer() {
@@ -7,6 +8,7 @@ function Footer() {
   const [hoveredCategory, setHoveredCategory] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [anchorEl, setAnchorEl] = useState(null);
+  const [openModal, setOpenModal] = useState(false);
 
   const handleCategoryClick = (category) => {
     setSelectedCategory(category);
@@ -29,6 +31,14 @@ function Footer() {
   const handlePopoverClose = () => {
     setAnchorEl(null);
     handleHoverLeave();
+  };
+
+  const handleOpenModal = () => {
+    setOpenModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setOpenModal(false);
   };
 
   const open = Boolean(anchorEl);
@@ -54,9 +64,9 @@ function Footer() {
             </p>
           </div>
           <nav className="footer-body__nav">
-        <ul className="footer-body__nav-list">
-          <li className="footer-body__nav-item">
-          Categorías
+            <ul className="footer-body__nav-list">
+              <li className="footer-body__nav-item">
+                Categorías
                 <ul className="footer-body__nav-sublist">
                   <li className="footer-body__nav-subitem">
                     <a
@@ -145,7 +155,7 @@ function Footer() {
                 <ul className="footer-body__nav-sublist">
                   <li className="footer-body__nav-subitem">
                     <a
-                      href="#"
+                      href="/faq"
                       className="footer-body__nav-link"
                       onMouseEnter={(e) => handlePopoverOpen(e, "Ayuda")}
                       onMouseLeave={handlePopoverClose}
@@ -157,12 +167,13 @@ function Footer() {
                   </li>
                   <li className="footer-body__nav-subitem">
                     <a
-                      href="#"
                       className="footer-body__nav-link"
+                      onClick={handleOpenModal}
                       onMouseEnter={(e) => handlePopoverOpen(e, "Ayuda")}
                       onMouseLeave={handlePopoverClose}
                       aria-owns={open && hoveredCategory === "Ayuda" ? "mouse-over-popover" : undefined}
                       aria-haspopup="true"
+                      style={{color:"white"}}
                     >
                       Contacto
                     </a>
@@ -188,6 +199,25 @@ function Footer() {
           <p>&copy; TuMarketplace 2024. Todos los derechos reservados.</p>
         </div>
       </div>
+      <Modal
+        open={openModal}
+        onClose={handleCloseModal}
+        aria-labelledby="contacto-modal"
+        aria-describedby="contacto-modal-description"
+      >
+        <div className="modal-container">
+          <h2 id="contacto-modal">Contacto</h2>
+          <p id="contacto-modal-description">
+            Puedes contactarnos a través de nuestro correo electrónico de ejemplo:
+            <br />
+            <strong>ejemplo@tuempresa.com</strong>
+            <br />
+            También puedes contactarnos por WhatsApp en el siguiente número:
+            <br />
+            <strong>+56 9 1234 5678</strong> (Número falso)
+          </p>
+        </div>
+      </Modal>
     </footer>
   );
 }

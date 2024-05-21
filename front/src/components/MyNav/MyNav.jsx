@@ -111,10 +111,7 @@ const MyNav = () => {
         <Box sx={{ flexGrow: 0 }}>
           <Tooltip title="Open settings">
             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-              <Avatar
-                alt={userProfile.nombre}
-                src="/static/images/avatar/2.jpg"
-              />
+              <Avatar alt={userProfile.nombre} src={userProfile.avatar} />
             </IconButton>
           </Tooltip>
           <Menu
@@ -140,11 +137,14 @@ const MyNav = () => {
                   setting.nombre === "Salir"
                     ? () => {
                         onSignOut();
+
                         console.log("cerrar sesion")
                         setUserData({email:"", uid:"", token:"", tipoAcceso:""})
                         setUserProfile({id_usuario:""})
+                        window.sessionStorage.removeItem("token");
                         setLogin(false)
                         console.log('userData actualizado:', userData);
+                     
                         handleCloseUserMenu();
                       }
                     : handleCloseUserMenu
@@ -176,7 +176,8 @@ const MyNav = () => {
               <Typography
                 variant="h6"
                 noWrap
-                component="a"
+                component={NavLink}
+                to="/"
                 href="#app-bar-with-responsive-menu"
                 sx={{
                   mr: 2,
@@ -188,7 +189,7 @@ const MyNav = () => {
                   textDecoration: "none",
                 }}
               >
-                LOGO
+                DiMarket
               </Typography>
 
               <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -238,8 +239,8 @@ const MyNav = () => {
               <Typography
                 variant="h5"
                 noWrap
-                component="a"
-                href="#app-bar-with-responsive-menu"
+                component={NavLink}
+                to="/"
                 sx={{
                   mr: 2,
                   display: { xs: "flex", md: "none" },
@@ -251,7 +252,7 @@ const MyNav = () => {
                   textDecoration: "none",
                 }}
               >
-                LOGO
+                DiMarket
               </Typography>
               <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
                 {pages.map((page) => (
